@@ -154,6 +154,7 @@ td.n, th.n { text-align: right; }
   <section id="tab-compare" class="stack" aria-labelledby="t-compare" hidden>
     <div id="compare" class="stack"></div>
   </section>
+  <p class="note" id="ver" style="text-align:center">Version 3</p>
 </div>
 <script>
 
@@ -563,7 +564,11 @@ function renderAll() { renderTrips(); renderCompare(); }
 (function installSupport() {
   const standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
   if ('serviceWorker' in navigator && location.protocol === 'https:' || location.hostname === 'localhost') {
-    try { navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) {}
+    try {
+      navigator.serviceWorker.register('sw.js').then(reg => { reg.update().catch(() => {}); }).catch(() => {});
+      // when a newer copy takes over, reload once (never while monitoring or recording)
+      navigator.serviceWorker.addEventListener('controllerchange', () => { if (!window.__reloaded && !S.armed && !S.rec) { window.__reloaded = true; location.reload(); } });
+    } catch (e) {}
   }
   if (standalone) return;
   const panel = $('installPanel'), text = $('installText'), btn = $('installBtn');
