@@ -336,31 +336,41 @@ const S = { armed: false, rec: false, ring: [], buf: [], handling: [], watch: nu
 function setStatus(text, rec) { const el = $('status'); el.textContent = text; el.classList.toggle('rec', !!rec); }
 function setPill(text, mode) { const p = $('gpsPill'); p.textContent = text; p.className = 'pill' + (mode ? ' ' + mode : ''); }
 
-async function arm() {
+function arm() {
+  if (S.armed) return;
   if (!('geolocation' in navigator)) { setStatus('This browser has no location access.'); return; }
   if (!window.isSecureContext) { setStatus('Location needs a secure page. Open this file from an https address.'); return; }
-  try { if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') await DeviceMotionEvent.requestPermission(); } catch (e) {}
-  window.addEventListener('devicemotion', onMotion);
-  await requestWake();
+  // Switch the UI first so a slow or hung permission prompt can never leave the button stuck.
   S.armed = true; S.ring = []; S.fast = 0;
-  S.watch = navigator.geolocation.watchPosition(onFix, onGeoError, { enableHighAccuracy: true, maximumAge: 0, timeout: 20000 });
   $('armBtn').textContent = 'Stop monitoring'; $('armBtn').classList.add('stop');
-  setStatus('Monitoring. A trip starts when you pass ' + cfg.startKmh + ' km/h.'); setPill('Waiting for GPS', 'low');
+  setStatus('Waiting for location permission. Tap Allow if asked.'); setPill('Waiting for GPS', 'low');
+  // Motion permission (iOS) must be requested inside this tap, but is never waited on.
+  try {
+    if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+      DeviceMotionEvent.requestPermission().then(() => {}).catch(() => {});
+    }
+  } catch (e) {}
+  window.addEventListener('devicemotion', onMotion);
+  S.watch = navigator.geolocation.watchPosition(pos => {
+    if (S.firstFix !== true) { S.firstFix = true; setStatus('Monitoring. A trip starts when you pass ' + cfg.startKmh + ' km/h.'); }
+    onFix(pos);
+  }, onGeoError, { enableHighAccuracy: true, maximumAge: 0, timeout: 30000 });
+  requestWake();
 }
 async function disarm() {
   if (S.rec) await endTrip(false);
   if (S.watch != null) navigator.geolocation.clearWatch(S.watch);
-  S.watch = null; S.armed = false; S.kmh = 0;
+  S.watch = null; S.armed = false; S.firstFix = false; S.kmh = 0;
   window.removeEventListener('devicemotion', onMotion);
   releaseWake();
   $('armBtn').textContent = 'Start monitoring'; $('armBtn').classList.remove('stop');
   $('speed').textContent = '0'; setStatus('Not monitoring.'); setPill('GPS off', '');
 }
-$('armBtn').addEventListener('click', () => S.armed ? disarm() : arm());
+$('armBtn').addEventListener('click', () => { if (S.armed) disarm(); else arm(); });
 
 function onGeoError(err) {
-  if (err.code === 1) { setStatus('Location is blocked. Allow location for this page in your browser settings, then start again.'); disarm(); }
-  else setPill('No GPS fix', 'low');
+  if (err.code === 1) { setStatus('Location is blocked. In Settings, Privacy & Security, Location Services, turn on Safari Websites, then start again.'); disarm(); }
+  else { setPill('No GPS fix', 'low'); setStatus('Waiting for a GPS signal. Move the phone near a window or outside.'); }
 }
 function onFix(pos) {
   const c = pos.coords, fix = { t: pos.timestamp, lat: c.latitude, lon: c.longitude, speed: c.speed, acc: c.accuracy };
@@ -423,8 +433,11 @@ document.addEventListener('visibilitychange', () => {
   if (document.hidden) noteHandling(); else if (S.armed) requestWake();
 });
 
-async function requestWake() {
-  try { if ('wakeLock' in navigator) { S.wake = await navigator.wakeLock.request('screen'); $('wakeNote').textContent = 'Screen stays on while monitoring. Keep this tab in front and the phone plugged in.'; } } catch (e) {}
+function requestWake() {
+  try {
+    if (!('wakeLock' in navigator)) return;
+    navigator.wakeLock.request('screen').then(l => { S.wake = l; $('wakeNote').textContent = 'Screen stays on while monitoring. Keep this app in front and the phone plugged in.'; }).catch(() => {});
+  } catch (e) {}
 }
 function releaseWake() { try { if (S.wake) S.wake.release(); } catch (e) {} S.wake = null; }
 
@@ -572,4 +585,3 @@ function renderAll() { renderTrips(); renderCompare(); }
 </script>
 </body>
 </html>
-
