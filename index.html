@@ -154,9 +154,26 @@ td.n, th.n { text-align: right; }
   <section id="tab-compare" class="stack" aria-labelledby="t-compare" hidden>
     <div id="compare" class="stack"></div>
   </section>
-  <p class="note" id="ver" style="text-align:center">Version 3</p>
+  <details class="panel" id="diag"><summary>Diagnostics</summary>
+    <pre id="diagLog" style="white-space:pre-wrap;word-break:break-word;font-size:12px;margin:10px 0 0;color:var(--muted)"></pre>
+    <div class="row" style="margin-top:10px"><button class="btn ghost small" id="diagCopy">Copy log</button></div>
+  </details>
+  <p class="note" id="ver" style="text-align:center">Version 4</p>
 </div>
 <script>
+// ---------- diagnostics (shows what the app is doing, useful when it is launched from the Home Screen) ----------
+const DIAG = [];
+function dlog(m) {
+  const t = new Date().toTimeString().slice(0, 8);
+  DIAG.push(t + ' ' + m); if (DIAG.length > 60) DIAG.shift();
+  const el = document.getElementById('diagLog'); if (el) el.textContent = DIAG.join('\n');
+}
+window.addEventListener('error', e => dlog('ERROR ' + (e.message || e.type) + (e.lineno ? ' line ' + e.lineno : '')));
+window.addEventListener('unhandledrejection', e => dlog('REJECTED ' + (e.reason && e.reason.message || e.reason)));
+dlog('Version 4 loaded. standalone=' + (navigator.standalone === true || (window.matchMedia && matchMedia('(display-mode: standalone)').matches)) + ' secure=' + window.isSecureContext + ' url=' + location.pathname);
+try { if (navigator.permissions) navigator.permissions.query({ name: 'geolocation' }).then(p => dlog('location permission: ' + p.state)).catch(() => {}); } catch (e) {}
+try { dlog('service worker: ' + ('serviceWorker' in navigator ? (navigator.serviceWorker.controller ? 'active' : 'none yet') : 'unsupported')); } catch (e) {}
+
 
 // <core>
 const DEFAULTS = { brake: 2.9, accel: 2.5, corner: 3.0, speedLimit: 100, tol: 5, startKmh: 10, stopSec: 120, handlingDeg: 100 };
@@ -338,6 +355,7 @@ function setStatus(text, rec) { const el = $('status'); el.textContent = text; e
 function setPill(text, mode) { const p = $('gpsPill'); p.textContent = text; p.className = 'pill' + (mode ? ' ' + mode : ''); }
 
 function arm() {
+  dlog('Start tapped');
   if (S.armed) return;
   if (!('geolocation' in navigator)) { setStatus('This browser has no location access.'); return; }
   if (!window.isSecureContext) { setStatus('Location needs a secure page. Open this file from an https address.'); return; }
@@ -353,9 +371,10 @@ function arm() {
   } catch (e) {}
   window.addEventListener('devicemotion', onMotion);
   S.watch = navigator.geolocation.watchPosition(pos => {
-    if (S.firstFix !== true) { S.firstFix = true; setStatus('Monitoring. A trip starts when you pass ' + cfg.startKmh + ' km/h.'); }
+    if (S.firstFix !== true) { dlog('first GPS fix, accuracy ' + Math.round(pos.coords.accuracy) + ' m'); S.firstFix = true; setStatus('Monitoring. A trip starts when you pass ' + cfg.startKmh + ' km/h.'); }
     onFix(pos);
   }, onGeoError, { enableHighAccuracy: true, maximumAge: 0, timeout: 30000 });
+  dlog('GPS watch started');
   requestWake();
 }
 async function disarm() {
@@ -370,6 +389,7 @@ async function disarm() {
 $('armBtn').addEventListener('click', () => { if (S.armed) disarm(); else arm(); });
 
 function onGeoError(err) {
+  dlog('location error ' + err.code + ': ' + err.message);
   if (err.code === 1) { setStatus('Location is blocked. In Settings, Privacy & Security, Location Services, turn on Safari Websites, then start again.'); disarm(); }
   else { setPill('No GPS fix', 'low'); setStatus('Waiting for a GPS signal. Move the phone near a window or outside.'); }
 }
@@ -430,6 +450,7 @@ function onMotion(e) {
   if (Math.hypot(r.alpha || 0, r.beta || 0, r.gamma || 0) > cfg.handlingDeg) noteHandling();
 }
 document.addEventListener('touchstart', noteHandling, { passive: true });
+$('diagCopy').addEventListener('click', () => { const t = DIAG.join('\n'); try { navigator.clipboard.writeText(t).then(() => dlog('log copied')).catch(() => dlog('copy blocked')); } catch (e) { dlog('copy blocked'); } });
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) noteHandling(); else if (S.armed) requestWake();
 });
