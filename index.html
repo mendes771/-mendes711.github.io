@@ -1,17 +1,574 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My First GitHub Pages Site</title>
-    <style>
-        body { font-family: sans-serif; text-align: center; padding-top: 50px; background-color: #f4f4f9; }
-        h1 { color: #238636; }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0e1316">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Drive Check">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Drive Check</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: one column instrument panel, three tabs (Drive, Trips, Compare), sized for a phone on a dash mount. */
+:root {
+  --bg: #eef1f3; --surface: #ffffff; --surface-2: #e4e9ec; --line: #cfd7dc;
+  --fg: #12181c; --muted: #5a6870; --accent: #1f6fd1; --accent-fg: #ffffff;
+  --good: #1a8a5a; --warn: #b87500; --bad: #c8382f;
+  --f-display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0e1316; --surface: #161d21; --surface-2: #1e272c; --line: #2b373d;
+  --fg: #e6ecef; --muted: #8e9ca4; --accent: #5aa9ff; --accent-fg: #06121f;
+  --good: #3fc08a; --warn: #e0a22e; --bad: #ef6a5f; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0e1316; --surface: #161d21; --surface-2: #1e272c; --line: #2b373d;
+  --fg: #e6ecef; --muted: #8e9ca4; --accent: #5aa9ff; --accent-fg: #06121f;
+  --good: #3fc08a; --warn: #e0a22e; --bad: #ef6a5f; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--fg); font: 15px/1.45 var(--f-body);
+  padding-block: max(12px, env(safe-area-inset-top, 0px)) max(24px, env(safe-area-inset-bottom, 0px));
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+button, input { font: inherit; color: inherit; }
+button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+h1 { font: 600 26px/1 var(--f-display); letter-spacing: .04em; text-transform: uppercase; margin: 0; }
+.pill { font-size: 12px; padding: 4px 10px; border-radius: 99px; background: var(--surface-2); color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pill.ok { color: var(--good); } .pill.low { color: var(--warn); }
+.tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; background: var(--surface-2); padding: 4px; border-radius: 10px; }
+.tabs button { border: 0; background: transparent; padding: 9px 4px; border-radius: 7px; color: var(--muted); font-weight: 500; cursor: pointer; }
+.tabs button[aria-selected="true"] { background: var(--surface); color: var(--fg); box-shadow: 0 1px 2px rgba(0,0,0,.18); }
+section[hidden] { display: none; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+.stack { display: flex; flex-direction: column; gap: 16px; }
+.dial { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.speed { font: 600 84px/0.9 var(--f-display); font-variant-numeric: tabular-nums; letter-spacing: .01em; }
+.unit { color: var(--muted); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+.score-live { text-align: right; }
+.score-live b { font: 600 48px/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.status { margin: 12px 0 0; color: var(--muted); min-height: 1.45em; }
+.status.rec { color: var(--bad); }
+.counters { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 8px; }
+.counter { background: var(--surface-2); border-radius: 10px; padding: 10px 12px; min-width: 0; }
+.counter b { display: block; font: 600 30px/1.05 var(--f-display); font-variant-numeric: tabular-nums; }
+.counter span { font-size: 12px; color: var(--muted); }
+.btn { border: 0; border-radius: 10px; padding: 14px 16px; font-weight: 600; cursor: pointer; background: var(--accent); color: var(--accent-fg); width: 100%; }
+.btn.stop { background: var(--bad); color: #fff; }
+.btn.ghost { background: var(--surface-2); color: var(--fg); font-weight: 500; }
+.btn.small { width: auto; padding: 8px 12px; font-size: 13px; }
+.note { color: var(--muted); font-size: 13px; margin: 0; }
+details > summary { cursor: pointer; font-weight: 500; }
+.fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-top: 12px; }
+.fields label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); min-width: 0; }
+.fields input, .aviva input { background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; width: 100%; font-variant-numeric: tabular-nums; }
+.trip { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.trip summary { list-style: none; display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 12px 14px; align-items: center; }
+.trip summary::-webkit-details-marker { display: none; }
+.trip .when { font-weight: 600; } .trip .meta { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.badge { grid-row: 1 / span 2; grid-column: 2; font: 600 30px/1 var(--f-display); min-width: 52px; text-align: center; padding: 8px 10px; border-radius: 10px; font-variant-numeric: tabular-nums; color: #fff; }
+.b-good { background: var(--good); } .b-warn { background: var(--warn); } .b-bad { background: var(--bad); }
+.tag { font-size: 11px; background: var(--surface-2); color: var(--muted); border-radius: 4px; padding: 1px 6px; margin-left: 6px; font-weight: 500; }
+.detail { padding: 0 14px 14px; display: flex; flex-direction: column; gap: 12px; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 6px 4px; border-bottom: 1px solid var(--line); font-size: 14px; }
+th { color: var(--muted); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+td.n, th.n { text-align: right; }
+.scroll { overflow-x: auto; }
+.aviva { display: flex; align-items: center; gap: 10px; }
+.aviva input { width: 90px; }
+.chart { width: 100%; height: auto; display: block; }
+.chart text { fill: var(--muted); font-size: 9px; font-family: var(--f-body); }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--muted); }
+.legend i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; vertical-align: baseline; }
+.empty { text-align: center; color: var(--muted); padding: 28px 12px; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; }
+.kv { margin: 0; }
+@media (prefers-reduced-motion: no-preference) { .btn { transition: filter .15s; } .btn:hover { filter: brightness(1.08); } }
+</style>
 </head>
 <body>
-    <h1>Hello, World!</h1>
-    <p>Welcome to my brand new website hosted entirely on GitHub Pages.</p>
+<div class="wrap">
+  <header class="top"><h1>Drive Check</h1><span id="gpsPill" class="pill">GPS off</span></header>
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button role="tab" id="t-drive" aria-selected="true" data-tab="drive">Drive</button>
+    <button role="tab" id="t-trips" aria-selected="false" data-tab="trips">Trips</button>
+    <button role="tab" id="t-compare" aria-selected="false" data-tab="compare">Compare</button>
+  </nav>
+
+  <section id="tab-drive" class="stack" aria-labelledby="t-drive">
+    <div class="panel">
+      <div class="dial">
+        <div><div class="speed" id="speed">0</div><div class="unit">km/h</div></div>
+        <div class="score-live"><b id="liveScore">100</b><div class="unit">trip score</div></div>
+      </div>
+      <p class="status" id="status">Not monitoring.</p>
+    </div>
+    <div class="counters">
+      <div class="counter"><b id="c-brake">0</b><span>Hard braking</span></div>
+      <div class="counter"><b id="c-accel">0</b><span>Hard acceleration</span></div>
+      <div class="counter"><b id="c-corner">0</b><span>Hard cornering</span></div>
+      <div class="counter"><b id="c-handling">0</b><span>Phone handling</span></div>
+      <div class="counter"><b id="c-speed">0</b><span>Seconds over limit</span></div>
+    </div>
+    <button class="btn" id="armBtn">Start monitoring</button>
+    <p class="note" id="wakeNote">Mount the phone, plug it in and keep this screen open. A browser stops tracking when the screen locks or you switch apps.</p>
+    <div class="panel"><details>
+      <summary>Thresholds</summary>
+      <p class="note" style="margin-top:8px">Events come from GPS speed and heading, so they work with the phone in any position. Change these to line the score up with Aviva's. Saved trips are re-scored when you change a value.</p>
+      <div class="fields">
+        <label>Hard braking (m/s²)<input id="s-brake" type="number" step="0.1" min="0.5" inputmode="decimal"></label>
+        <label>Hard acceleration (m/s²)<input id="s-accel" type="number" step="0.1" min="0.5" inputmode="decimal"></label>
+        <label>Hard cornering (m/s²)<input id="s-corner" type="number" step="0.1" min="0.5" inputmode="decimal"></label>
+        <label>Speed limit used (km/h)<input id="s-speedLimit" type="number" step="5" min="20" inputmode="numeric"></label>
+        <label>Tolerance over limit (km/h)<input id="s-tol" type="number" step="1" min="0" inputmode="numeric"></label>
+        <label>Handling sensitivity (°/s)<input id="s-handlingDeg" type="number" step="10" min="20" inputmode="numeric"></label>
+      </div>
+      <div class="row" style="margin-top:12px"><button class="btn ghost small" id="resetSettings">Restore defaults</button></div>
+    </details></div>
+    <div class="panel" id="installPanel" hidden>
+      <p class="note" id="installText"></p>
+      <div class="row" style="margin-top:10px"><button class="btn small" id="installBtn" hidden>Add to Home Screen</button></div>
+    </div>
+    <div class="panel">
+      <p class="note"><b>No car handy?</b> Add a simulated 15-minute trip to try the Trips and Compare tabs.</p>
+      <div class="row" style="margin-top:10px"><button class="btn ghost small" id="demoBtn">Add demo trip</button></div>
+    </div>
+  </section>
+
+  <section id="tab-trips" class="stack" aria-labelledby="t-trips" hidden>
+    <div id="tripList" class="stack"></div>
+    <div class="row"><button class="btn ghost small" id="expCsv">Export CSV</button><button class="btn ghost small" id="expJson">Export all data</button></div>
+    <p class="note" id="exportNote"></p>
+  </section>
+
+  <section id="tab-compare" class="stack" aria-labelledby="t-compare" hidden>
+    <div id="compare" class="stack"></div>
+  </section>
+</div>
+<script>
+
+// <core>
+const DEFAULTS = { brake: 2.9, accel: 2.5, corner: 3.0, speedLimit: 100, tol: 5, startKmh: 10, stopSec: 120, handlingDeg: 100 };
+const WEIGHTS = { brake: [1.5, 25], accel: [1.0, 15], corner: [1.2, 20], handling: [4, 25] };
+const R_EARTH = 6371000, RAD = Math.PI / 180;
+function hav(a, b) {
+  const dLat = (b.lat - a.lat) * RAD, dLon = (b.lon - a.lon) * RAD;
+  const x = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * RAD) * Math.cos(b.lat * RAD) * Math.sin(dLon / 2) ** 2;
+  return 2 * R_EARTH * Math.asin(Math.min(1, Math.sqrt(x)));
+}
+function bearing(a, b) {
+  const p1 = a.lat * RAD, p2 = b.lat * RAD, dl = (b.lon - a.lon) * RAD;
+  return Math.atan2(Math.sin(dl) * Math.cos(p2), Math.cos(p1) * Math.sin(p2) - Math.sin(p1) * Math.cos(p2) * Math.cos(dl));
+}
+function wrapPi(x) { while (x > Math.PI) x -= 2 * Math.PI; while (x < -Math.PI) x += 2 * Math.PI; return x; }
+
+function prepare(raw) {
+  const p = [];
+  for (const r of raw.slice().sort((a, b) => a.t - b.t)) {
+    if (r.acc != null && r.acc > 40) continue;
+    if (p.length && r.t - p[p.length - 1].t < 300) continue;
+    const prev = p[p.length - 1];
+    let v = r.speed;
+    if (v == null || !isFinite(v)) {
+      v = prev ? hav(prev, r) / Math.max(0.3, (r.t - prev.t) / 1000) : 0;
+    }
+    p.push({ t: r.t, lat: r.lat, lon: r.lon, v: Math.max(0, v) });
+  }
+  for (let i = 0; i < p.length; i++) {
+    const a = p[Math.max(0, i - 1)].v, b = p[i].v, c = p[Math.min(p.length - 1, i + 1)].v;
+    p[i].vs = (a + b + c) / 3;
+  }
+  return p;
+}
+
+function scoreLabel(s) { return s >= 85 ? 'Smooth' : s >= 70 ? 'Fair' : 'Rough'; }
+
+function analyze(raw, handling, cfgIn) {
+  const cfg = Object.assign({}, DEFAULTS, cfgIn || {});
+  const p = prepare(raw);
+  const out = { km: 0, durationS: 0, movingS: 0, avgKmh: 0, maxKmh: 0, events: [], counts: { brake: 0, accel: 0, corner: 0, handling: 0 },
+    speedingS: 0, speedingPct: 0, pen: { brake: 0, accel: 0, corner: 0, speed: 0, handling: 0 }, score: 100, series: [] };
+  if (p.length < 2) return out;
+  const last = {}, events = [];
+  const mark = (type, t, mag, v) => {
+    const l = last[type];
+    if (l && t - l.t < 3000) { l.t = t; if (mag > l.mag) { l.mag = mag; l.v = v; } return; }
+    const e = { type, t, mag, v }; events.push(e); last[type] = e;
+  };
+  let dist = 0, moving = 0, speeding = 0, maxV = 0, lastH = null;
+  for (let i = 1; i < p.length; i++) {
+    const dt = (p[i].t - p[i - 1].t) / 1000;
+    if (dt <= 0 || dt > 5) { lastH = null; continue; }
+    const d = hav(p[i - 1], p[i]), v = p[i].vs;
+    dist += d;
+    if (v > 1.5) moving += dt;
+    if (v * 3.6 > cfg.speedLimit + cfg.tol) speeding += dt;
+    if (v > maxV) maxV = v;
+    const a = (p[i].vs - p[i - 1].vs) / dt;
+    if (a <= -cfg.brake) mark('brake', p[i].t, -a, v);
+    else if (a >= cfg.accel) mark('accel', p[i].t, a, v);
+    if (d >= 2.5 && v > 4) {
+      const h = bearing(p[i - 1], p[i]);
+      if (lastH != null) {
+        const lat = Math.abs(v * wrapPi(h - lastH) / dt);
+        if (lat >= cfg.corner) mark('corner', p[i].t, lat, v);
+      }
+      lastH = h;
+    } else if (v <= 4) lastH = null;
+  }
+  const t0 = p[0].t, t1 = p[p.length - 1].t;
+  let lastHand = -1e12;
+  for (const h of (handling || []).slice().sort((a, b) => a.t - b.t)) {
+    if (h.t < t0 || h.t > t1 || h.t - lastHand < 5000) continue;
+    lastHand = h.t;
+    events.push({ type: 'handling', t: h.t, mag: 1, v: 0 });
+  }
+  events.sort((a, b) => a.t - b.t);
+  for (const e of events) { out.counts[e.type]++; if (e.type === 'handling') { let k = 0; while (k < p.length - 1 && p[k].t < e.t) k++; e.v = p[k].vs; } }
+  const km = dist / 1000, base = Math.max(km, 5), rate = n => n / base * 100;
+  const pen = (type) => Math.min(WEIGHTS[type][1], WEIGHTS[type][0] * (type === 'handling' ? out.counts[type] : rate(out.counts[type])));
+  out.pen.brake = pen('brake'); out.pen.accel = pen('accel'); out.pen.corner = pen('corner'); out.pen.handling = pen('handling');
+  out.speedingS = speeding; out.speedingPct = moving > 0 ? speeding / moving : 0;
+  out.pen.speed = Math.min(20, 40 * out.speedingPct);
+  const total = out.pen.brake + out.pen.accel + out.pen.corner + out.pen.handling + out.pen.speed;
+  out.score = Math.max(0, Math.round(100 - total));
+  out.km = km; out.durationS = (t1 - t0) / 1000; out.movingS = moving;
+  out.avgKmh = moving > 0 ? km / (moving / 3600) : 0; out.maxKmh = maxV * 3.6; out.events = events;
+  const step = Math.max(1, Math.floor(p.length / 240));
+  for (let i = 0; i < p.length; i += step) out.series.push({ t: p[i].t, kmh: p[i].vs * 3.6 });
+  return out;
+}
+
+function genDemo(startT) {
+  let s = 12345; const rnd = () => { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  const plan = [
+    { kmh: 0, secs: 5 }, { kmh: 50, secs: 60 }, { kmh: 30, secs: 6, yaw: 0.45 }, { kmh: 50, secs: 60 }, { kmh: 0, secs: 15, a: 2.0 },
+    { kmh: 60, secs: 12, a: 3.3 }, { kmh: 60, secs: 40 }, { kmh: 100, secs: 30, a: 1.5 }, { kmh: 102, secs: 300 },
+    { kmh: 60, secs: 10, a: 4.2 }, { kmh: 100, secs: 200, a: 1.5 }, { kmh: 114, secs: 35 }, { kmh: 50, secs: 30, a: 1.6 },
+    { kmh: 45, secs: 8, yaw: 0.4 }, { kmh: 50, secs: 60 }, { kmh: 0, secs: 20, a: 2.0 }
+  ];
+  const pts = []; let t = startT, lat = 43.589, lon = -79.644, hd = 0.6, v = 0;
+  for (const seg of plan) for (let k = 0; k < seg.secs; k++) {
+    const a = seg.a || 1.8, tv = seg.kmh / 3.6;
+    v += Math.max(-a, Math.min(a, tv - v));
+    hd += (seg.yaw || 0) + (rnd() - 0.5) * 0.01;
+    lat += v * Math.cos(hd) / 111320; lon += v * Math.sin(hd) / (111320 * Math.cos(lat * RAD));
+    t += 1000;
+    pts.push({ t, lat, lon, speed: Math.max(0, v + (rnd() - 0.5) * 0.3), acc: 5 });
+  }
+  const handling = [{ t: startT + 140000 }, { t: startT + 700000 }];
+  return { pts, handling };
+}
+// </core>
+// ---------- storage ----------
+const SETTINGS_KEY = 'drivecheck.settings';
+function loadSettings() { try { return Object.assign({}, DEFAULTS, JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}')); } catch (e) { return Object.assign({}, DEFAULTS); } }
+function saveSettings() { try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(cfg)); } catch (e) {} }
+let cfg = loadSettings();
+
+const store = {
+  db: null,
+  open() {
+    return new Promise((res, rej) => {
+      if (!window.indexedDB) return rej(new Error('no idb'));
+      const rq = indexedDB.open('drivecheck', 1);
+      rq.onupgradeneeded = () => rq.result.createObjectStore('trips', { keyPath: 'id' });
+      rq.onsuccess = () => { store.db = rq.result; res(); };
+      rq.onerror = () => rej(rq.error);
+    });
+  },
+  tx(mode, fn) { return new Promise((res, rej) => { const t = store.db.transaction('trips', mode); const r = fn(t.objectStore('trips')); t.oncomplete = () => res(r && r.result); t.onerror = () => rej(t.error); }); },
+  all() { return store.tx('readonly', s => s.getAll()); },
+  put(o) { return store.tx('readwrite', s => s.put(o)); },
+  del(id) { return store.tx('readwrite', s => s.delete(id)); },
+  get(id) { return store.tx('readonly', s => s.get(id)); }
+};
+let trips = [];
+const memFallback = { on: false };
+
+async function saveTrip(t) { try { await store.put(t); } catch (e) { memFallback.on = true; } }
+
+// ---------- helpers ----------
+const $ = id => document.getElementById(id);
+const fmtWhen = t => new Date(t).toLocaleString('en-CA', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+const fmtDur = s => { s = Math.round(s); const m = Math.floor(s / 60); return m >= 60 ? Math.floor(m / 60) + ' h ' + (m % 60) + ' min' : m + ' min ' + String(s % 60).padStart(2, '0') + ' s'; };
+const cls = s => s >= 85 ? 'b-good' : s >= 70 ? 'b-warn' : 'b-bad';
+const EV = { brake: ['Hard braking', 'var(--bad)'], accel: ['Hard acceleration', 'var(--warn)'], corner: ['Hard cornering', 'var(--accent)'], handling: ['Phone handling', 'var(--fg)'] };
+const cache = new Map();
+function result(t) {
+  const key = t.id + JSON.stringify(cfg);
+  if (!cache.has(key)) cache.set(key, analyze(t.pts.map(a => ({ t: a[0], lat: a[1], lon: a[2], speed: a[3], acc: a[4] })), t.handling, cfg));
+  return cache.get(key);
+}
+const compact = pts => pts.map(p => [p.t, +p.lat.toFixed(6), +p.lon.toFixed(6), p.speed == null ? null : +p.speed.toFixed(2), p.acc == null ? null : Math.round(p.acc)]);
+
+// ---------- tabs ----------
+document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => showTab(b.dataset.tab)));
+function showTab(name) {
+  document.querySelectorAll('.tabs button').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === name)));
+  for (const n of ['drive', 'trips', 'compare']) $('tab-' + n).hidden = n !== name;
+  if (name === 'trips') renderTrips(); if (name === 'compare') renderCompare();
+}
+
+// ---------- settings ----------
+const SETTING_KEYS = ['brake', 'accel', 'corner', 'speedLimit', 'tol', 'handlingDeg'];
+function syncSettingInputs() { for (const k of SETTING_KEYS) $('s-' + k).value = cfg[k]; }
+for (const k of SETTING_KEYS) $('s-' + k).addEventListener('change', e => {
+  const v = parseFloat(e.target.value);
+  if (isFinite(v) && v >= 0) { cfg[k] = v; saveSettings(); cache.clear(); renderAll(); } else e.target.value = cfg[k];
+});
+$('resetSettings').addEventListener('click', () => { cfg = Object.assign({}, DEFAULTS); saveSettings(); cache.clear(); syncSettingInputs(); renderAll(); });
+
+// ---------- recorder ----------
+const S = { armed: false, rec: false, ring: [], buf: [], handling: [], watch: null, wake: null, fast: 0, slowSince: null,
+  kmh: 0, last: null, startT: 0, lastLive: 0, lastCkpt: 0, lastHand: 0, motion: false };
+
+function setStatus(text, rec) { const el = $('status'); el.textContent = text; el.classList.toggle('rec', !!rec); }
+function setPill(text, mode) { const p = $('gpsPill'); p.textContent = text; p.className = 'pill' + (mode ? ' ' + mode : ''); }
+
+async function arm() {
+  if (!('geolocation' in navigator)) { setStatus('This browser has no location access.'); return; }
+  if (!window.isSecureContext) { setStatus('Location needs a secure page. Open this file from an https address.'); return; }
+  try { if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') await DeviceMotionEvent.requestPermission(); } catch (e) {}
+  window.addEventListener('devicemotion', onMotion);
+  await requestWake();
+  S.armed = true; S.ring = []; S.fast = 0;
+  S.watch = navigator.geolocation.watchPosition(onFix, onGeoError, { enableHighAccuracy: true, maximumAge: 0, timeout: 20000 });
+  $('armBtn').textContent = 'Stop monitoring'; $('armBtn').classList.add('stop');
+  setStatus('Monitoring. A trip starts when you pass ' + cfg.startKmh + ' km/h.'); setPill('Waiting for GPS', 'low');
+}
+async function disarm() {
+  if (S.rec) await endTrip(false);
+  if (S.watch != null) navigator.geolocation.clearWatch(S.watch);
+  S.watch = null; S.armed = false; S.kmh = 0;
+  window.removeEventListener('devicemotion', onMotion);
+  releaseWake();
+  $('armBtn').textContent = 'Start monitoring'; $('armBtn').classList.remove('stop');
+  $('speed').textContent = '0'; setStatus('Not monitoring.'); setPill('GPS off', '');
+}
+$('armBtn').addEventListener('click', () => S.armed ? disarm() : arm());
+
+function onGeoError(err) {
+  if (err.code === 1) { setStatus('Location is blocked. Allow location for this page in your browser settings, then start again.'); disarm(); }
+  else setPill('No GPS fix', 'low');
+}
+function onFix(pos) {
+  const c = pos.coords, fix = { t: pos.timestamp, lat: c.latitude, lon: c.longitude, speed: c.speed, acc: c.accuracy };
+  let v = c.speed;
+  if (v == null || !isFinite(v)) v = S.last ? hav(S.last, fix) / Math.max(0.3, (fix.t - S.last.t) / 1000) : 0;
+  S.last = fix; S.kmh = v * 3.6;
+  $('speed').textContent = Math.round(S.kmh);
+  setPill('GPS ±' + Math.round(c.accuracy) + ' m', c.accuracy <= 20 ? 'ok' : 'low');
+  if (c.accuracy > 40) return;
+  if (!S.rec) {
+    S.ring.push(fix); if (S.ring.length > 20) S.ring.shift();
+    S.fast = S.kmh >= cfg.startKmh ? S.fast + 1 : 0;
+    if (S.fast >= 3) startTrip();
+    return;
+  }
+  S.buf.push(fix);
+  if (S.kmh < 3) { if (S.slowSince == null) S.slowSince = fix.t; } else S.slowSince = null;
+  if (S.slowSince != null && fix.t - S.slowSince >= DEFAULTS.stopSec * 1000) { endTrip(true); return; }
+  const now = Date.now();
+  if (now - S.lastLive > 3000) { S.lastLive = now; renderLive(); }
+  if (now - S.lastCkpt > 30000) { S.lastCkpt = now; checkpoint(); }
+}
+function startTrip() {
+  S.rec = true; S.buf = S.ring.slice(); S.handling = []; S.slowSince = null; S.startT = S.buf[0].t; S.lastLive = 0; S.lastCkpt = Date.now();
+  setStatus('Recording trip.', true); renderLive();
+}
+function draftObj() { return { id: 'draft', start: S.startT, pts: compact(S.buf), handling: S.handling.slice() }; }
+function checkpoint() { saveTrip(draftObj()); }
+async function endTrip(auto) {
+  if (!S.rec) return;
+  let buf = S.buf; if (S.slowSince != null) buf = buf.filter(p => p.t <= S.slowSince);
+  const t = { id: S.startT, start: S.startT, pts: compact(buf), handling: S.handling.slice(), aviva: null };
+  S.rec = false; S.buf = []; S.handling = []; S.ring = []; S.fast = 0; S.slowSince = null;
+  try { await store.del('draft'); } catch (e) {}
+  const r = analyze(buf, t.handling, cfg);
+  if (r.km >= 0.3) { await saveTrip(t); trips.push(t); trips.sort((a, b) => b.start - a.start); setStatus('Trip saved: ' + r.km.toFixed(1) + ' km, score ' + r.score + '. Waiting for the next trip.'); }
+  else setStatus('Short movement ignored. Waiting for the next trip.');
+  resetLive(); renderTrips(); renderCompare();
+}
+function renderLive() {
+  const r = analyze(S.buf, S.handling, cfg);
+  $('c-brake').textContent = r.counts.brake; $('c-accel').textContent = r.counts.accel; $('c-corner').textContent = r.counts.corner;
+  $('c-handling').textContent = r.counts.handling; $('c-speed').textContent = Math.round(r.speedingS); $('liveScore').textContent = r.score;
+  setStatus('Recording trip · ' + fmtDur(r.durationS) + ' · ' + r.km.toFixed(1) + ' km', true);
+}
+function resetLive() { for (const k of ['brake', 'accel', 'corner', 'handling', 'speed']) $('c-' + k).textContent = '0'; $('liveScore').textContent = '100'; }
+
+// phone handling: rotation of the phone or touching the screen while moving, or leaving the page
+function noteHandling() {
+  const now = Date.now();
+  if (!S.rec || S.kmh < 8 || now - S.lastHand < 5000) return;
+  S.lastHand = now; S.handling.push({ t: now }); renderLive();
+}
+function onMotion(e) {
+  const r = e.rotationRate; if (!r) return;
+  if (Math.hypot(r.alpha || 0, r.beta || 0, r.gamma || 0) > cfg.handlingDeg) noteHandling();
+}
+document.addEventListener('touchstart', noteHandling, { passive: true });
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) noteHandling(); else if (S.armed) requestWake();
+});
+
+async function requestWake() {
+  try { if ('wakeLock' in navigator) { S.wake = await navigator.wakeLock.request('screen'); $('wakeNote').textContent = 'Screen stays on while monitoring. Keep this tab in front and the phone plugged in.'; } } catch (e) {}
+}
+function releaseWake() { try { if (S.wake) S.wake.release(); } catch (e) {} S.wake = null; }
+
+// ---------- trips ----------
+const openTrips = new Set();
+function chartSvg(r) {
+  const W = 320, H = 120, L = 26, B = 16, T = 6, Rg = 6;
+  if (r.series.length < 2) return '';
+  const t0 = r.series[0].t, t1 = r.series[r.series.length - 1].t;
+  const ymax = Math.max(60, Math.ceil((Math.max(r.maxKmh, cfg.speedLimit) + 10) / 20) * 20);
+  const x = t => L + (t - t0) / (t1 - t0 || 1) * (W - L - Rg), y = v => T + (1 - v / ymax) * (H - T - B);
+  const line = r.series.map((p, i) => (i ? 'L' : 'M') + x(p.t).toFixed(1) + ' ' + y(p.kmh).toFixed(1)).join('');
+  const area = line + 'L' + x(t1).toFixed(1) + ' ' + y(0) + 'L' + x(t0).toFixed(1) + ' ' + y(0) + 'Z';
+  let g = '';
+  for (let v = 0; v <= ymax; v += 20) g += `<line x1="${L}" x2="${W - Rg}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width=".6"/><text x="${L - 4}" y="${y(v) + 3}" text-anchor="end">${v}</text>`;
+  const lim = `<line x1="${L}" x2="${W - Rg}" y1="${y(cfg.speedLimit)}" y2="${y(cfg.speedLimit)}" stroke="var(--warn)" stroke-width=".9" stroke-dasharray="3 3"/>`;
+  const dots = r.events.map(e => `<circle cx="${x(e.t).toFixed(1)}" cy="${y(Math.min(ymax, e.v * 3.6)).toFixed(1)}" r="3.6" fill="${EV[e.type][1]}" stroke="var(--surface)" stroke-width="1"/>`).join('');
+  const mins = Math.round((t1 - t0) / 60000);
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Speed over the trip with events marked">${g}${lim}<path d="${area}" fill="var(--accent)" opacity=".14"/><path d="${line}" fill="none" stroke="var(--accent)" stroke-width="1.6"/>${dots}<text x="${L}" y="${H - 3}">0</text><text x="${W - Rg}" y="${H - 3}" text-anchor="end">${mins} min</text></svg>`;
+}
+function tripCard(t) {
+  const r = result(t), c = r.counts;
+  const rows = [['brake', c.brake, r.pen.brake], ['accel', c.accel, r.pen.accel], ['corner', c.corner, r.pen.corner], ['handling', c.handling, r.pen.handling]]
+    .map(([k, n, p]) => `<tr><td><span class="legend"><span><i style="background:${EV[k][1]}"></i>${EV[k][0]}</span></span></td><td class="n">${n}</td><td class="n">−${p.toFixed(1)}</td></tr>`).join('')
+    + `<tr><td>Over ${cfg.speedLimit + cfg.tol} km/h</td><td class="n">${Math.round(r.speedingS)} s</td><td class="n">−${r.pen.speed.toFixed(1)}</td></tr>`;
+  return `<details class="trip" data-id="${t.id}" ${openTrips.has(String(t.id)) ? 'open' : ''}>
+    <summary><span class="when">${fmtWhen(t.start)}${t.demo ? '<span class="tag">Demo</span>' : ''}</span><span class="badge ${cls(r.score)}">${r.score}</span>
+    <span class="meta">${r.km.toFixed(1)} km · ${fmtDur(r.durationS)} · avg ${Math.round(r.avgKmh)} km/h · max ${Math.round(r.maxKmh)}</span></summary>
+    <div class="detail">${chartSvg(r)}
+      <div class="scroll"><table><thead><tr><th>Factor</th><th class="n">Count</th><th class="n">Points</th></tr></thead><tbody>${rows}</tbody></table></div>
+      <div class="aviva"><label for="av-${t.id}">Aviva score for this trip</label><input id="av-${t.id}" data-aviva="${t.id}" type="number" min="0" max="100" step="1" inputmode="numeric" value="${t.aviva == null ? '' : t.aviva}" placeholder="0–100"></div>
+      <div class="row"><button class="btn ghost small" data-del="${t.id}">Delete trip</button></div>
+    </div></details>`;
+}
+function renderTrips() {
+  const el = $('tripList');
+  if (!trips.length) { el.innerHTML = '<div class="panel empty">No trips yet. Start monitoring on the Drive tab, or add the demo trip.</div>'; return; }
+  el.innerHTML = trips.map(tripCard).join('');
+  $('exportNote').textContent = memFallback.on ? 'Storage is unavailable in this browser, so trips are lost when you close the page. Export before leaving.' : '';
+}
+$('tripList').addEventListener('toggle', e => { const d = e.target; if (d.dataset && d.dataset.id) d.open ? openTrips.add(d.dataset.id) : openTrips.delete(d.dataset.id); }, true);
+$('tripList').addEventListener('change', async e => {
+  const id = e.target.dataset.aviva; if (!id) return;
+  const t = trips.find(x => String(x.id) === id); if (!t) return;
+  const v = parseFloat(e.target.value);
+  t.aviva = isFinite(v) ? Math.max(0, Math.min(100, Math.round(v))) : null;
+  e.target.value = t.aviva == null ? '' : t.aviva;
+  await saveTrip(t); renderCompare();
+});
+$('tripList').addEventListener('click', async e => {
+  const id = e.target.dataset.del; if (!id) return;
+  const t = trips.find(x => String(x.id) === id); if (!t) return;
+  trips = trips.filter(x => x !== t); try { await store.del(t.id); } catch (er) {}
+  renderTrips(); renderCompare();
+});
+
+// ---------- compare ----------
+function pearson(a, b) {
+  const n = a.length, ma = a.reduce((s, v) => s + v, 0) / n, mb = b.reduce((s, v) => s + v, 0) / n;
+  let sab = 0, saa = 0, sbb = 0; for (let i = 0; i < n; i++) { sab += (a[i] - ma) * (b[i] - mb); saa += (a[i] - ma) ** 2; sbb += (b[i] - mb) ** 2; }
+  return saa && sbb ? sab / Math.sqrt(saa * sbb) : null;
+}
+function renderCompare() {
+  const el = $('compare');
+  const pairs = trips.filter(t => t.aviva != null).map(t => ({ t, mine: result(t).score, av: t.aviva }));
+  if (!pairs.length) { el.innerHTML = '<div class="panel empty">Open a trip on the Trips tab and enter the score Aviva Journey gave that drive. Pairs appear here.</div>'; return; }
+  const n = pairs.length, diffs = pairs.map(p => p.mine - p.av);
+  const mean = diffs.reduce((s, v) => s + v, 0) / n, mae = diffs.reduce((s, v) => s + Math.abs(v), 0) / n;
+  const r = n >= 3 ? pearson(pairs.map(p => p.mine), pairs.map(p => p.av)) : null;
+  const S_ = 220, M = 28, px = v => M + v / 100 * (S_ - M - 8), py = v => S_ - M - v / 100 * (S_ - M - 8);
+  let g = ''; for (let v = 0; v <= 100; v += 25) g += `<line x1="${M}" x2="${S_ - 8}" y1="${py(v)}" y2="${py(v)}" stroke="var(--line)" stroke-width=".6"/><line y1="${S_ - M}" y2="8" x1="${px(v)}" x2="${px(v)}" stroke="var(--line)" stroke-width=".6"/><text x="${M - 4}" y="${py(v) + 3}" text-anchor="end">${v}</text><text x="${px(v)}" y="${S_ - M + 12}" text-anchor="middle">${v}</text>`;
+  const dots = pairs.map(p => `<circle cx="${px(p.av)}" cy="${py(p.mine)}" r="4.5" fill="var(--accent)" opacity=".85" stroke="var(--surface)" stroke-width="1"/>`).join('');
+  let hint = '';
+  if (n >= 3 && mean < -5) hint = 'Drive Check scores you lower than Aviva. Try raising the braking or cornering threshold in Settings.';
+  else if (n >= 3 && mean > 5) hint = 'Drive Check scores you higher than Aviva. Try lowering the thresholds or the speed limit you use.';
+  else if (n >= 3) hint = 'Scores are close on average.';
+  else hint = 'Add at least three trips to see how closely the scores track.';
+  el.innerHTML = `<div class="stats">
+      <div class="counter"><b>${n}</b><span>Trips compared</span></div>
+      <div class="counter"><b>${mae.toFixed(1)}</b><span>Average gap (points)</span></div>
+      <div class="counter"><b>${r == null ? '–' : r.toFixed(2)}</b><span>Correlation</span></div></div>
+    <div class="panel"><svg class="chart" viewBox="0 0 ${S_} ${S_}" style="max-width:340px;margin:0 auto" role="img" aria-label="Drive Check score against Aviva score">${g}
+      <line x1="${px(0)}" y1="${py(0)}" x2="${px(100)}" y2="${py(100)}" stroke="var(--muted)" stroke-width=".9" stroke-dasharray="3 3"/>${dots}
+      <text x="${(M + S_ - 8) / 2}" y="${S_ - 3}" text-anchor="middle">Aviva score</text><text transform="translate(8 ${S_ / 2}) rotate(-90)" text-anchor="middle">Drive Check score</text></svg>
+      <p class="note" style="margin-top:8px">Dots on the dashed line mean both scores agree. Average difference: ${mean >= 0 ? '+' : ''}${mean.toFixed(1)} (Drive Check minus Aviva). ${hint}</p></div>
+    <div class="panel scroll"><table><thead><tr><th>Trip</th><th class="n">Mine</th><th class="n">Aviva</th><th class="n">Gap</th></tr></thead><tbody>${pairs.map(p => `<tr><td>${fmtWhen(p.t.start)}</td><td class="n">${p.mine}</td><td class="n">${p.av}</td><td class="n">${p.mine - p.av > 0 ? '+' : ''}${p.mine - p.av}</td></tr>`).join('')}</tbody></table></div>`;
+}
+
+// ---------- export ----------
+function download(name, text, type) {
+  try { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type })); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); }
+  catch (e) { $('exportNote').textContent = 'This browser blocked the download.'; }
+}
+$('expCsv').addEventListener('click', () => {
+  const head = 'start,km,minutes,avg_kmh,max_kmh,hard_brake,hard_accel,hard_corner,phone_handling,seconds_over_limit,drive_check_score,aviva_score';
+  const rows = trips.map(t => { const r = result(t); return [new Date(t.start).toISOString(), r.km.toFixed(2), (r.durationS / 60).toFixed(1), r.avgKmh.toFixed(0), r.maxKmh.toFixed(0), r.counts.brake, r.counts.accel, r.counts.corner, r.counts.handling, Math.round(r.speedingS), r.score, t.aviva == null ? '' : t.aviva].join(','); });
+  download('drive-check-trips.csv', [head].concat(rows).join('\n'), 'text/csv');
+});
+$('expJson').addEventListener('click', () => download('drive-check-data.json', JSON.stringify({ settings: cfg, trips }), 'application/json'));
+
+// ---------- demo + boot ----------
+$('demoBtn').addEventListener('click', async () => {
+  const d = genDemo(Date.now() - 3 * 3600 * 1000);
+  const t = { id: d.pts[0].t, start: d.pts[0].t, pts: compact(d.pts), handling: d.handling, aviva: null, demo: true };
+  await saveTrip(t); trips.push(t); trips.sort((a, b) => b.start - a.start); openTrips.add(String(t.id)); showTab('trips');
+});
+function renderAll() { renderTrips(); renderCompare(); }
+(async function boot() {
+  syncSettingInputs();
+  try {
+    await store.open(); trips = (await store.all()) || [];
+    const draft = trips.find(t => t.id === 'draft');
+    if (draft) {
+      trips = trips.filter(t => t !== draft); await store.del('draft');
+      if (draft.pts.length > 60) { draft.id = draft.start; draft.aviva = null; await store.put(draft); trips.push(draft); }
+    }
+  } catch (e) { memFallback.on = true; }
+  trips.sort((a, b) => b.start - a.start);
+  renderAll();
+})();
+
+// ---------- install to home screen ----------
+(function installSupport() {
+  const standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+  if ('serviceWorker' in navigator && location.protocol === 'https:' || location.hostname === 'localhost') {
+    try { navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) {}
+  }
+  if (standalone) return;
+  const panel = $('installPanel'), text = $('installText'), btn = $('installBtn');
+  let deferred = null;
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault(); deferred = e;
+    text.innerHTML = '<b>Install Drive Check.</b> It opens full screen from your Home Screen, like an app.';
+    btn.hidden = false; panel.hidden = false;
+  });
+  btn.addEventListener('click', async () => { if (!deferred) return; deferred.prompt(); try { await deferred.userChoice; } catch (e) {} deferred = null; panel.hidden = true; });
+  window.addEventListener('appinstalled', () => { panel.hidden = true; });
+  const ua = navigator.userAgent;
+  if (/iPhone|iPad|iPod/.test(ua)) {
+    text.innerHTML = '<b>Add to Home Screen.</b> In Safari, tap the Share button, then Add to Home Screen. Open it from the new icon.';
+    panel.hidden = false;
+  }
+})();
+
+</script>
 </body>
 </html>
