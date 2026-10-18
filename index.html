@@ -158,7 +158,7 @@ td.n, th.n { text-align: right; }
     <pre id="diagLog" style="white-space:pre-wrap;word-break:break-word;font-size:12px;margin:10px 0 0;color:var(--muted)"></pre>
     <div class="row" style="margin-top:10px"><button class="btn ghost small" id="diagCopy">Copy log</button></div>
   </details>
-  <p class="note" id="ver" style="text-align:center">Version 4</p>
+  <p class="note" id="ver" style="text-align:center">Version 5</p>
 </div>
 <script>
 // ---------- diagnostics (shows what the app is doing, useful when it is launched from the Home Screen) ----------
@@ -170,9 +170,10 @@ function dlog(m) {
 }
 window.addEventListener('error', e => dlog('ERROR ' + (e.message || e.type) + (e.lineno ? ' line ' + e.lineno : '')));
 window.addEventListener('unhandledrejection', e => dlog('REJECTED ' + (e.reason && e.reason.message || e.reason)));
-dlog('Version 4 loaded. standalone=' + (navigator.standalone === true || (window.matchMedia && matchMedia('(display-mode: standalone)').matches)) + ' secure=' + window.isSecureContext + ' url=' + location.pathname);
+dlog('Version 5 loaded. standalone=' + (navigator.standalone === true || (window.matchMedia && matchMedia('(display-mode: standalone)').matches)) + ' secure=' + window.isSecureContext + ' url=' + location.pathname);
 try { if (navigator.permissions) navigator.permissions.query({ name: 'geolocation' }).then(p => dlog('location permission: ' + p.state)).catch(() => {}); } catch (e) {}
 try { dlog('service worker: ' + ('serviceWorker' in navigator ? (navigator.serviceWorker.controller ? 'active' : 'none yet') : 'unsupported')); } catch (e) {}
+
 
 
 // <core>
@@ -390,7 +391,7 @@ $('armBtn').addEventListener('click', () => { if (S.armed) disarm(); else arm();
 
 function onGeoError(err) {
   dlog('location error ' + err.code + ': ' + err.message);
-  if (err.code === 1) { setStatus('Location is blocked. In Settings, Privacy & Security, Location Services, turn on Safari Websites, then start again.'); disarm(); }
+  if (err.code === 1) { disarm().then(() => { setStatus('Location was denied. Close this app, open it again and tap Allow. If no prompt appears: Settings, Privacy & Security, Location Services, then turn on Drive Check or Safari Websites.'); setPill('Location denied', 'low'); }); }
   else { setPill('No GPS fix', 'low'); setStatus('Waiting for a GPS signal. Move the phone near a window or outside.'); }
 }
 function onFix(pos) {
