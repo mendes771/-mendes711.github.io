@@ -206,6 +206,22 @@
       .rules-body { display: none; margin-top: 12px; font-size: 14px; }
       .rules-body.open { display: block; }
 
+      /* Cheat Mode */
+      .cheat-bar {
+        background: var(--panel); border: 1px solid var(--panel-border); border-radius: 12px;
+        padding: 12px 16px; box-shadow: var(--shadow); margin-bottom: 16px;
+      }
+      .cheat-head h2 { margin: 0; font-size: 17px; font-weight: 800; }
+      .cheat-sub { color: var(--muted); font-size: 13.5px; }
+      .cheat-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+      .cheat-tab { display: inline-flex; align-items: center; gap: 7px; }
+      .cheat-tab.on { outline: 2px solid var(--text); outline-offset: -1px; background: var(--soft); }
+      .cheat-tab .tab-left { color: var(--muted); font-size: 12px; font-weight: 600; }
+      .cheat-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+      .cheat-colours { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 14px 0; }
+      .cheat-colour-btn { display: flex; align-items: center; gap: 8px; justify-content: center; padding: 12px; font-size: 15px; }
+      .cheat-colour-btn.on { outline: 2.5px solid var(--text); outline-offset: -1px; background: var(--soft); }
+
       footer { margin-top: 20px; color: var(--muted); font-size: 13.5px; text-align: center; }
 
       /* Game over overlay */
@@ -241,12 +257,13 @@
           <p>Strategy Trainer — play, learn, and stop leaving points on the board.</p>
         </div>
         <div class="top-actions">
+          <button id="btn-cheat" type="button">Cheat Mode</button>
           <button id="btn-rules" type="button">Rules</button>
           <button id="btn-new-top" class="primary" type="button">New Game</button>
         </div>
       </header>
 
-      <div class="setup-bar">
+      <div class="setup-bar" id="setup-bar">
         <label class="field">Computer level
           <select id="sel-difficulty">
             <option value="casual">Casual</option>
@@ -263,6 +280,21 @@
         <div class="spacer"></div>
         <button id="btn-undo" type="button">Undo Move</button>
         <button id="btn-new" class="primary" type="button">New Game / Restart</button>
+      </div>
+
+      <div class="cheat-bar" id="cheat-bar" style="display:none;">
+        <div class="cheat-head">
+          <h2>Cheat Mode — live game help</h2>
+          <span class="cheat-sub">You're playing a real game at the table. Mirror each move here as it's played — pick the colour, tap their piece, position it, Place. Then ask where you should go.</span>
+        </div>
+        <div class="cheat-tabs" id="cheat-tabs" role="group" aria-label="Colour whose move is being entered"></div>
+        <div class="cheat-actions">
+          <button id="btn-ask" class="primary" type="button">Where should I go?</button>
+          <button id="btn-played" class="primary" type="button" style="display:none;">I played it</button>
+          <button id="btn-cheat-undo" type="button">Undo entry</button>
+          <button id="btn-cheat-clear" type="button">Clear board</button>
+          <button id="btn-cheat-exit" type="button">Exit Cheat Mode</button>
+        </div>
       </div>
 
       <div class="layout">
@@ -283,6 +315,7 @@
               </div>
               <div class="row">
                 <button id="btn-place" class="primary" type="button">Place Piece</button>
+                <button id="btn-place-anyway" type="button" style="display:none;">Place anyway</button>
                 <button id="btn-coach" type="button">Coach — get help</button>
               </div>
               <span class="key-hint">Keys: <b>R</b> rotate · <b>F</b> flip · <b>Esc</b> deselect</span>
@@ -293,7 +326,7 @@
               <span class="dot" id="tray-dot"></span>
               <span class="who" id="tray-who">Your pieces</span>
             </div>
-            <p style="margin:0;color:var(--muted);font-size:13px;">Tap a piece to select it — it appears on the board, ready to position. Use the controls above to move, rotate or flip it, then press Place Piece. Pieces marked “no fit” can't be placed right now.</p>
+            <p id="tray-help" style="margin:0;color:var(--muted);font-size:13px;">Tap a piece to select it — it appears on the board, ready to position. Use the controls above to move, rotate or flip it, then press Place Piece. Pieces marked “no fit” can't be placed right now.</p>
             <div class="tray-grid" id="tray-grid"></div>
           </section>
           <div class="rules-body panel" id="rules-panel" style="margin-top:14px;">
@@ -335,6 +368,16 @@
       </div>
 
       <footer>Corner-touch strategy — your pieces must meet at corners, never edges.</footer>
+    </div>
+
+    <div class="overlay" id="cheat-setup">
+      <div class="overlay-card">
+        <h2>Cheat Mode — live game help</h2>
+        <p style="margin:0 0 4px;font-size:15px;">Mirror the real board here as every move is played, and the coach will find your best move on the board as it actually stands. First — which colour are you?</p>
+        <div class="cheat-colours" id="cheat-colours"></div>
+        <button class="primary" id="btn-cheat-start" type="button" style="width:100%;">Start mirroring the game</button>
+        <button id="btn-cheat-cancel" type="button" style="width:100%;margin-top:8px;">Cancel</button>
+      </div>
     </div>
 
     <div class="overlay" id="gameover">
@@ -422,6 +465,10 @@
     let pieceFit = {};    // pieceId -> number of legal placements (current human)
     let bestPick = null;  // single best move + lesson text (computed only when coach opens)
     let coachOpen = false;
+    let appMode = "game"; // "game" | "cheat" — cheat mode mirrors a physical game
+    let gameStash = null; // normal-game state, restored untouched on cheat exit
+    let cheatYou = 0;     // the player's own colour in the physical game
+    let cheatChoice = 0;  // colour picked in the cheat setup dialog
 
     const $ = id => document.getElementById(id);
     const boardEl = $("board"), bannerEl = $("turn-banner"), coachMsg = $("coach-msg"),
@@ -749,6 +796,7 @@
     }
 
     function roleLabel(p) {
+      if (appMode === "cheat") return p === cheatYou ? "You" : "Opponent";
       if (!humans[p]) return "Computer";
       if (humans.filter(Boolean).length === 1) return "You";
       return p === 0 ? "Player 1" : "Player 2";
@@ -835,11 +883,28 @@
         $("btn-flip").disabled = false;
         if (!sel.anchor) status.textContent = "Tap the board to position this piece — green means the spot is legal, red means it isn't.";
         else if (sel.legal) status.textContent = "That spot works. Press Place Piece to play it, or keep adjusting first.";
-        else status.textContent = "That spot isn't legal (shown red) — tap another square, or rotate / flip the piece.";
+        else status.textContent = appMode === "cheat"
+          ? "That spot isn't legal (shown red) — adjust it, or use Place anyway if that's how it was really played at the table."
+          : "That spot isn't legal (shown red) — tap another square, or rotate / flip the piece.";
       }
       $("btn-place").disabled = !(sel && sel.anchor && sel.legal);
       $("btn-coach").disabled = busy;
       $("btn-coach").textContent = coachOpen ? "Hide coach" : "Coach — get help";
+      $("btn-coach").style.display = appMode === "cheat" ? "none" : "";
+      // Cheat mode only: an illegal-but-real placement can still be mirrored,
+      // as long as the ghost sits fully on the board on empty squares.
+      $("btn-place-anyway").style.display =
+        appMode === "cheat" && sel && sel.anchor && !sel.legal && ghostFitsBoard() ? "" : "none";
+    }
+    // True when the selected ghost is entirely on-board over empty squares
+    // (it may break corner/edge rules, but it can physically exist).
+    function ghostFitsBoard() {
+      if (!sel || !sel.anchor) return false;
+      for (const [cx, cy] of sel.cells) {
+        const x = sel.anchor.x + cx, y = sel.anchor.y + cy;
+        if (!inB(x, y) || board[idx(x, y)] !== -1) return false;
+      }
+      return true;
     }
     function renderCoach() {
       const bestEl = $("coach-best"), whyEl = $("coach-why");
@@ -880,6 +945,7 @@
     }
     function selectPiece(pid) {
       if (!humans[current] || busy || gameOver) return;
+      if (appMode === "cheat" && bestPick) clearCheatAdvice();
       bestHighlight = null;
       sel = { pieceId: pid, cells: PIECES[pid].orientations[0].map(c => [...c]), anchor: null, legal: false };
       // Show the piece on the board straight away, at its first legal spot in
@@ -950,6 +1016,7 @@
     function tryPlace() {
       if (!sel || !sel.anchor || !sel.legal || busy) return;
       const abs = sel.cells.map(([cx, cy]) => idx(sel.anchor.x + cx, sel.anchor.y + cy));
+      if (appMode === "cheat") { commitCheatMove(current, sel.pieceId, abs); return; }
       doMove(current, { pieceId: sel.pieceId, cells: abs });
     }
     // Show the coach's best move on the board: pulsing outline plus the piece
@@ -1185,6 +1252,8 @@
       const c = cellFromEvent(e);
       if (!c) return;
       e.preventDefault();
+      // Manually positioning a piece in cheat mode discards stale advice.
+      if (appMode === "cheat" && bestPick) { clearCheatAdvice(); renderSelPreview(); }
       ghostAt(c.x, c.y);
     });
 
@@ -1194,10 +1263,12 @@
     $("btn-place").addEventListener("click", tryPlace);
     $("btn-coach").addEventListener("click", toggleCoach);
     $("btn-coach-close").addEventListener("click", () => {
+      if (appMode === "cheat") { clearCheatAdvice(); renderBoard(); renderSelPreview(); return; }
       coachOpen = false;
       applyCoachVisibility();
     });
     $("btn-place-rec").addEventListener("click", () => {
+      if (appMode === "cheat") { cheatPlayAdvice(); return; }
       if (!humans[current] || busy || gameOver) return;
       // Play exactly the one best move the coach is showing.
       if (!bestPick) computeBestMove(current);
@@ -1226,6 +1297,225 @@
         sel = null; bestHighlight = null; anchorGlow = [];
         renderBoard(); renderTray(); renderCoach();
       }
+    });
+
+    /* ================= Cheat Mode ================= */
+    // A live assistant for a PHYSICAL game: the player mirrors the real
+    // board here by entering each move as it's played (any colour, ~3 taps
+    // per move), then asks for the best move for their own colour. The
+    // mirror lives in the same globals the renderer uses; the normal game
+    // is stashed on entry and restored untouched on exit.
+    const TRAY_HELP_DEFAULT = $("tray-help").textContent;
+
+    function captureState() {
+      return {
+        board: new Int8Array(board),
+        remaining: remaining.map(s => new Set(s)),
+        lastPiece: lastPiece.slice(),
+        playerCells: playerCells.map(a => a.slice()),
+        history: history.slice(),
+        current, consecPasses, gameOver, humans: humans.slice(),
+        sel, bestHighlight, anchorGlow: anchorGlow.slice(),
+        pieceFit: Object.assign({}, pieceFit), bestPick, coachOpen, busy,
+        banner: bannerEl.textContent
+      };
+    }
+    function loadState(s) {
+      board = s.board; remaining = s.remaining; lastPiece = s.lastPiece;
+      playerCells = s.playerCells; history = s.history; current = s.current;
+      consecPasses = s.consecPasses; gameOver = s.gameOver; humans = s.humans;
+      sel = s.sel; bestHighlight = s.bestHighlight; anchorGlow = s.anchorGlow;
+      pieceFit = s.pieceFit; bestPick = s.bestPick; coachOpen = s.coachOpen;
+      busy = s.busy;
+    }
+    function freshMirror() {
+      board = new Int8Array(400).fill(-1);
+      remaining = [0, 1, 2, 3].map(() => new Set(PIECES.map((_, i) => i)));
+      lastPiece = [null, null, null, null];
+      playerCells = [[], [], [], []];
+      history = [];
+      current = 0; consecPasses = 0; gameOver = false; busy = false;
+      sel = null; bestHighlight = null; anchorGlow = []; pieceFit = {};
+      bestPick = null; coachOpen = false;
+    }
+    function clearCheatAdvice() {
+      bestPick = null; bestHighlight = null; coachOpen = false;
+      $("coach-panel").style.display = "none";
+      $("btn-played").style.display = "none";
+    }
+    function renderCheatTabs() {
+      const wrap = $("cheat-tabs");
+      wrap.innerHTML = "";
+      for (let p = 0; p < 4; p++) {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "cheat-tab" + (p === current ? " on" : "");
+        b.innerHTML = '<span class="dot c' + p + '"></span>' + PNAMES[p] +
+          (p === cheatYou ? " — You" : "") +
+          '<span class="tab-left">' + squaresLeft(p) + " left</span>";
+        b.addEventListener("click", () => cheatSelectColour(p));
+        wrap.appendChild(b);
+      }
+    }
+    function refreshCheat() {
+      computePieceFit(current);
+      renderScoreboard();
+      renderBoard();
+      renderTray();
+      renderCheatTabs();
+      setBanner("Mirroring the real game — entering " + PNAMES[current] + "'s move" +
+        (current === cheatYou ? " (that's you)" : "") + ". Pick the piece they played.");
+      $("btn-cheat-undo").disabled = history.length === 0;
+    }
+    function cheatSelectColour(p) {
+      if (appMode !== "cheat") return;
+      current = p; sel = null; anchorGlow = [];
+      clearCheatAdvice();
+      refreshCheat();
+    }
+    // Commit one mirrored move (legal or "place anyway"), then hand entry
+    // to the next colour in turn order Blue → Yellow → Red → Green.
+    function commitCheatMove(p, pieceId, absCells) {
+      placeOnBoard(board, p, absCells);
+      playerCells[p].push(...absCells);
+      remaining[p].delete(pieceId);
+      const prevLast = lastPiece[p];
+      lastPiece[p] = pieceId;
+      history.push({ pass: false, player: p, pieceId, cells: absCells, prevLast });
+      sel = null; anchorGlow = [];
+      clearCheatAdvice();
+      current = (p + 1) % 4;
+      refreshCheat();
+      renderBoard(absCells);
+    }
+    function cheatUndo() {
+      if (appMode !== "cheat" || !history.length) return;
+      const e = history.pop();
+      removeFromBoard(board, e.cells);
+      playerCells[e.player] = playerCells[e.player].filter(c => !e.cells.includes(c));
+      remaining[e.player].add(e.pieceId);
+      lastPiece[e.player] = e.prevLast;
+      sel = null; anchorGlow = [];
+      clearCheatAdvice();
+      current = e.player;
+      refreshCheat();
+    }
+    function cheatClear() {
+      if (appMode !== "cheat") return;
+      freshMirror();
+      clearCheatAdvice();
+      refreshCheat();
+    }
+    // Best move for the player's own colour on the mirror board, using the
+    // same evaluator and lesson text as the coach. One move only.
+    function computeCheatAdvice() {
+      const p = cheatYou;
+      const ranked = rankMoves(board, p);
+      if (!ranked.length) { bestPick = null; return; }
+      const top = ranked[0];
+      placeOnBoard(board, p, top.move.cells);
+      const rest = [...remaining[p]].filter(id => id !== top.move.pieceId);
+      top.f.followUps = enumerateMoves(board, p, rest, 25).length;
+      removeFromBoard(board, top.move.cells);
+      bestPick = { move: top.move, f: top.f, why: explainBest(top, p) };
+      coachMsg.textContent = "For your next turn as " + PNAMES[p] + ", on the board exactly " +
+        "as it stands at the table. Play it in the real game, then tap “I played it” so the " +
+        "mirror stays in step.";
+    }
+    function cheatAsk() {
+      if (appMode !== "cheat") return;
+      current = cheatYou;
+      sel = null; anchorGlow = []; bestHighlight = null;
+      computeCheatAdvice();
+      coachOpen = true;
+      if (bestPick) {
+        showBestOnBoard();
+        $("btn-played").style.display = "";
+        setBanner("Your best move as " + PNAMES[cheatYou] + " is outlined on the board.");
+      } else {
+        coachMsg.textContent = PNAMES[cheatYou] + " has no legal move on this board — in the " +
+          "real game that's a pass. Keep mirroring the other players' moves and ask again on " +
+          "your next turn.";
+        setBanner(PNAMES[cheatYou] + " has no legal move — that's a pass in the real game.");
+      }
+      applyCoachVisibility();
+      renderScoreboard(); renderCheatTabs(); renderSelPreview();
+    }
+    function cheatPlayAdvice() {
+      if (appMode !== "cheat" || !bestPick) return;
+      commitCheatMove(cheatYou, bestPick.move.pieceId, bestPick.move.cells.slice());
+    }
+    function enterCheatMode() {
+      cheatYou = cheatChoice;
+      gameStash = captureState();
+      roundId++; // cancel any pending computer move in the stashed game
+      appMode = "cheat";
+      freshMirror();
+      humans = [true, true, true, true];
+      $("gameover").classList.remove("open");
+      $("coach-panel").style.display = "none";
+      $("setup-bar").style.display = "none";
+      $("btn-new-top").style.display = "none";
+      $("btn-cheat").style.display = "none";
+      $("cheat-bar").style.display = "";
+      $("btn-place-rec").textContent = "I played it — add it to the mirror";
+      $("tray-help").textContent = "Tap the piece that was just played at the table — it appears on the board so you can position, rotate or flip it, then press Place Piece. Entry switches to the next colour automatically.";
+      refreshCheat();
+    }
+    function exitCheatMode() {
+      if (appMode !== "cheat" || !gameStash) return;
+      const s = gameStash;
+      gameStash = null;
+      appMode = "game";
+      loadState(s);
+      $("btn-played").style.display = "none";
+      $("setup-bar").style.display = "";
+      $("btn-new-top").style.display = "";
+      $("btn-cheat").style.display = "";
+      $("cheat-bar").style.display = "none";
+      $("btn-place-rec").textContent = "Place recommended move";
+      $("tray-help").textContent = TRAY_HELP_DEFAULT;
+      renderScoreboard();
+      renderBoard();
+      if (gameOver) { endGame(); return; }
+      if (!humans[current]) { startTurn(); return; } // resume a computer turn
+      busy = false;
+      computePieceFit(current);
+      renderTray();
+      applyCoachVisibility();
+      setBanner(s.banner);
+    }
+    function renderCheatChoice() {
+      const row = $("cheat-colours");
+      row.innerHTML = "";
+      for (let p = 0; p < 4; p++) {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "cheat-colour-btn" + (p === cheatChoice ? " on" : "");
+        b.innerHTML = '<span class="dot c' + p + '"></span>' + PNAMES[p];
+        b.addEventListener("click", () => { cheatChoice = p; renderCheatChoice(); });
+        row.appendChild(b);
+      }
+    }
+    $("btn-cheat").addEventListener("click", () => {
+      cheatChoice = 0;
+      renderCheatChoice();
+      $("cheat-setup").classList.add("open");
+    });
+    $("btn-cheat-cancel").addEventListener("click", () => $("cheat-setup").classList.remove("open"));
+    $("btn-cheat-start").addEventListener("click", () => {
+      $("cheat-setup").classList.remove("open");
+      enterCheatMode();
+    });
+    $("btn-ask").addEventListener("click", cheatAsk);
+    $("btn-played").addEventListener("click", cheatPlayAdvice);
+    $("btn-cheat-undo").addEventListener("click", cheatUndo);
+    $("btn-cheat-clear").addEventListener("click", cheatClear);
+    $("btn-cheat-exit").addEventListener("click", exitCheatMode);
+    $("btn-place-anyway").addEventListener("click", () => {
+      if (appMode !== "cheat" || !sel || !sel.anchor || sel.legal || !ghostFitsBoard()) return;
+      const abs = sel.cells.map(([cx, cy]) => idx(sel.anchor.x + cx, sel.anchor.y + cy));
+      commitCheatMove(current, sel.pieceId, abs);
     });
 
     newGame();
