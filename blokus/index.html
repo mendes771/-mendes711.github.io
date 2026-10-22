@@ -197,19 +197,8 @@
 
       /* Coach */
       .coach-msg { font-size: 14.5px; margin: 0 0 6px; }
-      .alert { border-radius: 9px; padding: 9px 12px; font-size: 14px; margin: 10px 0; display: none; }
-      .alert.warn { display: block; background: var(--warn-bg); border: 1px solid var(--warn-border); color: var(--warn-text); }
-      .alert.good { display: block; background: var(--good-bg); border: 1px solid var(--good-border); color: var(--good-text); }
-      .sugg-list { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
-      .sugg {
-        text-align: left; display: flex; gap: 10px; align-items: flex-start; width: 100%;
-        padding: 9px 11px; border-radius: 9px;
-      }
-      .sugg .rank { font-weight: 800; font-size: 13px; background: var(--soft); border-radius: 6px;
-        padding: 2px 7px; flex: none; margin-top: 1px; }
-      .sugg .txt b { display: block; font-size: 14px; }
-      .sugg .txt span { font-size: 13px; color: var(--muted); }
-      .sugg.picked { outline: 2.5px solid var(--text); outline-offset: -1px; }
+      .coach-best { font-size: 15.5px; font-weight: 700; margin: 0 0 6px; }
+      .coach-why { font-size: 14.5px; margin: 0 0 12px; }
       details.howto { margin-top: 14px; border-top: 1px solid var(--panel-border); padding-top: 10px; }
       details.howto summary { cursor: pointer; font-weight: 700; font-size: 14.5px; }
       details.howto ul, .rules-body ul { margin: 8px 0 4px; padding-left: 20px; font-size: 14px; }
@@ -283,29 +272,29 @@
           <div class="board-frame">
             <div class="board" id="board" aria-label="Blokus board"></div>
           </div>
+          <div class="sel-preview" id="sel-preview" style="display:none;margin-top:14px;">
+            <div class="big" id="sel-big"></div>
+            <div class="sel-actions">
+              <span class="sel-name" id="sel-name"></span>
+              <span class="sel-status" id="sel-status"></span>
+              <div class="row">
+                <button id="btn-rotate" type="button">Rotate ⟳</button>
+                <button id="btn-flip" type="button">Flip ⇋</button>
+              </div>
+              <div class="row">
+                <button id="btn-place" class="primary" type="button">Place Piece</button>
+                <button id="btn-coach" type="button">Coach — get help</button>
+              </div>
+              <span class="key-hint">Keys: <b>R</b> rotate · <b>F</b> flip · <b>Esc</b> deselect</span>
+            </div>
+          </div>
           <section class="panel" id="tray-panel" style="margin-top:14px;">
             <div class="tray-head">
               <span class="dot" id="tray-dot"></span>
               <span class="who" id="tray-who">Your pieces</span>
             </div>
-            <p style="margin:0;color:var(--muted);font-size:13px;">Tap a piece to select it, then tap the board to position it. Rotate or flip it to fit, then press Place Piece. Pieces marked “no fit” can't be placed right now.</p>
+            <p style="margin:0;color:var(--muted);font-size:13px;">Tap a piece to select it — it appears on the board, ready to position. Use the controls above to move, rotate or flip it, then press Place Piece. Pieces marked “no fit” can't be placed right now.</p>
             <div class="tray-grid" id="tray-grid"></div>
-            <div class="sel-preview" id="sel-preview" style="display:none;">
-              <div class="big" id="sel-big"></div>
-              <div class="sel-actions">
-                <span class="sel-name" id="sel-name"></span>
-                <span class="sel-status" id="sel-status"></span>
-                <div class="row">
-                  <button id="btn-rotate" type="button">Rotate ⟳</button>
-                  <button id="btn-flip" type="button">Flip ⇋</button>
-                </div>
-                <div class="row">
-                  <button id="btn-place" class="primary" type="button">Place Piece</button>
-                  <button id="btn-coach" type="button">Coach — get help</button>
-                </div>
-                <span class="key-hint">Keys: <b>R</b> rotate · <b>F</b> flip · <b>Esc</b> deselect</span>
-              </div>
-            </div>
           </section>
           <div class="rules-body panel" id="rules-panel" style="margin-top:14px;">
             <h2 style="margin-top:0;">How to play</h2>
@@ -325,13 +314,11 @@
               <h2>Coach</h2>
               <button id="btn-coach-close" type="button">Close</button>
             </div>
-            <p class="coach-msg" id="coach-msg">Here are your best options for this turn, with the reasoning behind each one.</p>
-            <div class="alert" id="coach-alert"></div>
+            <p class="coach-msg" id="coach-msg">Here's the move I'd play this turn, and why.</p>
+            <h3>Best move</h3>
+            <p class="coach-best" id="coach-best"></p>
+            <p class="coach-why" id="coach-why"></p>
             <button id="btn-place-rec" class="primary" type="button" style="width:100%;">Place recommended move</button>
-            <h3>Top suggestions</h3>
-            <div class="sugg-list" id="sugg-list">
-              <p style="margin:0;color:var(--muted);font-size:13.5px;">Tap a suggestion to preview it on the board, then press Place Piece — or use the button above to play the top pick right away.</p>
-            </div>
             <details class="howto">
               <summary>How to win — 5 classic tips</summary>
               <ul>
@@ -433,12 +420,12 @@
     let bestHighlight = null; // { pieceId, cells(abs) } shown with pulse
     let anchorGlow = [];  // board indices to glow for selected piece
     let pieceFit = {};    // pieceId -> number of legal placements (current human)
-    let suggestions = []; // top-3 for current human (computed only when coach opens)
+    let bestPick = null;  // single best move + lesson text (computed only when coach opens)
     let coachOpen = false;
 
     const $ = id => document.getElementById(id);
     const boardEl = $("board"), bannerEl = $("turn-banner"), coachMsg = $("coach-msg"),
-          coachAlert = $("coach-alert"), suggEl = $("sugg-list"), trayGrid = $("tray-grid");
+          trayGrid = $("tray-grid");
 
     /* ================= Rules engine ================= */
     function frontierOf(bd, p) {
@@ -664,50 +651,56 @@
     }
 
     /* ================= Coach reasoning ================= */
-    function makeReason(r, p) {
-      const f = r.f, parts = [];
-      const pieceName = PIECES[r.move.pieceId].name;
-      if (f.blockedPlayer >= 0 && f.block >= 1.4) {
-        parts.push({ w: f.block * 3, txt: "covers a corner " + PNAMES[f.blockedPlayer] +
-          " needs to expand — a real roadblock" });
+    // A short lesson, not a label: a few plain-language sentences explaining
+    // why this is the best move, built from the same factors the evaluator
+    // scored — new corners opened, centre drive, using a big piece while it
+    // fits, blocking an opponent, and what the move sets up next.
+    function explainBest(r, p) {
+      const f = r.f, piece = PIECES[r.move.pieceId];
+      const s = [];
+      s.push("Play the " + piece.name + " (" + piece.size + (piece.size === 1 ? " square" : " squares") +
+        ") in the spot outlined on the board.");
+      if (remaining[p].size === 1) {
+        s.push("It's your last piece, so placing it also banks the +15 bonus" +
+          (piece.size === 1 ? " — plus the extra +5 for finishing with the single square." : "."));
+      } else if (f.size === 5) {
+        s.push("Big pieces are the hardest to fit later, so getting a 5-square piece down while open " +
+          "space is plentiful is almost always right — leave it too long and it may never fit anywhere.");
+      } else if (f.size <= 2 && remaining[p].size > 3) {
+        s.push("It's a small piece, but right now position matters more than size — where it lands " +
+          "matters more than how many squares it covers.");
       }
-      if (f.frontier >= 5) {
-        parts.push({ w: f.frontier * 1.5, txt: "opens " + f.frontier + " new corners to grow from" });
+      if (f.frontier >= 4) {
+        s.push("This placement opens " + f.frontier + " new corners for you. Corners are everything in " +
+          "Blokus: a new piece can only grow out of a diagonal touch, so every corner you create is a " +
+          "future foothold. More corners means more choices on every turn that follows.");
+      } else if (f.frontier > 0) {
+        s.push("It keeps " + f.frontier + " open corner" + (f.frontier === 1 ? "" : "s") +
+          " to grow from, so you aren't painting yourself into a dead end — your next pieces still " +
+          "have somewhere to go.");
+      } else {
+        s.push("It opens no new corners, but it uses space that little else could reach, and it keeps " +
+          "your other routes alive.");
       }
       if (f.centre > 6.5) {
-        parts.push({ w: f.centre, txt: "pushes toward the centre, where territory is won" });
+        s.push("It also reaches toward the centre of the board. The centre is where territory is " +
+          "decided — whoever gets established there first forces everyone else to build around them.");
       }
-      if (f.size === 5) {
-        parts.push({ w: 6, txt: "places a big 5-square piece while there's open space" });
+      if (f.blockedPlayer >= 0 && f.block >= 1.4) {
+        s.push("Better still, it covers a corner " + PNAMES[f.blockedPlayer] + " needs in order to " +
+          "expand. Taking that square strands that whole branch of their territory — they can't build " +
+          "through it, so those pieces stop growing. Good defence and good attack are often the same move.");
       }
-      if (remaining[p].size === 1) {
-        parts.push({ w: 20, txt: "plays your last piece for the +15 bonus" });
+      if (typeof f.followUps === "number" && f.followUps >= 8) {
+        s.push("And it sets you up well: from this position you'd still have " +
+          (f.followUps >= 25 ? "more than 25" : "around " + f.followUps) +
+          " possible placements next turn, so one blocked route won't end your game.");
       }
-      if (parts.length === 0) {
-        parts.push({ w: 1, txt: f.frontier > 0
-          ? "keeps " + f.frontier + " corner" + (f.frontier === 1 ? "" : "s") + " open for your next moves"
-          : "fits the space available right now" });
+      if (remaining[p].size > 1 && remaining[p].size <= 4) {
+        s.push("Late in the game the priority flips: every square left unplaced costs a point, so " +
+          "using pieces while they still fit matters more than perfect positioning.");
       }
-      parts.sort((a, b) => b.w - a.w);
-      const main = parts[0].txt;
-      return main.charAt(0).toUpperCase() + main.slice(1) + ".";
-    }
-    function threatFor(p) {
-      // A contested frontier corner: a square both the human and an opponent
-      // can build from. The opponent who reaches it first seals the route.
-      const mine = new Set(frontierOf(board, p));
-      if (!mine.size) return null;
-      let worst = -1, worstLeft = -1;
-      for (let o = 0; o < 4; o++) {
-        if (o === p || humans[o]) continue;
-        const theirs = frontierOf(board, o);
-        let contested = false;
-        for (const c of theirs) if (mine.has(c)) { contested = true; break; }
-        if (contested && squaresLeft(o) > worstLeft) { worstLeft = squaresLeft(o); worst = o; }
-      }
-      if (worst < 0) return null;
-      return "Careful: " + PNAMES[worst] + " can reach one of your open corners and cut off your route " +
-             "toward the centre. Consider blocking " + PNAMES[worst] + " or expanding that way first.";
+      return s.join(" ");
     }
 </script>
 
@@ -848,34 +841,20 @@
       $("btn-coach").disabled = busy;
       $("btn-coach").textContent = coachOpen ? "Hide coach" : "Coach — get help";
     }
-    function renderSuggestions() {
-      suggEl.innerHTML = "";
-      if (!suggestions.length) {
-        suggEl.innerHTML = '<p style="margin:0;color:var(--muted);font-size:13.5px;">No suggestions right now.</p>';
+    function renderCoach() {
+      const bestEl = $("coach-best"), whyEl = $("coach-why");
+      if (!bestPick) {
+        bestEl.textContent = "";
+        whyEl.textContent = "";
+        $("btn-place-rec").disabled = true;
         return;
       }
-      suggestions.forEach((s, i) => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "sugg" + (bestHighlight && bestHighlight.pieceId === s.move.pieceId &&
-          sameCells(bestHighlight.cells, s.move.cells) ? " picked" : "");
-        btn.innerHTML = '<span class="rank">#' + (i + 1) + '</span><span class="txt"><b>' +
-          PIECES[s.move.pieceId].name + "</b><span>" + s.reason + "</span></span>";
-        btn.addEventListener("click", () => previewSuggestion(i));
-        suggEl.appendChild(btn);
-      });
-    }
-    function sameCells(a, b) {
-      if (a.length !== b.length) return false;
-      const s = new Set(a);
-      return b.every(c => s.has(c));
+      bestEl.textContent = "Play the " + PIECES[bestPick.move.pieceId].name +
+        " — it's outlined on the board.";
+      whyEl.textContent = bestPick.why;
+      $("btn-place-rec").disabled = false;
     }
     function setBanner(txt) { bannerEl.textContent = txt; }
-    function showAlert(txt, kind) {
-      if (!txt) { coachAlert.className = "alert"; coachAlert.textContent = ""; return; }
-      coachAlert.className = "alert " + kind;
-      coachAlert.textContent = txt;
-    }
 
     /* ================= Selection & placement ================= */
     function computeAnchorGlow() {
@@ -919,12 +898,12 @@
         const alt = bestFittingPiece(current);
         coachMsg.textContent = "The " + PIECES[pid].name + " has no legal placement right now." +
           (alt ? " The " + PIECES[alt].name + " still fits — try that one." :
-                 " Keep looking, or check the suggestions.");
+                 " Keep looking, or ask the coach for the best move.");
       } else {
         coachMsg.textContent = "The " + PIECES[pid].name + " can go in " + fits +
           (fits === 1 ? " spot" : " spots") + " — the glowing squares show where. Rotate or flip to line it up.";
       }
-      renderBoard(); renderTray(); renderSuggestions(); renderSelPreview();
+      renderBoard(); renderTray(); renderCoach(); renderSelPreview();
     }
     function bestFittingPiece(p) {
       let best = null, bestSize = -1;
@@ -955,7 +934,7 @@
       updateGhostFromAnchor();
       renderBoard();
       if (sel.legal !== wasLegal || !hadAnchor) renderSelPreview();
-      if (hadBest) renderSuggestions();
+      if (hadBest) renderCoach();
     }
     function updateGhostFromAnchor() {
       if (!sel || !sel.anchor) { if (sel) sel.legal = false; return; }
@@ -973,20 +952,20 @@
       const abs = sel.cells.map(([cx, cy]) => idx(sel.anchor.x + cx, sel.anchor.y + cy));
       doMove(current, { pieceId: sel.pieceId, cells: abs });
     }
-    function previewSuggestion(i) {
-      const s = suggestions[i];
-      if (!s) return;
-      bestHighlight = { pieceId: s.move.pieceId, cells: s.move.cells };
-      // also select the piece in that exact orientation so Place/click works
-      const pts = s.move.cells.map(c => [c % N, (c / N) | 0]);
+    // Show the coach's best move on the board: pulsing outline plus the piece
+    // loaded as the current selection (ghost visible, not committed), so the
+    // player sees exactly where it goes and can play it with Place Piece too.
+    function showBestOnBoard() {
+      if (!bestPick) return;
+      bestHighlight = { pieceId: bestPick.move.pieceId, cells: bestPick.move.cells };
+      const pts = bestPick.move.cells.map(c => [c % N, (c / N) | 0]);
       let mx = Infinity, my = Infinity;
       for (const [x, y] of pts) { mx = Math.min(mx, x); my = Math.min(my, y); }
-      sel = { pieceId: s.move.pieceId,
+      sel = { pieceId: bestPick.move.pieceId,
               cells: pts.map(([x, y]) => [x - mx, y - my]),
               anchor: { x: mx, y: my }, legal: true };
       computeAnchorGlow();
-      coachMsg.textContent = s.reason;
-      renderBoard(); renderTray(); renderSuggestions(); renderSelPreview();
+      renderBoard(); renderTray(); renderSelPreview();
     }
 
     /* ================= Game flow ================= */
@@ -1019,18 +998,16 @@
 
     function startTurn() {
       const p = current;
-      sel = null; bestHighlight = null; anchorGlow = []; suggestions = [];
+      sel = null; bestHighlight = null; anchorGlow = []; bestPick = null;
       coachOpen = false;
       $("coach-panel").style.display = "none";
-      showAlert(null);
       const rid = roundId;
       if (!hasAnyMove(board, p)) {
         renderTray();
         if (humans[p]) {
           setBanner("No moves available — " + PNAMES[p] + " passes.");
           coachMsg.textContent = PNAMES[p] + " has no legal move with any remaining piece, so this turn passes automatically.";
-          showAlert(null);
-          renderSuggestions();
+          renderCoach();
         } else {
           setBanner(PNAMES[p] + " (Computer) has no legal move and passes.");
         }
@@ -1044,13 +1021,12 @@
           ? "Your turn, " + PNAMES[p] + " — pick a piece."
           : PNAMES[p] + "'s turn (" + roleLabel(p) + ") — pick a piece.");
         computePieceFit(p);
-        renderTray(); renderSuggestions();
+        renderTray(); renderCoach();
       } else {
         busy = true;
         setBanner(PNAMES[p] + " (Computer) is thinking…");
         coachMsg.textContent = "Waiting on " + PNAMES[p] + "…";
-        showAlert(null);
-        renderTray(); renderSuggestions();
+        renderTray(); renderCoach();
         const wait = difficulty === "expert" ? 620 : 520;
         setTimeout(() => {
           if (rid !== roundId) return;
@@ -1071,39 +1047,43 @@
       const all = enumerateMoves(board, p, [...remaining[p]]);
       for (const m of all) pieceFit[m.pieceId]++;
     }
-    // Coaching (suggestions, rationale, threat alerts) is computed only when
-    // the player opens the coach — never automatically during normal play.
-    function computeSuggestions(p) {
+    // Coaching is computed only when the player opens the coach — never
+    // automatically during normal play. It picks ONE best move and explains
+    // the thinking behind it; there is no list of alternatives.
+    function computeBestMove(p) {
       const ranked = rankMoves(board, p);
-      const picked = [];
-      const usedPieces = new Set();
-      for (const r of ranked) {
-        if (picked.length >= 3) break;
-        if (usedPieces.has(r.move.pieceId) && ranked.length > 6) continue;
-        usedPieces.add(r.move.pieceId);
-        picked.push({ move: r.move, f: r.f, reason: makeReason(r, p) });
-      }
-      suggestions = picked;
-      const threat = threatFor(p);
-      showAlert(threat, "warn");
+      if (!ranked.length) { bestPick = null; return; }
+      const top = ranked[0];
+      // Count next turn's options so the lesson can say what this sets up.
+      placeOnBoard(board, p, top.move.cells);
+      const rest = [...remaining[p]].filter(id => id !== top.move.pieceId);
+      top.f.followUps = enumerateMoves(board, p, rest, 25).length;
+      removeFromBoard(board, top.move.cells);
+      bestPick = { move: top.move, f: top.f, why: explainBest(top, p) };
       if (remaining[p].size <= 5 && remaining[p].size > 0) {
-        coachMsg.textContent = "Endgame: " + remaining[p].size + " pieces left. Fit the big ones first — " +
-          "small pieces squeeze into the gaps that remain.";
+        coachMsg.textContent = "Endgame: " + remaining[p].size + " pieces left. Here's the one move " +
+          "that matters most right now, and the thinking behind it.";
       } else if (playerCells[p].length === 0) {
-        coachMsg.textContent = "Opening move: cover your corner, and aim the piece toward the centre of the board — that's where the game is won.";
+        coachMsg.textContent = "Opening move: cover your corner, and aim the piece toward the centre " +
+          "of the board — that's where the game is won. Here's the strongest way to do it.";
       } else {
-        coachMsg.textContent = "Here are your three best options, ranked. Tap one to preview it on the board, or press Place recommended move to play the top pick right away.";
+        coachMsg.textContent = "Here's the move I'd play this turn, and why — the thinking behind it " +
+          "is the part worth learning. It's outlined on the board; play it with Place recommended " +
+          "move, or close the coach and play your own.";
       }
     }
     function applyCoachVisibility() {
       $("coach-panel").style.display = coachOpen ? "" : "none";
-      if (coachOpen) renderSuggestions();
+      if (coachOpen) renderCoach();
       renderSelPreview();
     }
     function toggleCoach() {
       if (!humans[current] || busy || gameOver) return;
       coachOpen = !coachOpen;
-      if (coachOpen && !suggestions.length) computeSuggestions(current);
+      if (coachOpen) {
+        if (!bestPick) computeBestMove(current);
+        showBestOnBoard();
+      }
       applyCoachVisibility();
     }
 
@@ -1112,7 +1092,7 @@
       sel = null; bestHighlight = null; anchorGlow = [];
       coachOpen = false;
       $("coach-panel").style.display = "none";
-      renderBoard(); renderScoreboard(); renderTray(); renderSuggestions();
+      renderBoard(); renderScoreboard(); renderTray(); renderCoach();
       const order = [0, 1, 2, 3].sort((a, b) => scoreOf(b) - scoreOf(a));
       const top = scoreOf(order[0]);
       const winners = order.filter(p => scoreOf(p) === top);
@@ -1144,13 +1124,12 @@
       playerCells = [[], [], [], []];
       history = [];
       current = 0; consecPasses = 0; gameOver = false; busy = false;
-      sel = null; bestHighlight = null; anchorGlow = []; suggestions = []; pieceFit = {};
+      sel = null; bestHighlight = null; anchorGlow = []; bestPick = null; pieceFit = {};
       humans = $("mode-duo").classList.contains("on")
         ? [true, false, true, false]
         : [true, false, false, false];
       difficulty = $("sel-difficulty").value;
       $("gameover").classList.remove("open");
-      showAlert(null);
       renderScoreboard();
       startTurn();
     }
@@ -1178,7 +1157,6 @@
       $("gameover").classList.remove("open");
       roundId++;
       busy = false;
-      showAlert(null);
       renderScoreboard();
       startTurn();
     }
@@ -1221,11 +1199,10 @@
     });
     $("btn-place-rec").addEventListener("click", () => {
       if (!humans[current] || busy || gameOver) return;
-      // Always play the current top recommendation shown in the coach.
-      if (!suggestions.length) computeSuggestions(current);
-      const top = suggestions[0];
-      if (!top) return;
-      doMove(current, { pieceId: top.move.pieceId, cells: top.move.cells });
+      // Play exactly the one best move the coach is showing.
+      if (!bestPick) computeBestMove(current);
+      if (!bestPick) return;
+      doMove(current, { pieceId: bestPick.move.pieceId, cells: bestPick.move.cells });
     });
     $("btn-undo").addEventListener("click", undoRound);
     $("btn-new").addEventListener("click", newGame);
@@ -1247,7 +1224,7 @@
       else if (e.key === "f" || e.key === "F") flipSel();
       else if (e.key === "Escape") {
         sel = null; bestHighlight = null; anchorGlow = [];
-        renderBoard(); renderTray(); renderSuggestions();
+        renderBoard(); renderTray(); renderCoach();
       }
     });
 
