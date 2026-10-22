@@ -450,6 +450,78 @@
     <script>
       var EDITIONS = [
         {
+          date: "Thursday, October 22, 2026",
+          audio: [
+            { label: "Listen to this edition · 7:20", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-10-22.mp3" }
+          ],
+          stories: [
+            {
+              headline: "Barclays to cut around 5,000 jobs this year as AI lifts efficiency",
+              synopsis: "Barclays expects to cut around 5,000 jobs (about 5% of its 93,000 global staff) by the end of 2026, citing AI-driven efficiency — developers are among the first in line. A thousand roles went in the first half of the year; the rest land in the second. CEO C. S. Venkatakrishnan credited years of technology investment but stressed the real efficiencies come from deep investment in the bank’s infrastructure, not from AI alone.",
+              why: "this is the workforce-planning conversation arriving at every large bank — an application-development leader needs a plan for what developers become, not just how many remain.",
+              topics: ["CIO & enterprise IT trends"],
+              sources: [
+                { name: "Radio NewsHub · article", url: "https://www.radionewshub.com/articles/news-updates/Barclays-to-cut-5000-jobs-this-year-as-AI-makes-work-more-efficient" }
+              ]
+            },
+            {
+              headline: "Wall Street puts a meter on AI as computing bills climb",
+              synopsis: "Bloomberg reporting from October 21–22 finds bank finance chiefs and tech leaders grappling with rising, hard-to-forecast AI inference costs. JPMorgan spends about $700M a year on AI; Claude Code is available only to selected engineers, capped at $2,000 a month each. CIBC found premium models can cost as much as C$3,000 a month per employee and restricted access to a few hundred staff. The fix is visible too: Deutsche Bank redirects heavy token users to productive work, and Santander runs frontier models only to check quality, then shifts proven workloads to lighter ones — cutting the AI cost of a loan approval from about €5 to €0.03.",
+              why: "inference has become an operational cost line — banks need AI FinOps: per-team usage tracking, model downgrading for proven workloads, and caps before the bill lands.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "Crypto Briefing · article (underlying reporting attributed to Bloomberg)", url: "https://cryptobriefing.com/wall-street-banks-ai-computing-costs/" }
+              ]
+            },
+            {
+              headline: "Revolut rebuilds its stack on a single foundation model — Europe’s open-model wave",
+              synopsis: "At NVIDIA’s GTC Berlin, Revolut revealed it is rebuilding its entire technology stack on a single foundation model called PRAGMA, powered by NVIDIA accelerated computing, servicing an initial 80 million customers and engineered to scale 3x. It is not alone: Starling Bank trained its agentic model on sovereign cloud infrastructure in the U.K., Lloyds built ATUM, a transaction foundation model on billions of its own banking transactions, and SBS launched a sovereign banking intelligence platform that keeps customer data inside the bank’s walls.",
+              why: "the sovereignty playbook is going concrete — own the model, the hardware and the data — and every bank’s tech strategy has to answer where its AI infrastructure lives and who controls it.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "NVIDIA Blog · article", url: "https://blogs.nvidia.com/blog/european-financial-services-organizations-open-models-proprietary-intelligence/" }
+              ]
+            },
+            {
+              headline: "TD’s agentic mortgages keep a human in the loop — SoundHound’s agents don’t",
+              synopsis: "TD has expanded agentic AI across its mortgage operations: agents coordinate document verification, connect information across systems and assemble case summaries, cutting the initial review time for mortgage funding in up to half the time — but colleagues review the AI-generated outputs and remain responsible for the decisions. In contrast, SoundHound demonstrated at Money20/20 (Oct 19–21) banking agents that move funds, pay bills, reset card PINs and “approve” mortgages from start to finish with no human step named in five of the six scenarios — while the Financial Stability Board’s guidance says money-moving agents should face human approval or dual authorization above a threshold.",
+              why: "TD’s “agent assembles, human decides” pattern is the defensible one — know where your approval line sits before a regulator draws it for you.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "TD Bank via newswire.ca · article", url: "https://www.newswire.ca/news-releases/td-expands-agentic-ai-across-mortgage-operations-to-make-banking-faster-simpler-and-more-human-896964540.html" },
+                { name: "SMA Crown Confidential deployment digest (week of Oct 21) · article", url: "https://www.smacrownconfidential.com/post/ai-in-finance-deployment-digest-week-of-21-october-2026" }
+              ]
+            },
+            {
+              headline: "Coding agents pass 91% of tests — but only 25% are secure",
+              synopsis: "The “Last Secure Code Benchmark” (LSCBench), published to arXiv on October 14, tested six frontier coding agents on 450 tasks drawn from 150 real-world vulnerabilities. The strongest agent passed as many as 91.3% of the functional tests — but only 25.1% on the combined measure of “works and is secure”.",
+              why: "code that passes tests is not code that is safe to ship — price gated reviews, automated scanning and human looks into every coding-agent rollout.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "Tech Insider · article", url: "https://tech-insider.org/ai-coding-agents-91-percent-tests-25-percent-secure-2026/" }
+              ]
+            },
+            {
+              headline: "Microsoft open-sources Scope, a bake-off rig for coding agents",
+              synopsis: "On October 19, Microsoft open-sourced Scope (under the MIT license), an “agentic experience evaluation platform” that runs coding agents like GitHub Copilot and Claude Code through the same tasks, side by side, and scores what they actually produce. It is self-hosted and self-managed, aimed at teams that want a repeatable way to see where agents get stuck.",
+              why: "stop standardizing on a coding agent from marketing or developer vibes — run your own bake-off on your own codebase and security criteria before enterprise-wide adoption locks you in.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "TrendInTech · article", url: "https://trendintech.com/microsoft-scope-open-source-ai-coding-agent-testing-2026/" }
+              ]
+            },
+            {
+              headline: "OpenAI’s models come to Google Cloud’s Model Garden",
+              synopsis: "On October 21, OpenAI and Google Cloud announced that the GPT-6 family (Astra, 6.1 Sol and Luna) plus Codex coding workflows are coming to Google Cloud’s Model Garden, purchasable through the Marketplace against existing cloud spend commitments on a single invoice. That makes Google Cloud the only major cloud provider hosting all three leading closed-source model families under one roof.",
+              why: "procurement flexibility is catching up with model quality — models now come to where your workloads, data governance and spend commitments already live.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "Reuters via WABX · article", url: "https://wabx.net/2026/10/21/openai-to-sell-its-top-models-on-google-cloud-in-latest-enterprise-push/" }
+              ]
+            }
+          ]
+        },
+        {
           date: "Wednesday, October 21, 2026",
           audio: [
             { label: "Listen to this edition · 5:18", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-10-21.mp3" }
