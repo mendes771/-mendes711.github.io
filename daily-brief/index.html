@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>The Daily Brief</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f6f5f1;
+        --surface: #ffffff;
+        --ink: #1c1b18;
+        --ink-soft: #55534c;
+        --ink-faint: #8a877e;
+        --rule: #ddd9cf;
+        --accent: #a52a1a;
+        --accent-ink: #a52a1a;
+        --tag-bg: #efe9df;
+        --tag-ink: #6b4a1f;
+        --chip-bg: #ffffff;
+        --chip-border: #c9c4b6;
+        --focus: #a52a1a;
+        --shadow: 0 1px 2px rgba(28, 27, 24, 0.05), 0 4px 14px rgba(28, 27, 24, 0.05);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #16171a;
+          --surface: #1f2023;
+          --ink: #ece9e2;
+          --ink-soft: #b3b0a6;
+          --ink-faint: #83817a;
+          --rule: #33343a;
+          --accent: #e8836f;
+          --accent-ink: #e8836f;
+          --tag-bg: #2c2a24;
+          --tag-ink: #d3a860;
+          --chip-bg: #1f2023;
+          --chip-border: #45464c;
+          --focus: #e8836f;
+          --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 4px 14px rgba(0, 0, 0, 0.3);
+        }
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+        font-size: 16px;
+        line-height: 1.55;
+      }
+      .wrap {
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 40px 20px 72px;
+      }
+
+      /* Masthead */
+      .masthead {
+        border-bottom: 3px double var(--ink);
+        padding-bottom: 18px;
+        margin-bottom: 30px;
+      }
+      .masthead h1 {
+        font-family: "Newsreader", Georgia, serif;
+        font-weight: 700;
+        font-size: clamp(38px, 8vw, 56px);
+        line-height: 1.02;
+        letter-spacing: -0.01em;
+        margin: 0 0 8px;
+      }
+      .masthead .subtitle {
+        margin: 0;
+        font-size: 17px;
+        color: var(--ink-soft);
+        max-width: 34em;
+      }
+
+      /* Topics */
+      .topics {
+        background: var(--surface);
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+        padding: 20px 22px 16px;
+        margin-bottom: 40px;
+      }
+      .topics h2 {
+        font-family: "Newsreader", Georgia, serif;
+        font-size: 21px;
+        font-weight: 600;
+        margin: 0 0 6px;
+      }
+      .topics .intro {
+        margin: 0 0 16px;
+        color: var(--ink-soft);
+        font-size: 15px;
+      }
+      .chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        background: var(--chip-bg);
+        border: 1px solid var(--chip-border);
+        border-radius: 999px;
+        padding: 5px 13px;
+        font-size: 14px;
+        font-weight: 500;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+      }
+      .topics .fineprint {
+        margin: 14px 0 2px;
+        font-size: 13px;
+        color: var(--ink-faint);
+      }
+
+      /* Editions */
+      .edition-controls {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-bottom: 26px;
+      }
+      .edition-controls button {
+        font: inherit;
+        font-size: 13.5px;
+        font-weight: 600;
+        padding: 6px 13px;
+        border-radius: 999px;
+        border: 1px solid var(--chip-border);
+        background: var(--chip-bg);
+        color: var(--ink-soft);
+        cursor: pointer;
+      }
+      .edition-controls button:hover { color: var(--ink); border-color: var(--ink-faint); }
+      .edition-controls button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+      .edition { margin-bottom: 48px; }
+      .edition.collapsed { margin-bottom: 28px; }
+      .edition-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        border-bottom: 2px solid var(--ink);
+        padding-bottom: 8px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+      .edition-head.collapsed { margin-bottom: 0; }
+      .edition-toggle {
+        flex: 1 1 auto;
+        min-width: 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 11px;
+        background: none;
+        border: none;
+        padding: 2px 0;
+        margin: 0;
+        font: inherit;
+        color: inherit;
+        text-align: left;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      .edition-toggle:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+      .edition-toggle .chevron {
+        flex: none;
+        width: 9px;
+        height: 9px;
+        border-right: 2px solid var(--ink-soft);
+        border-bottom: 2px solid var(--ink-soft);
+        transform: rotate(-45deg);
+        transition: transform 0.18s ease;
+      }
+      .edition-toggle[aria-expanded="true"] .chevron { transform: rotate(45deg); }
+      @media (prefers-reduced-motion: reduce) {
+        .edition-toggle .chevron { transition: none; }
+      }
+      .edition-head h2 {
+        font-family: "Newsreader", Georgia, serif;
+        font-size: 27px;
+        font-weight: 700;
+        margin: 0;
+      }
+      .edition-head .count {
+        font-size: 13px;
+        color: var(--ink-faint);
+        white-space: nowrap;
+      }
+      .edition-body[hidden] { display: none; }
+      .story {
+        background: var(--surface);
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+        padding: 22px 24px 18px;
+        margin-bottom: 16px;
+      }
+      .story .tags { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 10px; }
+      .story .story-num {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--ink-faint);
+        margin-right: 4px;
+      }
+      .edition-note {
+        background: var(--surface);
+        border: 1px dashed var(--chip-border);
+        border-radius: 10px;
+        padding: 14px 18px;
+        font-size: 15px;
+        color: var(--ink-soft);
+        margin: 2px 0 0;
+      }
+      .story .tag {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        background: var(--tag-bg);
+        color: var(--tag-ink);
+        border-radius: 999px;
+        padding: 3px 10px;
+      }
+      .story h3 {
+        font-family: "Newsreader", Georgia, serif;
+        font-size: 23px;
+        font-weight: 600;
+        line-height: 1.2;
+        margin: 0 0 8px;
+      }
+      .story .synopsis { margin: 0 0 12px; color: var(--ink); }
+      .story .why {
+        margin: 0 0 14px;
+        padding: 10px 14px;
+        background: var(--bg);
+        border-radius: 8px;
+        font-size: 15px;
+        color: var(--ink-soft);
+      }
+      .story .why strong { color: var(--ink); font-weight: 600; }
+      .story .sources {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 18px;
+        border-top: 1px solid var(--rule);
+        padding-top: 12px;
+      }
+      .story .sources a {
+        color: var(--accent-ink);
+        font-weight: 500;
+        font-size: 15px;
+        text-decoration: none;
+      }
+      .story .sources a:hover { text-decoration: underline; }
+      .story .sources a:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 2px; }
+      .story .sources .arrow { font-size: 13px; margin-left: 2px; }
+      .edition-empty {
+        color: var(--ink-faint);
+        font-style: italic;
+        font-size: 15px;
+        padding: 6px 2px;
+      }
+      footer {
+        border-top: 1px solid var(--rule);
+        padding-top: 16px;
+        color: var(--ink-faint);
+        font-size: 13px;
+      }
+      @media (max-width: 560px) {
+        .wrap { padding: 28px 14px 56px; }
+        .story { padding: 18px 16px 14px; }
+        .topics { padding: 18px 16px 14px; }
+        .story h3 { font-size: 21px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="masthead">
+        <h1>The Daily Brief</h1>
+        <p class="subtitle">IT, AI &amp; Banking — a daily synopsis with links to the source material.</p>
+      </header>
+
+      <section class="topics" aria-labelledby="topics-heading">
+        <h2 id="topics-heading">Brief topics</h2>
+        <p class="intro">
+          The brief is built around these topics — the latest in IT, AI and Banking for
+          thought leadership.
+        </p>
+        <div class="chip-row" id="chip-row"></div>
+        <p class="fineprint">Want a topic added or dropped? Just say the word in chat and the brief will follow.</p>
+      </section>
+
+      <main id="editions"></main>
+
+      <footer>
+        Synopses are summaries — follow the source links on each story for the full material.
+      </footer>
+    </div>
+
+    <script>
+      var TOPICS = [
+        "Enterprise AI in banking",
+        "Canadian banking tech — open banking, payments & tokenization",
+        "CIO & enterprise IT trends",
+        "AI-assisted application development",
+        "AI — anything new or relevant in any industry or company",
+        "Innovation",
+        "Process improvements"
+      ];
+
+      var EDITIONS = [
+        {
+          date: "Wednesday, October 21, 2026",
+          stories: [
+            {
+              headline: "NVIDIA's OpenShell: governance built into the agent stack",
+              synopsis: "At GTC Berlin on October 21, NVIDIA announced the OpenShell Reference Architecture for building, containing, observing and enforcing safe AI agents on enterprise infrastructure and edge systems. Agents run on Vera Rubin infrastructure, with BlueField-4 DPUs running NVIDIA Sentry for continuous out-of-band behavioral monitoring and in-silicon policy enforcement. Anthropic, OpenAI, Microsoft, Google Cloud, AWS, CrowdStrike, Palo Alto Networks, SAP, ServiceNow and Siemens are among the partners working with it.",
+              why: "This is the containment-and-observability reference architecture dev teams design for — the constructive answer to banks barring outside agents: delegated identity, out-of-band monitoring, policy in silicon.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "NVIDIA via GlobeNewswire · article", url: "https://www.globenewswire.com/news-release/2026/10/21/3385311/0/en/nvidia-launches-openshell-reference-architecture-for-safe-ai-agents.html" }
+              ]
+            },
+            {
+              headline: "Gartner 2027 CIO survey: volume is not value",
+              synopsis: "Gartner's 2027 CIO and Technology Executive Agenda survey (2,002 IT executives, released at IT Symposium/Xpo in Orlando on Oct 19) finds AI spending up 18-fold in two years but only 13% of CIOs report significant or transformational AI value. Only 21% have agentic AI governance while 71% will deploy agentic AI within 12 months. Gartner prescribes “stopping rules” — CIOs with kill criteria for pilots and production are 2.3x/2.6x more likely to be top performers — and just 4% have plans to retool roles for an agentic-human workforce.",
+              why: "Demand pre-defined kill criteria on every AI proposal — deciding the exit before paying for the entrance is the cheapest governance move.",
+              topics: ["CIO & enterprise IT trends"],
+              sources: [
+                { name: "Gartner · article", url: "https://www.gartner.com/en/newsroom/press-releases/2026-10-19-gartner-survey-finds-only-13-percent-of-cios-say-their-enterprise-has-realized-significant-or-transformational-value-from-ai" },
+                { name: "InformationWeek · article", url: "https://www.informationweek.com/responsible-ai/gartner-cios-must-balance-ai-value-with-risk-and-fast" }
+              ]
+            },
+            {
+              headline: "Claude Code passes Copilot; agent tools get enterprise host policies",
+              synopsis: "JetBrains' 2026 Developer Ecosystem Survey (15,000+ professional developers) found Claude Code at ~39% workplace adoption vs ~21% for GitHub Copilot — reversed from a year ago. Meanwhile VS Code 1.142 (Oct 14) retired Windows Sandbox and added Copilot agent host policies; coding agents can now open terminals, install dependencies and commit code with minimal supervision, so security teams increasingly gate which AI tools developers may install.",
+              why: "AI dev-tool choice is now a governance decision, not just developer experience — set the rules for what coding agents can touch in your repos before security does.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "Medium (JetBrains survey) · article", url: "https://medium.com/@vortex404.404/claude-code-just-overtook-github-copilot-in-workplace-adoption-by-almost-2x-c00b0db665d0" },
+                { name: "TrendInTech · article", url: "https://trendintech.com/vs-code-1-142-copilot-agent-host-policies-2026/" }
+              ]
+            },
+            {
+              headline: "The model race is a price war now: 90% cost cuts",
+              synopsis: "Both Anthropic's Claude Haiku 5.5 and OpenAI's GPT-6 Luna landed at $0.10/$0.50 per million input/output tokens — roughly a 90% cut from their predecessors. Both labs are explicitly selling efficiency, not raw intelligence; both product lines now read as a three-tier structure (cheap workhorse, mid generalist, expensive reasoning specialist). Model unit costs have been dropping sharply every few months for two years.",
+              why: "Any AI business case built on unit costs from six months ago is stale — recalculate cost assumptions with current prices and re-run the math quarterly.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "Shattered.io · article", url: "https://shattered.io/what-changed-in-october-2026-two-new-model-families-one-week-apart/" }
+              ]
+            },
+            {
+              headline: "Germany signs on to sovereign industrial AI with NVIDIA",
+              synopsis: "On October 19, German Chancellor Friedrich Merz met Jensen Huang in Berlin; Germany's economics ministry signed an MoU with NVIDIA to push AI adoption across German industry, with Merz appealing directly to the Mittelstand to put production data to work. NVIDIA is committing nearly $10B to companies, universities and research institutes across Europe, including investments in four German startups (Agile Robots, Avelios Medical, Mirelo, Reflex Aerospace). The keynote agenda centers sovereign AI, AI factories, and “physical AI” — the two-factories framing (one producing goods, one producing intelligence).",
+              why: "The sovereign-AI playbook is becoming concrete — public policy + industrial data + compute supply — and every bank's tech strategy must answer where its own AI infrastructure lives and who controls it.",
+              topics: ["Innovation"],
+              sources: [
+                { name: "madrobot.blog · article", url: "https://madrobot.blog/2026/10/20/germany-nvidia-industrial-ai-deal-merz-jensen-huang-physical-ai/" },
+                { name: "Crypto Briefing · article", url: "https://cryptobriefing.com/nvidia-jensen-huang-gtc-berlin-keynote/" }
+              ]
+            }
+          ]
+        },
+        {
+          date: "Tuesday, October 20, 2026",
+          stories: [
+            {
+              headline: "Big banks lock outside AI agents out of your money",
+              synopsis: "Between October 13–17, JPMorgan Chase, Bank of America, Citigroup and Charles Schwab each barred outside AI agents from logging into customer accounts or moving money; read-only access via approved open-banking connectors still works. On JPMorgan's Q3 earnings call, CEO Jamie Dimon warned of “rogue agents,” and JPMorgan's updated digital agreement makes customers liable for anything an agent does with their login. The bank is meanwhile piloting its own agent, Smart Cash, and spending roughly $700M a year on AI.",
+              why: "This is the agent-permission architecture dev teams now have to design for — delegated identity, no credential sharing, a human approving money movement.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "PYMNTS", url: "https://www.pymnts.com/news/artificial-intelligence/2026/jamie-dimon-slams-the-door-on-rogue-ai-agents/" }
+              ]
+            },
+            {
+              headline: "Proof-of-human arrives in banking",
+              synopsis: "On October 18 at Money20/20, World — the identity network co-founded by Sam Altman — launched World ID for banking and finance: an identity wallet of verified proofs, a Zoom integration that confirms you're talking to a real human rather than a deepfake, and an agent kit for delegated proofs. It lands as deepfake fraud escalates — The Banker reports a €120M fraud spree across three Italian lenders, and INTERPOL is running a public-awareness campaign on AI voice and video scams.",
+              why: "“Who proves the human” is becoming a product category — expect identity-verification budgets and out-of-band approvals for large transfers on IT roadmaps.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "Blockchain Reporter", url: "https://blockchainreporter.net/world-targets-banks-with-new-world-id-suite-to-combat-deepfake-fraud/" },
+                { name: "FinCrime Central", url: "https://fincrimecentral.com/interpol-ai-deepfake-scams-fraud-warning-2026/" }
+              ]
+            },
+            {
+              headline: "Your data foundation needs receipts",
+              synopsis: "A Banking 4.0 analysis echoing Deloitte's 2026 outlook finds AI implementation “often throttled by brittle and fragmented data foundations”: over 90% of bank data users say needed data is often unavailable or too slow, 81% name data quality a top challenge, and Gartner expects 40%+ of agentic AI projects cancelled by end of 2027. The quotable line: “we have improved data quality” is an opinion, not an acceptance criterion.",
+              why: "The sentence to bring into the room — demand measurable data-readiness evidence before signing off on any agentic AI proposal.",
+              topics: ["CIO & enterprise IT trends"],
+              sources: [
+                { name: "Banking 4.0", url: "https://banking40.ro/ai-data-readiness-in-banking-proof-beats-good-intentions/" },
+                { name: "The Banker", url: "https://www.thebanker.com/content/90f91fee-e552-423e-9302-75eb726a47ef" }
+              ]
+            },
+            {
+              headline: "RBC is going quantum",
+              synopsis: "On September 28, RBC appointed Elizabeth Iwasawa as director of quantum, announced multiyear partnerships with the University of Waterloo's Institute for Quantum Computing and the University of Toronto, and is training staff with Xanadu. The plan covers post-quantum cryptography and quantum key distribution for client data; RBC also invested in a CAD $180M Photonic financing round and posted record Q3 earnings of CAD $6B, up 11% year over year.",
+              why: "Post-quantum cryptography is a long-horizon item that will eventually land on every bank's security roadmap — and RBC is moving first.",
+              topics: ["Canadian banking tech — open banking, payments & tokenization"],
+              sources: [
+                { name: "Ad Hoc News", url: "https://www.ad-hoc-news.de/boerse/corporate-news/rbc-launches-quantum-strategy-what-it-means-for-royal-bank-of-canada/70371851" }
+              ]
+            },
+            {
+              headline: "The tech selloff gives the ROI argument teeth",
+              synopsis: "On October 16, US tech stocks erased more than $1 trillion in value — the Nasdaq-100 fell 2.5% in its worst week since June and the Philadelphia Semiconductor Index posted eight straight down days, its longest losing streak since 2008. UBS still forecasts $900B in AI-related spending in 2026, but RBC Capital Markets downgraded tech to market weight amid AI-spend anxiety.",
+              why: "Market evidence for the “prove it moves a KPI” era — it strengthens the case for small, cheap, measurable AI pilots over big bets.",
+              topics: ["CIO & enterprise IT trends"],
+              sources: [
+                { name: "BeInSure", url: "https://beinsure.com/news/tech-stocks-forecast-ubs-sees-ai-upside-as-rbc-turns-cautious/" }
+              ]
+            },
+            {
+              headline: "A different kind of AI model: Mercury 3 and the speed play",
+              synopsis: "Inception Labs launched Mercury 3 on October 19 — a diffusion-based language model (it generates text in parallel rather than token-by-token) claiming roughly 1,068 tokens per second, aimed at real-time agents and voice apps. It lands in one of the busiest model months of the year, alongside Mistral Large 4, Google's Gemini 4 Argon and Anthropic's Claude Haiku 5.5 (vendor speed figures; independent benchmarks pending).",
+              why: "Architecture diversity is back. Speed-first models open latency-sensitive use cases — real-time fraud interdiction, contact-centre agents — that slow frontier models can't serve.",
+              topics: ["AI — anything new or relevant in any industry or company"],
+              sources: [
+                { name: "TrendInTech", url: "https://trendintech.com/inception-labs-mercury-3-diffusion-llm-2026/" }
+              ]
+            },
+            {
+              headline: "Simulate first, then automate: NVIDIA and Siemens' factory numbers",
+              synopsis: "NVIDIA and Siemens reported results from the autonomous Erlangen electronics plant (announced October 19), built digital-twin-first: virtual production ramp-ups cut engineering effort by up to 85%, AI agent-based production planning saves up to 20%, circuit-board time-to-market is down 40%, and the plant records ~7% annual productivity gains. Honest caveat: the figures are vendor-reported and depend on how faithfully the digital twin matches the physical plant.",
+              why: "“Pilot it in the twin before you touch production” is a transferable process pattern — and the claim-vs-caveat structure is a good template for scrutinizing any vendor's ROI slide.",
+              topics: ["Process improvements"],
+              sources: [
+                { name: "Tech Times", url: "https://www.techtimes.com/articles/329237/20261020/nvidia-siemens-prove-autonomous-factory-ai-needs-no-prototypes-erlangen-engineering-down-85.htm" }
+              ]
+            },
+            {
+              headline: "Act before the stockout: two moves deliver most of the gain",
+              synopsis: "Unilog.SC's October 2026 supply-chain research found most interventions happen after a stockout, even when the control tower saw it coming. In simulation, two pre-emptive moves delivered most of the improvement — transferring parts between local warehouses before a shortage (+~3 points same-day fill) and shipping early from the central warehouse (+~4 points) — and roughly 30% of local transfers produced 80% of the benefit. Triggering purchasing from the returns/repair loop also helped at negligible cost.",
+              why: "The pattern generalizes to any operations queue, including IT incidents: intervene before the failure, closest to the customer, and keep a short owned decision list instead of drowning in alerts.",
+              topics: ["Process improvements"],
+              sources: [
+                { name: "GlobeNewswire", url: "https://www.globenewswire.com/news-release/2026/10/20/3384486/0/en/unilog-sc-publishes-october-2026-industry-research-report-examining-how-supply-chain-teams-can-turn-thousands-of-alerts-into-action-to-prevent-downtime.html" }
+              ]
+            },
+            {
+              headline: "Watch: AI at scale — agent pricing, security and agentic banking",
+              synopsis: "A Seattle Data AI & Security October Speaker Series session (October 8) with enterprise practitioners on moving AI agents from experimentation to production — managing cost, security, trust and business value — including a segment on preparing financial institutions for autonomous agents.",
+              why: "Practitioner-grade detail on the exact problem from this morning's first story: what it takes to run agents in production at a bank.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "YouTube · video", url: "https://www.youtube.com/watch?v=xJPrZigsWYg" }
+              ]
+            },
+            {
+              headline: "Watch: the first Agent Engineering conference",
+              synopsis: "On October 16, London hosted the first Agent Engineering conference — a practitioners' day on how production AI agents are actually built: memory, inference, security, evaluation, coding agents, protocols and context engineering, with speakers from AI labs and financial institutions. Session videos are embedded in the recap.",
+              why: "Agent engineering is becoming its own discipline with its own practices — directly relevant to how an app-dev team structures agent work.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "Superagentic recap · video", url: "https://shashikantjagtap.net/superagentic-ai-organised-the-first-agent-engineering-conference-in-london/" }
+              ]
+            }
+          ],
+          note: "Worth watching tomorrow (Oct 21): Jensen Huang's NVIDIA GTC Berlin keynote streams free — agentic AI, AI factories and sovereign AI on the agenda."
+        },
+        {
+          date: "Monday, October 19, 2026",
+          stories: [
+            {
+              headline: "2026 Evident AI Index: JPMorgan #1, RBC #3",
+              synopsis: "Evident's 2026 AI Index (Oct 6) ranks JPMorganChase first for the fifth straight year, Capital One second and RBC third, with TD entering at #10. Banking AI adoption accelerated nearly 3× — average scores up 26% — yet only 12 of 50 banks disclose realized financial returns from AI. RBC is targeting $700M–$1B in enterprise value from AI by 2027.",
+              why: "The gap between AI activity and AI returns is the story — partners will increasingly ask for ROI evidence, not demos.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "Investment Executive", url: "https://www.investmentexecutive.com/industry-news/rbc-td-rank-among-top-10-banks-for-ai-maturity/" },
+                { name: "Finance Connect", url: "https://finance-connect.com/evident-ai-index-2026-reveals-accelerating-ai-adoption-across-global-banks/" }
+              ]
+            },
+            {
+              headline: "AI governance moves into the platform",
+              synopsis: "Governance talent at the top-50 banks grew 33% year over year, and leading banks are defining guardrails once and embedding them into enterprise AI platforms rather than policing projects one by one. More than half of banking IT executives expect AI agents embedded in risk, compliance and audit functions.",
+              why: "Governance is becoming a platform feature — the teams that build shared guardrails in will move faster than those bolting them on.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "Finance Connect", url: "https://finance-connect.com/evident-ai-index-2026-reveals-accelerating-ai-adoption-across-global-banks/" }
+              ]
+            },
+            {
+              headline: "Big Six jointly explore tokenized deposits",
+              synopsis: "On September 22, Canada's Big Six banks (BMO, CIBC, National Bank, RBC, Scotiabank, TD) announced they are jointly exploring a Canadian-dollar tokenized deposit system for faster, programmable, 24/7 payments, starting with interbank movement. OSFI clarified on September 10 that tokenized deposits are legally no different from traditional deposits. The initiative builds on the Bank of Canada's Project Samara work.",
+              why: "Programmable money is coming to Canadian banking rails — and it's being built cooperatively, inside the regulated system, as a stablecoin defence.",
+              topics: ["Canadian banking tech — open banking, payments & tokenization"],
+              sources: [
+                { name: "Tech Times", url: "https://www.techtimes.com/articles/327948/20260923/tokenized-deposits-canada-big-six-banks-build-stablecoin-defense-shared-blockchain.htm" },
+                { name: "Blockchain.News", url: "https://blockchain.news/news/canadian-banks-advance-tokenized-deposit-initiatives" }
+              ]
+            },
+            {
+              headline: "Open banking is law — implementation is the clock now",
+              synopsis: "Canada's Consumer-Driven Banking Act received Royal Assent on March 26 via Bill C-15, making open banking law. Read access is expected late 2026–2027 with payment (write) access later; the Bank of Canada will accredit participants and run a public registry, and screen scraping is banned. Awareness is low — 82% of small business owners haven't heard of it.",
+              why: "Accreditation, consent and API readiness are now delivery items with a regulator behind them, not roadmap aspirations.",
+              topics: ["Canadian banking tech — open banking, payments & tokenization"],
+              sources: [
+                { name: "Business Wire", url: "https://www.businesswire.com/news/home/20260327001766/en/FDATA-Welcomes-Royal-Assent-of-Bill-C-15-Advancing-Canadas-Open-Banking-Framework" },
+                { name: "Ozone API", url: "https://ozoneapi.com/blog/canadas-consumer-driven-banking-act-is-now-law-what-it-means-whats-still-missing-and-what-banks-should-do-next/" }
+              ]
+            },
+            {
+              headline: "CIO agenda 2026: operationalizing AI",
+              synopsis: "“Operationalizing AI” is now the #2 CIO priority, with two-thirds of CIOs investing in AI/ML. IDC's 2026 outlook expects 70% of organizations to adopt “composite AI” — blending generative, predictive, prescriptive and agentic techniques — as explainability and reliability demands rise.",
+              why: "The discipline that wins is unglamorous: start small, prove ROI, then scale. Composite AI is the architecture pattern to know.",
+              topics: ["CIO & enterprise IT trends"],
+              sources: [
+                { name: "IDC", url: "https://www.idc.com/resource-center/blog/three-forces-shaping-the-future-of-it-leaderships/" }
+              ]
+            },
+            {
+              headline: "Agentic coding goes mainstream",
+              synopsis: "AI coding agents that plan, edit and test across whole codebases have moved from novelty to standard tooling. Anthropic's Claude Code — a terminal-native agent that works directly in a developer's environment — is the standout, and Anthropic ran a “Claude Code: Foundations” webinar on October 20 covering exactly this workflow.",
+              why: "Directly applicable to application development teams — agentic coding changes how dev work is planned, reviewed and shipped.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "LOW/CODE guide", url: "https://www.lowcode.agency/blog/what-is-claude-code" }
+              ]
+            }
+          ]
+        }
+      ];
+
+      // Collapse state per edition, keyed by date. The newest edition starts
+      // expanded; older ones start collapsed so the page stays short.
+      var collapsedEditions = {};
+      EDITIONS.forEach(function (edition, i) { collapsedEditions[edition.date] = i !== 0; });
+
+      function el(tag, className, text) {
+        var node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text != null) node.textContent = text;
+        return node;
+      }
+
+      function renderChips() {
+        var row = document.getElementById("chip-row");
+        row.textContent = "";
+        TOPICS.forEach(function (topic) {
+          row.appendChild(el("span", "chip", topic));
+        });
+      }
+
+      function renderEditions() {
+        var main = document.getElementById("editions");
+        main.textContent = "";
+
+        var controls = el("div", "edition-controls");
+        var expandBtn = el("button", null, "Expand all");
+        expandBtn.type = "button";
+        expandBtn.addEventListener("click", function () {
+          EDITIONS.forEach(function (edition) { collapsedEditions[edition.date] = false; });
+          renderEditions();
+          var btns = document.querySelectorAll(".edition-controls button");
+          if (btns[0]) btns[0].focus();
+        });
+        var collapseBtn = el("button", null, "Collapse all");
+        collapseBtn.type = "button";
+        collapseBtn.addEventListener("click", function () {
+          EDITIONS.forEach(function (edition) { collapsedEditions[edition.date] = true; });
+          renderEditions();
+          var btns = document.querySelectorAll(".edition-controls button");
+          if (btns[1]) btns[1].focus();
+        });
+        controls.appendChild(expandBtn);
+        controls.appendChild(collapseBtn);
+        main.appendChild(controls);
+
+        EDITIONS.forEach(function (edition, idx) {
+          var isCollapsed = collapsedEditions[edition.date] === true;
+          var section = el("section", "edition" + (isCollapsed ? " collapsed" : ""));
+
+          var head = el("div", "edition-head" + (isCollapsed ? " collapsed" : ""));
+          var toggle = el("button", "edition-toggle");
+          toggle.type = "button";
+          toggle.setAttribute("aria-expanded", isCollapsed ? "false" : "true");
+          toggle.setAttribute("aria-controls", "edition-body-" + idx);
+          var chevron = el("span", "chevron");
+          chevron.setAttribute("aria-hidden", "true");
+          toggle.appendChild(chevron);
+          toggle.appendChild(el("h2", null, edition.date));
+          toggle.addEventListener("click", function () {
+            collapsedEditions[edition.date] = !collapsedEditions[edition.date];
+            renderEditions();
+            var toggles = document.querySelectorAll(".edition-toggle");
+            if (toggles[idx]) toggles[idx].focus();
+          });
+          head.appendChild(toggle);
+          head.appendChild(el("span", "count",
+            edition.stories.length + (edition.stories.length === 1 ? " story" : " stories")));
+          section.appendChild(head);
+
+          var body = el("div", "edition-body");
+          body.id = "edition-body-" + idx;
+          if (isCollapsed) body.hidden = true;
+
+          if (edition.stories.length === 0) {
+            body.appendChild(el("p", "edition-empty", "No stories in this edition yet."));
+          } else {
+            edition.stories.forEach(function (story, sIdx) {
+              var card = el("article", "story");
+
+              var tags = el("div", "tags");
+              tags.appendChild(el("span", "story-num", (sIdx + 1) + "."));
+              story.topics.forEach(function (t) { tags.appendChild(el("span", "tag", t)); });
+              card.appendChild(tags);
+
+              card.appendChild(el("h3", null, story.headline));
+              card.appendChild(el("p", "synopsis", story.synopsis));
+
+              var why = el("p", "why");
+              var strong = el("strong", null, "Why it matters: ");
+              why.appendChild(strong);
+              why.appendChild(document.createTextNode(story.why));
+              card.appendChild(why);
+
+              var sources = el("div", "sources");
+              story.sources.forEach(function (src) {
+                var a = document.createElement("a");
+                a.href = src.url;
+                a.target = "_blank";
+                a.rel = "noopener noreferrer";
+                a.textContent = src.name;
+                var arrow = el("span", "arrow", "↗");
+                arrow.setAttribute("aria-hidden", "true");
+                a.appendChild(arrow);
+                sources.appendChild(a);
+              });
+              card.appendChild(sources);
+
+              body.appendChild(card);
+            });
+          }
+
+          if (edition.note) {
+            body.appendChild(el("p", "edition-note", edition.note));
+          }
+          section.appendChild(body);
+          main.appendChild(section);
+        });
+      }
+
+      renderChips();
+      renderEditions();
+    </script>
+  </body>
+</html>
