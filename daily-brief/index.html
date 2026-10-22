@@ -103,6 +103,115 @@
         max-width: 36em;
       }
 
+      /* Search */
+      .search { margin-top: 22px; }
+      .search label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--ink-soft);
+        margin-bottom: 8px;
+      }
+      .search-row { display: flex; gap: 8px; }
+      .search input {
+        flex: 1 1 auto;
+        min-width: 0;
+        font: inherit;
+        font-size: 16px;
+        color: var(--ink);
+        background: var(--surface);
+        border: 1px solid var(--chip-border);
+        border-radius: 10px;
+        padding: 11px 14px;
+      }
+      .search input::placeholder { color: var(--ink-faint); }
+      .search input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+      .search .clear-btn {
+        flex: none;
+        font: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 10px 16px;
+        border-radius: 10px;
+        border: 1px solid var(--chip-border);
+        background: var(--chip-bg);
+        color: var(--ink-soft);
+        cursor: pointer;
+      }
+      .search .clear-btn:hover { color: var(--ink); border-color: var(--ink-faint); }
+      .search .clear-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+      .search .clear-btn[hidden] { display: none; }
+
+      /* Search results */
+      .search-results { margin-bottom: 40px; }
+      .results-count {
+        font-size: 15.5px;
+        font-weight: 600;
+        color: var(--ink-soft);
+        margin: 0 0 14px;
+      }
+      .results-list { list-style: none; margin: 0; padding: 0; }
+      .result-item { margin-bottom: 12px; }
+      .result-btn {
+        display: block;
+        width: 100%;
+        text-align: left;
+        font: inherit;
+        color: inherit;
+        background: var(--surface);
+        border: 1px solid var(--rule);
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        padding: 18px 20px 14px;
+        cursor: pointer;
+      }
+      .result-btn:hover { border-color: var(--ink-faint); }
+      .result-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+      .result-date {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ink-faint);
+        margin-bottom: 6px;
+      }
+      .result-headline {
+        display: block;
+        font-family: "Newsreader", Georgia, serif;
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 1.25;
+        margin-bottom: 8px;
+      }
+      .result-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+      .result-tags .tag {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        background: var(--tag-bg);
+        color: var(--tag-ink);
+        border-radius: 999px;
+        padding: 3px 10px;
+      }
+      .result-excerpt { display: block; font-size: 15px; color: var(--ink-soft); }
+      .results-empty {
+        background: var(--surface);
+        border: 1px dashed var(--chip-border);
+        border-radius: 12px;
+        padding: 20px 22px;
+        font-size: 15.5px;
+        color: var(--ink-soft);
+        margin: 0;
+      }
+      .story { scroll-margin-top: 24px; }
+      .story.flash { outline: 2px solid var(--accent); outline-offset: 3px; animation: story-flash 1.8s ease; }
+      @keyframes story-flash {
+        0% { background: var(--tag-bg); }
+        100% { background: var(--surface); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .story.flash { animation: none; }
+      }
+
       /* Topics */
       .topics {
         background: var(--surface);
@@ -346,6 +455,14 @@
         <h1>10 for 10</h1>
         <p class="tagline">10 hours of the latest content in under 10 minutes.</p>
         <p class="descriptor">A daily briefing on IT, AI and banking — the key stories, why they matter, and links to the source material.</p>
+        <form class="search" id="search-form" role="search">
+          <label for="search-input">Search past editions</label>
+          <div class="search-row">
+            <input id="search-input" type="search" autocomplete="off" spellcheck="false"
+              placeholder="Try 'quantum', 'open banking', 'NVIDIA'…" />
+            <button type="button" class="clear-btn" id="search-clear" hidden>Clear</button>
+          </div>
+        </form>
       </header>
 
       <section class="topics" aria-labelledby="topics-heading">
@@ -356,6 +473,12 @@
         </p>
         <div class="chip-row" id="chip-row"></div>
         <p class="fineprint">Want a topic added or dropped? Mention it and the brief will follow.</p>
+      </section>
+
+      <section class="search-results" id="search-results" aria-labelledby="results-count" hidden>
+        <p class="results-count" id="results-count" aria-live="polite"></p>
+        <ul class="results-list" id="results-list"></ul>
+        <p class="results-empty" id="results-empty" hidden></p>
       </section>
 
       <main id="editions"></main>
@@ -737,6 +860,150 @@
 
       renderChips();
       renderEditions();
+
+      // ---- Search ----
+      // The index is built at runtime from the story cards already rendered
+      // in the DOM, so editions added later in the same card format become
+      // searchable with no further code changes.
+      var searchForm = document.getElementById("search-form");
+      var searchInput = document.getElementById("search-input");
+      var searchClear = document.getElementById("search-clear");
+      var resultsSection = document.getElementById("search-results");
+      var resultsCount = document.getElementById("results-count");
+      var resultsList = document.getElementById("results-list");
+      var resultsEmpty = document.getElementById("results-empty");
+      var editionsMain = document.getElementById("editions");
+
+      function buildIndex() {
+        var index = [];
+        var sections = editionsMain.querySelectorAll(".edition");
+        Array.prototype.forEach.call(sections, function (section, editionIdx) {
+          var dateNode = section.querySelector(".edition-head h2");
+          var date = dateNode ? dateNode.textContent : "";
+          var cards = section.querySelectorAll(".story");
+          Array.prototype.forEach.call(cards, function (card, storyIdx) {
+            var headlineNode = card.querySelector("h3");
+            var synopsisNode = card.querySelector(".synopsis");
+            var whyNode = card.querySelector(".why");
+            var tagTexts = [];
+            Array.prototype.forEach.call(card.querySelectorAll(".tag"), function (t) {
+              tagTexts.push(t.textContent);
+            });
+            var sourceTexts = [];
+            Array.prototype.forEach.call(card.querySelectorAll(".sources a"), function (a) {
+              sourceTexts.push(a.textContent.replace(/↗/g, "").trim());
+            });
+            var parts = [date, headlineNode ? headlineNode.textContent : ""]
+              .concat(tagTexts)
+              .concat([
+                synopsisNode ? synopsisNode.textContent : "",
+                whyNode ? whyNode.textContent : ""
+              ])
+              .concat(sourceTexts);
+            index.push({
+              editionIdx: editionIdx,
+              storyIdx: storyIdx,
+              date: date,
+              headline: headlineNode ? headlineNode.textContent : "",
+              tags: tagTexts,
+              synopsis: synopsisNode ? synopsisNode.textContent : "",
+              text: parts.join(" ").toLowerCase()
+            });
+          });
+        });
+        return index;
+      }
+
+      function showEditionsView() {
+        resultsSection.hidden = true;
+        editionsMain.hidden = false;
+      }
+
+      function runSearch() {
+        var query = searchInput.value.trim();
+        searchClear.hidden = query === "";
+        if (query === "") {
+          showEditionsView();
+          resultsCount.textContent = "";
+          return;
+        }
+        var words = query.toLowerCase().split(/\s+/);
+        var matches = buildIndex().filter(function (entry) {
+          return words.every(function (w) { return entry.text.indexOf(w) !== -1; });
+        });
+
+        editionsMain.hidden = true;
+        resultsSection.hidden = false;
+        resultsList.textContent = "";
+
+        if (matches.length === 0) {
+          resultsCount.textContent = "No stories match '" + query + "'";
+          resultsEmpty.textContent = "No stories match '" + query + "' yet — the brief grows every morning, so it may show up in a future edition.";
+          resultsEmpty.hidden = false;
+          return;
+        }
+        resultsEmpty.hidden = true;
+        resultsCount.textContent = matches.length +
+          (matches.length === 1 ? " story matches '" : " stories match '") + query + "'";
+
+        matches.forEach(function (entry) {
+          var item = el("li", "result-item");
+          var btn = el("button", "result-btn");
+          btn.type = "button";
+          btn.appendChild(el("span", "result-date", entry.date));
+          btn.appendChild(el("span", "result-headline", entry.headline));
+          if (entry.tags.length) {
+            var tagRow = el("span", "result-tags");
+            entry.tags.forEach(function (t) { tagRow.appendChild(el("span", "tag", t)); });
+            btn.appendChild(tagRow);
+          }
+          var excerpt = entry.synopsis.length > 240
+            ? entry.synopsis.slice(0, 240).trimEnd() + "…"
+            : entry.synopsis;
+          btn.appendChild(el("span", "result-excerpt", excerpt));
+          btn.addEventListener("click", function () { goToStory(entry); });
+          item.appendChild(btn);
+          resultsList.appendChild(item);
+        });
+      }
+
+      function clearSearch(returnFocus) {
+        searchInput.value = "";
+        searchClear.hidden = true;
+        resultsCount.textContent = "";
+        showEditionsView();
+        if (returnFocus) searchInput.focus();
+      }
+
+      function goToStory(entry) {
+        clearSearch(false);
+        collapsedEditions[entry.date] = false;
+        renderEditions();
+        var sections = editionsMain.querySelectorAll(".edition");
+        var section = sections[entry.editionIdx];
+        if (!section) return;
+        var card = section.querySelectorAll(".story")[entry.storyIdx];
+        if (!card) return;
+        var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        card.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+        card.classList.add("flash");
+        card.setAttribute("tabindex", "-1");
+        card.focus({ preventScroll: true });
+        setTimeout(function () { card.classList.remove("flash"); }, reduceMotion ? 2600 : 1900);
+      }
+
+      searchInput.addEventListener("input", runSearch);
+      searchInput.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && searchInput.value !== "") {
+          event.preventDefault();
+          clearSearch(true);
+        }
+      });
+      searchForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        runSearch();
+      });
+      searchClear.addEventListener("click", function () { clearSearch(true); });
     </script>
   </body>
 </html>
