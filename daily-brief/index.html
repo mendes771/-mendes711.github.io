@@ -452,7 +452,7 @@
         {
           date: "Thursday, October 22, 2026",
           audio: [
-            { label: "Listen to this edition · 7:20", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-10-22.mp3" }
+            { label: "Listen to this edition · 9:10", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-10-22.mp3" }
           ],
           stories: [
             {
@@ -508,6 +508,16 @@
               topics: ["AI-assisted application development"],
               sources: [
                 { name: "TrendInTech · article", url: "https://trendintech.com/microsoft-scope-open-source-ai-coding-agent-testing-2026/" }
+              ]
+            },
+            {
+              headline: "php2shell: critical PHP flaws allow unauthenticated remote code execution",
+              synopsis: "Two critical flaws in the PHP interpreter itself — CVE-2026-109618 and CVE-2026-109619, dubbed “php2shell” — allow unauthenticated remote code execution, both rated CVSS 9.2. Details leaked on October 20, ahead of the fix; PHP released patched versions (8.5.12, 8.4.27, 8.3.36, 8.2.35) on October 21, and Wiz says every PHP version back to 5.4 is affected by at least one flaw, with exploitation already underway. PHP 8.1 and older receive no fix and need a version upgrade instead.",
+              why: "The patch is the runtime, not the app — any team running PHP services needs to know which versions are internet-facing and patch or upgrade today.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "Censys advisory · article", url: "https://censys.com/advisory/cve-2026-109618-cve-2026-109619/" },
+                { name: "Patchstack · article", url: "https://patchstack.com/articles/php-major-vulnerability-alert-10-2026/" }
               ]
             },
             {
