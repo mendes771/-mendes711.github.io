@@ -62,13 +62,13 @@
         line-height: 1.45;
         -webkit-font-smoothing: antialiased;
       }
-      .wrap { max-width: 1180px; margin: 0 auto; padding: 20px 16px 28px; }
+      .wrap { max-width: 1180px; margin: 0 auto; padding: 12px 12px 20px; }
 
       header.topbar {
-        display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px 20px;
-        margin-bottom: 16px;
+        display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px 16px;
+        margin-bottom: 10px;
       }
-      .title-block h1 { margin: 0; font-size: 30px; letter-spacing: -0.5px; font-weight: 800; }
+      .title-block h1 { margin: 0; font-size: 26px; letter-spacing: -0.5px; font-weight: 800; }
       .title-block p { margin: 2px 0 0; color: var(--muted); font-size: 15px; font-weight: 500; }
       .top-actions { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
 
@@ -84,21 +84,18 @@
         font: inherit; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--panel-border);
         background: var(--panel); color: var(--text); font-weight: 600; font-size: 14px;
       }
-      label.field { display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 700;
+      label.field { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700;
         text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); }
       label.field select { text-transform: none; letter-spacing: 0; }
 
       .setup-bar {
-        display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end;
+        display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
         background: var(--panel); border: 1px solid var(--panel-border); border-radius: 12px;
-        padding: 12px 16px; box-shadow: var(--shadow); margin-bottom: 16px;
+        padding: 8px 12px; box-shadow: var(--shadow); margin-bottom: 10px;
       }
-      .segmented { display: flex; border: 1px solid var(--panel-border); border-radius: 8px; overflow: hidden; }
-      .segmented button { border: 0; border-radius: 0; padding: 8px 12px; background: var(--panel); }
-      .segmented button.on { background: var(--accent); color: var(--accent-text); }
       .setup-bar .spacer { flex: 1; }
 
-      .layout { display: flex; gap: 18px; align-items: flex-start; }
+      .layout { display: flex; gap: 14px; align-items: flex-start; }
       .board-col { flex: 0 1 600px; min-width: 0; }
       .side-col { flex: 1 1 340px; min-width: 300px; display: flex; flex-direction: column; gap: 16px; }
 
@@ -111,10 +108,10 @@
         letter-spacing: 0.6px; color: var(--muted); }
 
       /* Scoreboard */
-      .scoreboard { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
+      .scoreboard { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 8px; }
       .score-card {
         background: var(--panel); border: 1px solid var(--panel-border); border-radius: 10px;
-        padding: 9px 11px; box-shadow: var(--shadow); position: relative;
+        padding: 7px 9px; box-shadow: var(--shadow); position: relative;
       }
       .score-card.active { outline: 2px solid var(--text); outline-offset: 0; }
       .score-card .who { display: flex; align-items: center; gap: 7px; font-weight: 700; font-size: 14px; }
@@ -128,14 +125,14 @@
         color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
       .turn-banner {
-        border-radius: 10px; padding: 10px 14px; font-weight: 600; font-size: 15px; margin-bottom: 12px;
-        background: var(--soft); border: 1px solid var(--panel-border); min-height: 44px;
+        border-radius: 10px; padding: 7px 12px; font-weight: 600; font-size: 14px; margin-bottom: 8px;
+        background: var(--soft); border: 1px solid var(--panel-border); min-height: 36px;
         display: flex; align-items: center; gap: 8px;
       }
 
       /* Board */
       .board-frame {
-        background: var(--board-frame); border-radius: 14px; padding: 10px; box-shadow: var(--shadow);
+        background: var(--board-frame); border-radius: 14px; padding: 6px; box-shadow: var(--shadow);
       }
       .board {
         display: grid; grid-template-columns: repeat(20, 1fr); gap: 1.5px;
@@ -168,7 +165,7 @@
       /* Tray */
       .tray-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
       .tray-head .who { font-weight: 700; font-size: 15px; }
-      .tray-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(56px, 1fr)); gap: 7px; margin-top: 10px; }
+      .tray-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 6px; margin-top: 8px; }
       .piece-btn {
         padding: 6px 4px; display: flex; flex-direction: column; align-items: center; gap: 3px;
         border-radius: 9px; background: var(--panel);
@@ -181,17 +178,9 @@
       .mini i.on.c0 { background: var(--p0); } .mini i.on.c1 { background: var(--p1); }
       .mini i.on.c2 { background: var(--p2); } .mini i.on.c3 { background: var(--p3); }
 
-      .sel-preview { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 12px;
-        background: var(--soft); border: 1px solid var(--panel-border); border-radius: 10px; padding: 10px 12px; }
-      .sel-preview .big { display: grid; gap: 2px; }
-      .sel-preview .big i { width: 16px; height: 16px; border-radius: 2px; display: block; }
-      .sel-preview .big i.on.c0 { background: var(--p0); } .sel-preview .big i.on.c1 { background: var(--p1); }
-      .sel-preview .big i.on.c2 { background: var(--p2); } .sel-preview .big i.on.c3 { background: var(--p3); }
-      .sel-actions { display: flex; flex-direction: column; gap: 6px; }
-      .sel-actions .row { display: flex; gap: 6px; flex-wrap: wrap; }
-      .sel-name { font-weight: 700; font-size: 14px; }
-      .sel-status { font-size: 13px; color: var(--muted); max-width: 420px; }
-      .key-hint { font-size: 11.5px; color: var(--muted); }
+      /* Controls row — the only controls, directly under the board */
+      .controls-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+      .controls-row button { flex: 1 1 auto; padding: 9px 8px; font-size: 13.5px; white-space: nowrap; }
       .coach-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
       .coach-head h2 { margin: 0; }
 
@@ -209,7 +198,7 @@
       /* Cheat Mode */
       .cheat-bar {
         background: var(--panel); border: 1px solid var(--panel-border); border-radius: 12px;
-        padding: 12px 16px; box-shadow: var(--shadow); margin-bottom: 16px;
+        padding: 10px 12px; box-shadow: var(--shadow); margin-bottom: 10px;
       }
       .cheat-head h2 { margin: 0; font-size: 17px; font-weight: 800; }
       .cheat-sub { color: var(--muted); font-size: 13.5px; }
@@ -259,11 +248,16 @@
         <div class="top-actions">
           <button id="btn-cheat" type="button">Cheat Mode</button>
           <button id="btn-rules" type="button">Rules</button>
-          <button id="btn-new-top" class="primary" type="button">New Game</button>
         </div>
       </header>
 
       <div class="setup-bar" id="setup-bar">
+        <label class="field">Players
+          <select id="sel-players" aria-label="Number of players">
+            <option value="solo" selected>You vs Computer</option>
+            <option value="duo">2 Players</option>
+          </select>
+        </label>
         <label class="field">Computer level
           <select id="sel-difficulty">
             <option value="casual">Casual</option>
@@ -271,15 +265,8 @@
             <option value="expert">Expert</option>
           </select>
         </label>
-        <label class="field">Players
-          <span class="segmented" role="group" aria-label="Player mode">
-            <button id="mode-solo" class="on" type="button">You vs Computer</button>
-            <button id="mode-duo" type="button">2 Players</button>
-          </span>
-        </label>
         <div class="spacer"></div>
-        <button id="btn-undo" type="button">Undo Move</button>
-        <button id="btn-new" class="primary" type="button">New Game / Restart</button>
+        <button id="btn-new" class="primary" type="button">New Game</button>
       </div>
 
       <div class="cheat-bar" id="cheat-bar" style="display:none;">
@@ -304,32 +291,22 @@
           <div class="board-frame">
             <div class="board" id="board" aria-label="Blokus board"></div>
           </div>
-          <div class="sel-preview" id="sel-preview" style="display:none;margin-top:14px;">
-            <div class="big" id="sel-big"></div>
-            <div class="sel-actions">
-              <span class="sel-name" id="sel-name"></span>
-              <span class="sel-status" id="sel-status"></span>
-              <div class="row">
-                <button id="btn-rotate" type="button">Rotate ⟳</button>
-                <button id="btn-flip" type="button">Flip ⇋</button>
-              </div>
-              <div class="row">
-                <button id="btn-place" class="primary" type="button">Place Piece</button>
-                <button id="btn-place-anyway" type="button" style="display:none;">Place anyway</button>
-                <button id="btn-coach" type="button">Coach — get help</button>
-              </div>
-              <span class="key-hint">Keys: <b>R</b> rotate · <b>F</b> flip · <b>Esc</b> deselect</span>
-            </div>
+          <div class="controls-row" id="controls-row">
+            <button id="btn-place" class="primary" type="button">Place Piece</button>
+            <button id="btn-rotate" type="button">Rotate ⟳</button>
+            <button id="btn-flip" type="button">Flip ⇋</button>
+            <button id="btn-undo" type="button">Undo Move</button>
+            <button id="btn-coach" type="button">Coach — get help</button>
           </div>
-          <section class="panel" id="tray-panel" style="margin-top:14px;">
+          <section class="panel" id="tray-panel" style="margin-top:8px;">
             <div class="tray-head">
               <span class="dot" id="tray-dot"></span>
               <span class="who" id="tray-who">Your pieces</span>
             </div>
-            <p id="tray-help" style="margin:0;color:var(--muted);font-size:13px;">Tap a piece to select it — it appears on the board, ready to position. Use the controls above to move, rotate or flip it, then press Place Piece. Pieces marked “no fit” can't be placed right now.</p>
+            <p id="tray-help" style="margin:0;color:var(--muted);font-size:13px;">Tap a piece and it appears on the board already sitting in a legal spot — just press Place Piece. To move it, tap the board where you'd like it and it snaps to the nearest legal spot; Rotate and Flip re-fit it automatically. Pieces marked “no fit” can't be placed right now.</p>
             <div class="tray-grid" id="tray-grid"></div>
           </section>
-          <div class="rules-body panel" id="rules-panel" style="margin-top:14px;">
+          <div class="rules-body panel" id="rules-panel" style="margin-top:8px;">
             <h2 style="margin-top:0;">How to play</h2>
             <ul>
               <li>Each player starts in a corner: <b>Blue</b> top-left, <b>Yellow</b> top-right, <b>Red</b> bottom-right, <b>Green</b> bottom-left. Your first piece must cover your corner square.</li>
@@ -385,7 +362,7 @@
         <h2>Game over</h2>
         <div class="winner-line" id="winner-line"></div>
         <div class="standings" id="standings"></div>
-        <button class="primary" id="btn-again" type="button" style="width:100%;">Play Again</button>
+        <button class="primary" id="btn-again" type="button" style="width:100%;">Close</button>
       </div>
     </div>
 
@@ -852,59 +829,21 @@
         btn.addEventListener("click", () => selectPiece(pid));
         trayGrid.appendChild(btn);
       }
-      renderSelPreview();
+      updateControls();
     }
-    function renderSelPreview() {
-      const box = $("sel-preview");
-      if (!humans[current] || gameOver) { box.style.display = "none"; return; }
-      box.style.display = "flex";
-      const big = $("sel-big");
-      const status = $("sel-status");
-      if (!sel) {
-        big.innerHTML = "";
-        big.style.gridTemplateColumns = "";
-        $("sel-name").textContent = "No piece selected";
-        status.textContent = "Tap one of your pieces in the tray, then tap the board where it should go. Rotate or flip it to fit, then press Place Piece.";
-        $("btn-rotate").disabled = true;
-        $("btn-flip").disabled = true;
-      } else {
-        $("sel-name").textContent = PIECES[sel.pieceId].name + " (" + PIECES[sel.pieceId].size + " squares)";
-        let w = 0, h = 0;
-        for (const [x, y] of sel.cells) { w = Math.max(w, x + 1); h = Math.max(h, y + 1); }
-        const set = new Set(sel.cells.map(([x, y]) => x + "," + y));
-        big.style.gridTemplateColumns = "repeat(" + w + ",1fr)";
-        big.innerHTML = "";
-        for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
-          const i = document.createElement("i");
-          if (set.has(x + "," + y)) i.className = "on c" + current;
-          big.appendChild(i);
-        }
-        $("btn-rotate").disabled = false;
-        $("btn-flip").disabled = false;
-        if (!sel.anchor) status.textContent = "Tap the board to position this piece — green means the spot is legal, red means it isn't.";
-        else if (sel.legal) status.textContent = "That spot works. Press Place Piece to play it, or keep adjusting first.";
-        else status.textContent = appMode === "cheat"
-          ? "That spot isn't legal (shown red) — adjust it, or use Place anyway if that's how it was really played at the table."
-          : "That spot isn't legal (shown red) — tap another square, or rotate / flip the piece.";
-      }
-      $("btn-place").disabled = !(sel && sel.anchor && sel.legal);
-      $("btn-coach").disabled = busy;
+    // The controls row under the board is always visible; this only keeps
+    // its buttons' enabled state and the coach label in step with the game.
+    // There is no selected-piece status panel any more — a selected piece's
+    // ghost always sits in a legal spot, so the board itself is the feedback.
+    function updateControls() {
+      const canAct = !!humans[current] && !busy && !gameOver;
+      $("btn-place").disabled = !(canAct && sel && sel.legal);
+      $("btn-rotate").disabled = !(canAct && sel);
+      $("btn-flip").disabled = !(canAct && sel);
+      $("btn-undo").disabled = busy || history.length === 0;
+      $("btn-coach").disabled = !canAct;
       $("btn-coach").textContent = coachOpen ? "Hide coach" : "Coach — get help";
       $("btn-coach").style.display = appMode === "cheat" ? "none" : "";
-      // Cheat mode only: an illegal-but-real placement can still be mirrored,
-      // as long as the ghost sits fully on the board on empty squares.
-      $("btn-place-anyway").style.display =
-        appMode === "cheat" && sel && sel.anchor && !sel.legal && ghostFitsBoard() ? "" : "none";
-    }
-    // True when the selected ghost is entirely on-board over empty squares
-    // (it may break corner/edge rules, but it can physically exist).
-    function ghostFitsBoard() {
-      if (!sel || !sel.anchor) return false;
-      for (const [cx, cy] of sel.cells) {
-        const x = sel.anchor.x + cx, y = sel.anchor.y + cy;
-        if (!inB(x, y) || board[idx(x, y)] !== -1) return false;
-      }
-      return true;
     }
     function renderCoach() {
       const bestEl = $("coach-best"), whyEl = $("coach-why");
@@ -943,33 +882,72 @@
       for (const k of rel) if (!shape.has(k)) return false;
       return true;
     }
+    function shapeKey(cells) { return cellsKey(normalize(cells)); }
+    // Centre of the player's existing territory (their corner square before
+    // the first move) — where a freshly selected piece should appear.
+    function territoryTarget(p) {
+      if (!playerCells[p].length) return { x: CORNERS[p][0], y: CORNERS[p][1] };
+      let sx = 0, sy = 0;
+      for (const i of playerCells[p]) { sx += i % N; sy += (i / N) | 0; }
+      return { x: sx / playerCells[p].length, y: sy / playerCells[p].length };
+    }
+    function ghostCentre() {
+      let sx = 0, sy = 0;
+      for (const [cx, cy] of sel.cells) { sx += sel.anchor.x + cx; sy += sel.anchor.y + cy; }
+      return { x: sx / sel.cells.length, y: sy / sel.cells.length };
+    }
+    // The legal placement of piece pid nearest to target (a board point),
+    // preferring the orientation whose shape matches prefKey. Returns
+    // { cells (relative), anchor } or null when the piece fits nowhere.
+    function nearestValidPlacement(pid, target, prefKey) {
+      const moves = enumerateMoves(board, current, [pid]);
+      if (!moves.length) return null;
+      let best = null, bestScore = Infinity;
+      for (const m of moves) {
+        const pts = m.cells.map(i => [i % N, (i / N) | 0]);
+        let mx = Infinity, my = Infinity, cx = 0, cy = 0;
+        for (const [x, y] of pts) { mx = Math.min(mx, x); my = Math.min(my, y); cx += x; cy += y; }
+        cx /= pts.length; cy /= pts.length;
+        const rel = pts.map(([x, y]) => [x - mx, y - my]);
+        const pref = prefKey && shapeKey(rel) === prefKey ? 0 : 1;
+        const d = (cx - target.x) * (cx - target.x) + (cy - target.y) * (cy - target.y);
+        const score = pref * 100000 + d;
+        if (score < bestScore) { bestScore = score; best = { cells: normalize(rel), anchor: { x: mx, y: my } }; }
+      }
+      return best;
+    }
+    // Snap the ghost to the nearest valid placement, preferring the given
+    // orientation. Used after rotate / flip so the ghost is never left
+    // sitting in an illegal spot.
+    function snapSel(preferredCells) {
+      const target = sel.anchor ? ghostCentre() : territoryTarget(current);
+      const nv = nearestValidPlacement(sel.pieceId, target,
+        shapeKey(preferredCells || sel.cells));
+      if (nv) { sel.cells = nv.cells; sel.anchor = nv.anchor; sel.legal = true; }
+      else if (preferredCells) sel.cells = preferredCells;
+    }
+    // Selecting a piece drops its ghost straight into a VALID placement —
+    // the legal spot nearest the player's own territory, in the piece's
+    // natural orientation when one fits there. The player never has to hunt
+    // or flip just to reach a legal spot; Place Piece works immediately.
     function selectPiece(pid) {
       if (!humans[current] || busy || gameOver) return;
       if (appMode === "cheat" && bestPick) clearCheatAdvice();
       bestHighlight = null;
-      sel = { pieceId: pid, cells: PIECES[pid].orientations[0].map(c => [...c]), anchor: null, legal: false };
-      // Show the piece on the board straight away, at its first legal spot in
-      // this orientation, so it can be nudged / rotated / flipped from there.
-      const placements = enumerateMoves(board, current, [pid])
-        .filter(m => orientationMatches(m, sel));
-      if (placements.length) {
-        let mx = Infinity, my = Infinity;
-        for (const i of placements[0].cells) { mx = Math.min(mx, i % N); my = Math.min(my, (i / N) | 0); }
-        sel.anchor = { x: mx, y: my };
-        updateGhostFromAnchor();
-      }
-      computeAnchorGlow();
-      const fits = pieceFit[pid] || 0;
-      if (fits === 0) {
+      if (!(pieceFit[pid] > 0)) {
+        sel = null; anchorGlow = [];
         const alt = bestFittingPiece(current);
-        coachMsg.textContent = "The " + PIECES[pid].name + " has no legal placement right now." +
-          (alt ? " The " + PIECES[alt].name + " still fits — try that one." :
-                 " Keep looking, or ask the coach for the best move.");
-      } else {
-        coachMsg.textContent = "The " + PIECES[pid].name + " can go in " + fits +
-          (fits === 1 ? " spot" : " spots") + " — the glowing squares show where. Rotate or flip to line it up.";
+        setBanner("The " + PIECES[pid].name + " has no legal placement right now." +
+          (alt ? " The " + PIECES[alt].name + " still fits — try that one." : ""));
+        renderBoard(); renderTray();
+        return;
       }
-      renderBoard(); renderTray(); renderCoach(); renderSelPreview();
+      const nv = nearestValidPlacement(pid, territoryTarget(current),
+        shapeKey(PIECES[pid].orientations[0]));
+      if (!nv) { sel = null; renderBoard(); renderTray(); return; }
+      sel = { pieceId: pid, cells: nv.cells, anchor: nv.anchor, legal: true };
+      computeAnchorGlow();
+      renderBoard(); renderTray(); renderCoach();
     }
     function bestFittingPiece(p) {
       let best = null, bestSize = -1;
@@ -980,38 +958,30 @@
     }
     function rotateSel(dir) {
       if (!sel) return;
-      sel.cells = normalize(sel.cells.map(([x, y]) => dir > 0 ? [-y, x] : [y, -x]));
-      updateGhostFromAnchor();
+      const turned = normalize(sel.cells.map(([x, y]) => dir > 0 ? [-y, x] : [y, -x]));
+      snapSel(turned);
       computeAnchorGlow();
-      renderBoard(); renderSelPreview();
+      renderBoard(); updateControls();
     }
     function flipSel() {
       if (!sel) return;
-      sel.cells = normalize(sel.cells.map(([x, y]) => [-x, y]));
-      updateGhostFromAnchor();
+      const flipped = normalize(sel.cells.map(([x, y]) => [-x, y]));
+      snapSel(flipped);
       computeAnchorGlow();
-      renderBoard(); renderSelPreview();
+      renderBoard(); updateControls();
     }
+    // Pointing at the board never leaves the ghost in an invalid spot: it
+    // snaps to the nearest legal placement to the pointed square, keeping
+    // the current orientation when one fits there.
     function ghostAt(x, y) {
       if (!sel) return;
-      const hadAnchor = !!sel.anchor, wasLegal = sel.legal, hadBest = !!bestHighlight;
+      const hadBest = !!bestHighlight;
       bestHighlight = null;
-      sel.anchor = { x, y };
-      updateGhostFromAnchor();
+      const nv = nearestValidPlacement(sel.pieceId, { x, y }, shapeKey(sel.cells));
+      if (nv) { sel.cells = nv.cells; sel.anchor = nv.anchor; sel.legal = true; }
       renderBoard();
-      if (sel.legal !== wasLegal || !hadAnchor) renderSelPreview();
+      updateControls();
       if (hadBest) renderCoach();
-    }
-    function updateGhostFromAnchor() {
-      if (!sel || !sel.anchor) { if (sel) sel.legal = false; return; }
-      const abs = [];
-      let off = false;
-      for (const [cx, cy] of sel.cells) {
-        const x = sel.anchor.x + cx, y = sel.anchor.y + cy;
-        if (!inB(x, y)) { off = true; break; }
-        abs.push(idx(x, y));
-      }
-      sel.legal = !off && isLegal(board, current, abs, playerCells[current].length === 0);
     }
     function tryPlace() {
       if (!sel || !sel.anchor || !sel.legal || busy) return;
@@ -1032,7 +1002,7 @@
               cells: pts.map(([x, y]) => [x - mx, y - my]),
               anchor: { x: mx, y: my }, legal: true };
       computeAnchorGlow();
-      renderBoard(); renderTray(); renderSelPreview();
+      renderBoard(); renderTray();
     }
 
     /* ================= Game flow ================= */
@@ -1142,7 +1112,7 @@
     function applyCoachVisibility() {
       $("coach-panel").style.display = coachOpen ? "" : "none";
       if (coachOpen) renderCoach();
-      renderSelPreview();
+      updateControls();
     }
     function toggleCoach() {
       if (!humans[current] || busy || gameOver) return;
@@ -1192,7 +1162,7 @@
       history = [];
       current = 0; consecPasses = 0; gameOver = false; busy = false;
       sel = null; bestHighlight = null; anchorGlow = []; bestPick = null; pieceFit = {};
-      humans = $("mode-duo").classList.contains("on")
+      humans = $("sel-players").value === "duo"
         ? [true, false, true, false]
         : [true, false, false, false];
       difficulty = $("sel-difficulty").value;
@@ -1253,7 +1223,7 @@
       if (!c) return;
       e.preventDefault();
       // Manually positioning a piece in cheat mode discards stale advice.
-      if (appMode === "cheat" && bestPick) { clearCheatAdvice(); renderSelPreview(); }
+      if (appMode === "cheat" && bestPick) { clearCheatAdvice(); updateControls(); }
       ghostAt(c.x, c.y);
     });
 
@@ -1263,7 +1233,7 @@
     $("btn-place").addEventListener("click", tryPlace);
     $("btn-coach").addEventListener("click", toggleCoach);
     $("btn-coach-close").addEventListener("click", () => {
-      if (appMode === "cheat") { clearCheatAdvice(); renderBoard(); renderSelPreview(); return; }
+      if (appMode === "cheat") { clearCheatAdvice(); renderBoard(); updateControls(); return; }
       coachOpen = false;
       applyCoachVisibility();
     });
@@ -1275,20 +1245,18 @@
       if (!bestPick) return;
       doMove(current, { pieceId: bestPick.move.pieceId, cells: bestPick.move.cells });
     });
-    $("btn-undo").addEventListener("click", undoRound);
+    $("btn-undo").addEventListener("click", () => {
+      if (appMode === "cheat") cheatUndo(); else undoRound();
+    });
     $("btn-new").addEventListener("click", newGame);
-    $("btn-new-top").addEventListener("click", newGame);
-    $("btn-again").addEventListener("click", newGame);
+    // The game-over overlay has no second New Game button — closing it
+    // returns to the board, where the setup row's New Game lives.
+    $("btn-again").addEventListener("click", () => $("gameover").classList.remove("open"));
     $("btn-rules").addEventListener("click", () => {
       $("rules-panel").classList.toggle("open");
     });
     $("sel-difficulty").addEventListener("change", e => { difficulty = e.target.value; });
-    $("mode-solo").addEventListener("click", () => {
-      $("mode-solo").classList.add("on"); $("mode-duo").classList.remove("on"); newGame();
-    });
-    $("mode-duo").addEventListener("click", () => {
-      $("mode-duo").classList.add("on"); $("mode-solo").classList.remove("on"); newGame();
-    });
+    $("sel-players").addEventListener("change", newGame);
     document.addEventListener("keydown", e => {
       if (!sel || !humans[current] || busy || gameOver) return;
       if (e.key === "r" || e.key === "R") rotateSel(1);
@@ -1373,8 +1341,8 @@
       clearCheatAdvice();
       refreshCheat();
     }
-    // Commit one mirrored move (legal or "place anyway"), then hand entry
-    // to the next colour in turn order Blue → Yellow → Red → Green.
+    // Commit one mirrored move, then hand entry to the next colour in
+    // turn order Blue → Yellow → Red → Green.
     function commitCheatMove(p, pieceId, absCells) {
       placeOnBoard(board, p, absCells);
       playerCells[p].push(...absCells);
@@ -1425,6 +1393,7 @@
     function cheatAsk() {
       if (appMode !== "cheat") return;
       current = cheatYou;
+      computePieceFit(cheatYou);
       sel = null; anchorGlow = []; bestHighlight = null;
       computeCheatAdvice();
       coachOpen = true;
@@ -1439,7 +1408,7 @@
         setBanner(PNAMES[cheatYou] + " has no legal move — that's a pass in the real game.");
       }
       applyCoachVisibility();
-      renderScoreboard(); renderCheatTabs(); renderSelPreview();
+      renderScoreboard(); renderCheatTabs(); updateControls();
     }
     function cheatPlayAdvice() {
       if (appMode !== "cheat" || !bestPick) return;
@@ -1455,11 +1424,10 @@
       $("gameover").classList.remove("open");
       $("coach-panel").style.display = "none";
       $("setup-bar").style.display = "none";
-      $("btn-new-top").style.display = "none";
       $("btn-cheat").style.display = "none";
       $("cheat-bar").style.display = "";
       $("btn-place-rec").textContent = "I played it — add it to the mirror";
-      $("tray-help").textContent = "Tap the piece that was just played at the table — it appears on the board so you can position, rotate or flip it, then press Place Piece. Entry switches to the next colour automatically.";
+      $("tray-help").textContent = "Tap the piece that was just played at the table — it appears on the board in a legal spot. Tap the board to nudge it (it snaps to the nearest legal spot), Rotate or Flip to match how it was played, then press Place Piece. Entry switches to the next colour automatically.";
       refreshCheat();
     }
     function exitCheatMode() {
@@ -1470,7 +1438,6 @@
       loadState(s);
       $("btn-played").style.display = "none";
       $("setup-bar").style.display = "";
-      $("btn-new-top").style.display = "";
       $("btn-cheat").style.display = "";
       $("cheat-bar").style.display = "none";
       $("btn-place-rec").textContent = "Place recommended move";
@@ -1512,11 +1479,6 @@
     $("btn-cheat-undo").addEventListener("click", cheatUndo);
     $("btn-cheat-clear").addEventListener("click", cheatClear);
     $("btn-cheat-exit").addEventListener("click", exitCheatMode);
-    $("btn-place-anyway").addEventListener("click", () => {
-      if (appMode !== "cheat" || !sel || !sel.anchor || sel.legal || !ghostFitsBoard()) return;
-      const abs = sel.cells.map(([cx, cy]) => idx(sel.anchor.x + cx, sel.anchor.y + cy));
-      commitCheatMove(current, sel.pieceId, abs);
-    });
 
     newGame();
 </script>
