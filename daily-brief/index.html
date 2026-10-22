@@ -203,6 +203,38 @@
         white-space: nowrap;
       }
       .edition-body[hidden] { display: none; }
+      .listen-strip {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        background: var(--surface);
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+        padding: 12px 18px;
+        margin-bottom: 16px;
+      }
+      .listen-strip .listen-label {
+        flex: none;
+        font-size: 14.5px;
+        font-weight: 600;
+        color: var(--ink-soft);
+        white-space: nowrap;
+      }
+      .listen-strip audio {
+        flex: 1 1 auto;
+        min-width: 0;
+        height: 36px;
+      }
+      @media (max-width: 560px) {
+        .listen-strip {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 8px;
+          padding: 12px 14px;
+        }
+        .listen-strip audio { width: 100%; }
+      }
       .story {
         background: var(--surface);
         border: 1px solid var(--rule);
@@ -327,6 +359,9 @@
       var EDITIONS = [
         {
           date: "Wednesday, October 21, 2026",
+          audio: [
+            { label: "Listen to this edition · 5:18", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-10-21.mp3" }
+          ],
           stories: [
             {
               headline: "NVIDIA's OpenShell: governance built into the agent stack",
@@ -380,6 +415,10 @@
         },
         {
           date: "Tuesday, October 20, 2026",
+          audio: [
+            { label: "Morning brief · 5:09", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-10-20.mp3" },
+            { label: "Afternoon update · 3:26", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-10-20-update.mp3" }
+          ],
           stories: [
             {
               headline: "Big banks lock outside AI agents out of your money",
@@ -478,6 +517,9 @@
         },
         {
           date: "Monday, October 19, 2026",
+          audio: [
+            { label: "Listen to this edition · 4:10", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-10-19.mp3" }
+          ],
           stories: [
             {
               headline: "2026 Evident AI Index: JPMorgan #1, RBC #3",
@@ -612,6 +654,20 @@
           var body = el("div", "edition-body");
           body.id = "edition-body-" + idx;
           if (isCollapsed) body.hidden = true;
+
+          if (edition.audio && edition.audio.length) {
+            edition.audio.forEach(function (track) {
+              var strip = el("div", "listen-strip");
+              strip.appendChild(el("span", "listen-label", track.label));
+              var player = document.createElement("audio");
+              player.controls = true;
+              player.preload = "none";
+              player.src = track.url;
+              player.setAttribute("aria-label", track.label + " — " + edition.date);
+              strip.appendChild(player);
+              body.appendChild(strip);
+            });
+          }
 
           if (edition.stories.length === 0) {
             body.appendChild(el("p", "edition-empty", "No stories in this edition yet."));
