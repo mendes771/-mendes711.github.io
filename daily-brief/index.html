@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" href="data:," />
-    <title>The Daily Brief</title>
+    <title>10 for 10</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -14,37 +14,39 @@
     />
     <style>
       :root {
-        --bg: #f6f5f1;
+        --bg: #f3f5f7;
         --surface: #ffffff;
-        --ink: #1c1b18;
-        --ink-soft: #55534c;
-        --ink-faint: #8a877e;
-        --rule: #ddd9cf;
-        --accent: #a52a1a;
-        --accent-ink: #a52a1a;
-        --tag-bg: #efe9df;
-        --tag-ink: #6b4a1f;
+        --ink: #152433;
+        --ink-soft: #4d5f70;
+        --ink-faint: #6d7f8d;
+        --rule: #dde4ea;
+        --accent: #0f62a8;
+        --accent-ink: #0f62a8;
+        --tag-bg: #e7eef4;
+        --tag-ink: #17557f;
         --chip-bg: #ffffff;
-        --chip-border: #c9c4b6;
-        --focus: #a52a1a;
-        --shadow: 0 1px 2px rgba(28, 27, 24, 0.05), 0 4px 14px rgba(28, 27, 24, 0.05);
+        --chip-border: #c3cfd9;
+        --focus: #0f62a8;
+        --why-bg: #eef3f7;
+        --shadow: 0 1px 2px rgba(21, 36, 51, 0.05), 0 6px 18px rgba(21, 36, 51, 0.05);
       }
       @media (prefers-color-scheme: dark) {
         :root {
-          --bg: #16171a;
-          --surface: #1f2023;
-          --ink: #ece9e2;
-          --ink-soft: #b3b0a6;
-          --ink-faint: #83817a;
-          --rule: #33343a;
-          --accent: #e8836f;
-          --accent-ink: #e8836f;
-          --tag-bg: #2c2a24;
-          --tag-ink: #d3a860;
-          --chip-bg: #1f2023;
-          --chip-border: #45464c;
-          --focus: #e8836f;
-          --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 4px 14px rgba(0, 0, 0, 0.3);
+          --bg: #0e141b;
+          --surface: #17222d;
+          --ink: #e9eef3;
+          --ink-soft: #a7b5c1;
+          --ink-faint: #7e8fa0;
+          --rule: #2a3947;
+          --accent: #6fb1e3;
+          --accent-ink: #6fb1e3;
+          --tag-bg: #1f3040;
+          --tag-ink: #a9cbe8;
+          --chip-bg: #17222d;
+          --chip-border: #3a4c5e;
+          --focus: #6fb1e3;
+          --why-bg: #1c2a37;
+          --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 6px 18px rgba(0, 0, 0, 0.35);
         }
       }
       * { box-sizing: border-box; }
@@ -60,35 +62,52 @@
       .wrap {
         max-width: 780px;
         margin: 0 auto;
-        padding: 40px 20px 72px;
+        padding: 48px 20px 80px;
       }
 
       /* Masthead */
       .masthead {
-        border-bottom: 3px double var(--ink);
-        padding-bottom: 18px;
-        margin-bottom: 30px;
+        position: relative;
+        border-bottom: 1px solid var(--rule);
+        padding-bottom: 24px;
+        margin-bottom: 34px;
+      }
+      .masthead::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 64px;
+        height: 3px;
+        background: var(--accent);
       }
       .masthead h1 {
         font-family: "Newsreader", Georgia, serif;
         font-weight: 700;
-        font-size: clamp(38px, 8vw, 56px);
-        line-height: 1.02;
-        letter-spacing: -0.01em;
-        margin: 0 0 8px;
+        font-size: clamp(46px, 9vw, 66px);
+        line-height: 1;
+        letter-spacing: -0.015em;
+        margin: 0 0 12px;
       }
-      .masthead .subtitle {
+      .masthead .tagline {
+        margin: 0 0 8px;
+        font-size: clamp(18px, 3.4vw, 21px);
+        font-weight: 600;
+        line-height: 1.35;
+        color: var(--accent-ink);
+      }
+      .masthead .descriptor {
         margin: 0;
-        font-size: 17px;
+        font-size: 15.5px;
         color: var(--ink-soft);
-        max-width: 34em;
+        max-width: 36em;
       }
 
       /* Topics */
       .topics {
         background: var(--surface);
         border: 1px solid var(--rule);
-        border-radius: 10px;
+        border-radius: 12px;
         box-shadow: var(--shadow);
         padding: 20px 22px 16px;
         margin-bottom: 40px;
@@ -209,7 +228,7 @@
         gap: 16px;
         background: var(--surface);
         border: 1px solid var(--rule);
-        border-radius: 10px;
+        border-radius: 12px;
         box-shadow: var(--shadow);
         padding: 12px 18px;
         margin-bottom: 16px;
@@ -238,9 +257,9 @@
       .story {
         background: var(--surface);
         border: 1px solid var(--rule);
-        border-radius: 10px;
+        border-radius: 12px;
         box-shadow: var(--shadow);
-        padding: 22px 24px 18px;
+        padding: 24px 26px 20px;
         margin-bottom: 16px;
       }
       .story .tags { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 10px; }
@@ -253,7 +272,7 @@
       .edition-note {
         background: var(--surface);
         border: 1px dashed var(--chip-border);
-        border-radius: 10px;
+        border-radius: 12px;
         padding: 14px 18px;
         font-size: 15px;
         color: var(--ink-soft);
@@ -278,8 +297,8 @@
       .story .synopsis { margin: 0 0 12px; color: var(--ink); }
       .story .why {
         margin: 0 0 14px;
-        padding: 10px 14px;
-        background: var(--bg);
+        padding: 12px 16px;
+        background: var(--why-bg);
         border-radius: 8px;
         font-size: 15px;
         color: var(--ink-soft);
@@ -324,8 +343,9 @@
   <body>
     <div class="wrap">
       <header class="masthead">
-        <h1>The Daily Brief</h1>
-        <p class="subtitle">IT, AI &amp; Banking — a daily synopsis with links to the source material.</p>
+        <h1>10 for 10</h1>
+        <p class="tagline">10 hours of the latest content in under 10 minutes.</p>
+        <p class="descriptor">A daily briefing on IT, AI and banking — the key stories, why they matter, and links to the source material.</p>
       </header>
 
       <section class="topics" aria-labelledby="topics-heading">
@@ -335,7 +355,7 @@
           thought leadership.
         </p>
         <div class="chip-row" id="chip-row"></div>
-        <p class="fineprint">Want a topic added or dropped? Just say the word in chat and the brief will follow.</p>
+        <p class="fineprint">Want a topic added or dropped? Mention it and the brief will follow.</p>
       </section>
 
       <main id="editions"></main>
