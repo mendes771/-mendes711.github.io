@@ -478,7 +478,7 @@
             <span class="coverage-title" id="coverage-range">Source coverage — this week</span>
             <span class="coverage-status" id="coverage-status"></span>
           </div>
-          <p class="coverage-total"><span class="coverage-figure" id="coverage-total">–</span>of the 10:00 weekly goal</p>
+          <p class="coverage-total"><span class="coverage-figure" id="coverage-total">–</span>of the 10 hour weekly goal</p>
           <div class="coverage-bar" id="coverage-bar" role="progressbar" aria-label="Source time this week against the 10-hour goal" aria-valuemin="0" aria-valuemax="600" aria-valuenow="0">
             <div class="coverage-fill" id="coverage-fill"></div>
           </div>
@@ -1071,7 +1071,7 @@
           formatDay(thisMonday) + " – " + formatDay(thisSunday) + ")";
         totalEl.textContent = formatHMM(thisWeek);
         if (thisWeek >= WEEK_GOAL_MINUTES) {
-          statusEl.textContent = "10h goal met ✓";
+          statusEl.textContent = "10 hour goal met ✓";
           statusEl.classList.add("met");
         } else {
           statusEl.textContent = formatHMM(WEEK_GOAL_MINUTES - thisWeek) + " to go";
