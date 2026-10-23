@@ -511,6 +511,135 @@
     <script>
       var EDITIONS = [
         {
+          date: "Friday, October 23, 2026",
+          iso: "2026-10-23",
+          audio: [
+            { label: "Listen to this edition · 9:57", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-10-23.mp3" }
+          ],
+          stories: [
+            {
+              headline: "GitLab patches CVSS 10.0 unauthenticated RCE affecting every self-managed release since 2014",
+              minutes: 4,
+              synopsis: "GitLab’s Oct 21 patch release fixes CVE-2026-110264, an integer overflow in the bundled Onigmo regex compiler allowing an unauthenticated attacker to run arbitrary code on a self-managed GitLab server. Every version back to 7.0 is affected; fixed in 19.5.1/19.4.3/19.3.6/19.2.9/19.1.9/19.0.10/18.11.13. No exploitation reported yet, but 2,700+ instances are exposed on the public internet. No workaround — patch now.",
+              why: "A 10.0 pre-auth RCE in the heart of CI/CD with 12 years of exposure — if the org runs self-hosted GitLab, this is a patch-this-morning item for the app-dev and infra leads.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "The Hacker News · article", url: "https://thehackernews.com/2026/10/critical-gitlab-flaw-cvss-100-could.html" }
+              ]
+            },
+            {
+              headline: "Node.js emergency release: Brotli decoder RCE plus 9 more CVEs across 22.x/24.x/26.x",
+              minutes: 3,
+              synopsis: "The Oct 21 Node.js security release fixed 10 flaws in lines 22.x, 24.x and 26.x (patched builds 26.12.1, 24.22.1, 22.23.4). Headline bug is CVE-2026-111497, an out-of-bounds write in the built-in Brotli decoder reachable via node:zlib or fetch() on compressed responses; a public PoC appeared Oct 22, no confirmed real-world exploitation. Node 20.x and older get no fix (EOL). The release also rotates compromised eMudhra CA roots out of the trust store.",
+              why: "Node.js underpins many bank web/API stacks — patch the runtimes, rebuild the container images, and retire any EOL Node 20/earlier hosts that can’t be fixed.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "Cyber Kendra · article", url: "https://www.cyberkendra.com/2026/10/nodejs-october-2026-security-releases-cve-2026-111497.html" }
+              ]
+            },
+            {
+              headline: "LiteLLM supply-chain attack: trojanized 1.107.0 release ships credential stealer via PyPI and Docker Hub",
+              minutes: 3,
+              synopsis: "On Oct 21, attackers used stolen GitHub CLI OAuth tokens from three LiteLLM engineers to push a trojanized release through the project’s legitimate build pipeline. All 7 PyPI wheels plus Docker images (live ~2 hours) installed a cook.pth Python startup hook harvesting cloud creds, SSH keys, CI/CD secrets, AI tool tokens and LiteLLM proxy provider keys, plus an hourly remote-code loader. PyPI pulled it at 13:23 UTC — the project’s second compromise this year.",
+              why: "AI teams’ pip installs and CI jobs are one unpinned dependency away from exactly this — anyone who pulled 1.107.0 must rotate every credential on the host from a clean environment; pin by digest going forward.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "The Hacker News · article", url: "https://thehackernews.com/2026/10/litellm-compromised-in-supply-chain.html" }
+              ]
+            },
+            {
+              headline: "Starling Bank deploys an AI agent to investigate AML alerts in 17 seconds",
+              minutes: 5,
+              synopsis: "Starling Bank has deployed an agentic financial crime investigator that takes a transaction-monitoring alert, carries out the full investigation, writes the audit trail and reaches a decision in 17 seconds. Built natively into the bank’s core banking engine rather than bolted on via external integrations, so it accesses real-time telemetry, historical behaviour patterns and transaction context directly. Sits inside a wider AI program including a planned transactional foundation model with NVIDIA and Civo on 15+ billion anonymised transactions. Caveat: undisclosed details — third-party vs in-house model, extent of human review, alert volumes. Context: the FCA fined Starling ~€34M in 2024 for financial-crime control failings.",
+              why: "A production example of agentic AI in the single most expensive compliance workflow — the build-vs-buy lesson is that embedding the agent in the core engine (where the data already lives) is what makes the 17-second decision possible; a benchmark for discussing “AI in AML” with risk/compliance partners.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "The Paypers · article", url: "https://thepaypers.com/fraud-and-fincrime/news/starling-bank-deploys-an-ai-agent-to-investigate-aml-alerts" }
+              ]
+            },
+            {
+              headline: "Sumsub launches “Know Your Agent” module for MCP to control AI agent access",
+              minutes: 5,
+              synopsis: "Identity-verification vendor Sumsub launched a “Know Your Agent” (KYA) module for MCP servers (announced Oct 22) that verifies AI agents before granting them tool access — filtering agent requests, stripping sensitive data before the agent ever sees it, and triggering liveness checks before high-risk actions. An identity and policy layer between autonomous agents and the systems they touch.",
+              why: "The constructive twin of this week’s “banks locking out outside AI agents” story — a KYA layer lets you verify which agent is acting, for whom, and what it’s allowed to do: the practical trust infrastructure any bank needs before exposing MCP-style tool access.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "The Paypers · article", url: "https://thepaypers.com/fraud-and-fincrime/news/sumsub-launches-kya-module-for-mcp-to-control-ai-agent-access" }
+              ]
+            },
+            {
+              headline: "TD Bank launches “Credit Assist,” a multi-agent AI cutting commercial credit memos from 3 days to under 30 minutes",
+              minutes: 4,
+              synopsis: "TD Bank unveiled Credit Assist on Oct 22 at the 2026 Evident AI Symposium in New York — a multi-agent AI built by its Analytics, Intelligence & AI team with Layer 6 and commercial credit experts. It processes 20–30 deal documents across 50+ document types into a structured, cited six-section draft of the commercial credit memo, cutting first-draft preparation from up to three working days to under 30 minutes. Tested on 220 curated deals with 70+ domain experts, 95% of evaluated outputs passing SME review; it will serve 300+ credit professionals preparing 10,000+ memos a year. Follows TD’s rise to No. 10 in the 2026 Evident AI Index.",
+              why: "A bank-app-development case study in productionizing multi-agent AI with real governance — cited drafts, humans accountable for final lending decisions — and proof Layer 6 research converts into measured P&L impact; a credible reference architecture for pitching agentic AI to business partners and risk functions.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "InnovationOpenLab · article", url: "https://www.innovationopenlab.com/news-biz/74130/td-launches-credit-assist-turning-days-of-commercial-credit-work-into-minutes.html" }
+              ]
+            },
+            {
+              headline: "Bank of Canada’s stablecoin issuer rules may slip to mid/late 2027 while live settlement pilots run ahead of the rulebook",
+              minutes: 4,
+              synopsis: "Per a Reuters report covered Oct 22, Bank of Canada officials signaled detailed stablecoin issuer regulations may not arrive until mid or late 2027 — later than the early-2027 target — with Senior Deputy Governor Carolyn Rogers telling the Senate the earlier target was overly ambitious. Meanwhile institutional pilots are live: Visa Canada and Wealthsimple have been settling certain card-network obligations in USDC (first announced May 2026), with Visa’s global stablecoin settlement pilot at a $7B annualized run rate across nine blockchains. The Canadian framework (registration with the Bank of Canada, 1:1 high-quality liquid reserves, at-par redemption, governance controls, no yield to holders) is still being drafted.",
+              why: "The regulatory calendar gating every stablecoin/issuer-partner plan — issuer compliance decisions get pushed 6–12 months, but partner-led settlement arrangements like the Visa–Wealthsimple model remain a legal way to gain institutional settlement experience now; plan for adaptable compliance systems rather than waiting for certainty.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "CryptoSlate · article", url: "https://bitrss.com/bank-of-canada-to-bring-stablecoin-rules-in-2027-with-us-clarity-act-on-the-brink-of-stalling-209046" }
+              ]
+            },
+            {
+              headline: "AI decisions outrun accountability: 4 in 5 enterprise AI deployments have no named owner",
+              minutes: 14,
+              synopsis: "New research published Oct 21 by Sopra Steria Next finds fewer than 20% of AI-influenced or AI-executed decisions in large organizations have an identified business owner, explicit decision rules, or formal accountability, and fewer than 25% of production AI decisions can be traced and replayed end-to-end. The report reframes AI sovereignty as a five-layer stack (data, models, platforms, APIs, decisions), argues most enterprises govern only the first three, and calls for a permanent CDAIO (Chief Data & AI Officer) as an explicit accountability arbitrator. It flags EU AI Act exposure: human-oversight and log-retention obligations for high-risk AI uses apply from December 2, 2027.",
+              why: "Every production agent dev teams ship without a named owner, a decision trail, and a stop mechanism is a future audit finding — 4-in-5 ownerless is quantified leverage to push business partners toward an “authority budget” for each production agent before deployment, not after.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "Tech Times · article", url: "https://www.techtimes.com/articles/329368/20261022/ai-decisions-outrun-accountability-four-five-enterprise-deployments-have-no-named-owner.htm" }
+              ]
+            },
+            {
+              headline: "SAP tops €10B quarterly revenue for the first time on 26% cloud growth",
+              minutes: 8,
+              synopsis: "SAP reported Q3 2026 results Oct 21: total revenue €10.27B (+13%), its first quarter above €10B, with cloud revenue up 26% to €6.67B and current cloud backlog up 28% to €24.1B. The company lifted guidance toward the top of its 2026 cloud revenue range (€25.8–26.2B) and expects growth to accelerate in 2027. Notably, SAP breaks out no separate Business AI revenue line — its AI bet shows up instead as ~€2.11B in data-layer acquisitions this year (Reltio for master data, Dremio for lakehouse, Prior Labs for tabular foundation models), while legacy software support revenue fell 5% and license revenue fell 9%.",
+              why: "The biggest enterprise vendor is now unambiguously a cloud subscription company — declining support lines will keep pushing customers toward cloud migration, so budget for a shrinking runway on on-prem licensing terms; and SAP’s “buy the data layer” M&A pattern shows where agent-grade AI spend is really flowing.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "FourWeekMBA · article", url: "https://fourweekmba.com/ai-sap-tops-10b-of-quarterly-revenue-for-the-first-time/" }
+              ]
+            },
+            {
+              headline: "Agentic AI Foundation reaches 10 projects as Anthropic, OpenAI, Hugging Face and Alibaba donate four new standards",
+              minutes: 4,
+              synopsis: "At AGNTCon + MCPCon North America on Oct 22, the Linux Foundation’s Agentic AI Foundation announced four new projects: Agent Skills (contributed by Anthropic — the reusable SKILL.md format for portable coding-agent domain know-how, already adopted by 70+ agent platforms including ChatGPT, Cursor and GitHub Copilot), Open Responses (OpenAI’s open spec for one interoperable LLM API schema across providers), OpenEnv (Hugging Face’s open framework for RL training environments), and OpenSandbox (Alibaba’s sandbox platform for coding agents, GUI agents and agent evaluation). AAIF has grown from 3 to 10 hosted projects in its first year, adding agent capabilities, model interoperability, training environments and secure execution to the existing MCP, A2A, Agent Router, agentgateway, AGENTS.md and goose stack.",
+              why: "Vendor-neutral governance of Agent Skills and a shared Responses schema means dev teams can build agent workflows and reusable skills once and run them across Claude, Codex, Copilot and others — reducing lock-in risk in the coding-agent toolchain.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "Agentic AI Foundation · article", url: "https://aaif.io/news/agentic-ai-foundation-announces-four-new-projects" }
+              ]
+            },
+            {
+              headline: "Uber rolls out OpenAI’s ChatGPT Work to all 30,000 employees",
+              minutes: 2,
+              synopsis: "Uber expanded ChatGPT Work from a 1,000-person pilot to its entire global workforce of ~30,000 people, announced Oct 22 — one of the largest enterprise agent deployments to date. 80% of pilot users were non-engineers (finance, operations, product) using it for data analysis, trend-spotting, localizing training materials and building personal dashboards. Uber’s approach is deliberately experimental: no fixed playbook, “AI pods” of engineers paired with business teams, and adoption data tracked to guide future AI investment. GPT-6.1 Sol is the default model; engineering keeps using Codex.",
+              why: "A playbook example for enterprise rollout — pilot with non-engineers first, seed adoption via embedded “AI pods,” measure real usage before locking in spend — directly applicable to how a bank scales internal AI agents.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "TechCrunch · article", url: "https://techcrunch.com/2026/10/22/uber-puts-all-30000-employees-on-chatgpt-work/" }
+              ]
+            },
+            {
+              headline: "Watch: IBM’s Martin Keen on context engineering for AI agents — 4 failure modes to avoid",
+              minutes: 10,
+              synopsis: "IBM’s Martin Keen explains why giving AI agents bigger context windows makes them less reliable over long tasks (“context rot”), then walks through the four failure modes — context poisoning, distraction, confusion, and clash — using a concrete example of an agent migrating a codebase to a new database driver. He closes with four fixes — validate, compact, curate, and prune — and the counterintuitive lesson that better agents usually need less context, not more.",
+              why: "Context engineering is the unglamorous work that decides whether an AI coding agent is production-safe or a liability — the exact layer where a wrong self-written note becomes “truth” in a long-running agent session. Directly relevant to dev teams building or using coding agents.",
+              topics: ["Instructional video"],
+              sources: [
+                { name: "IBM Technology (YouTube) · video", url: "https://www.youtube.com/watch?v=BwXremQ-i6I" }
+              ]
+            }
+          ]
+        },
+        {
           date: "Thursday, October 22, 2026",
           iso: "2026-10-22",
           audio: [
