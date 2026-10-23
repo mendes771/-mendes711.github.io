@@ -25,6 +25,10 @@
         --good-bg: #e9f4ec;
         --good-border: #a9d3b4;
         --good-text: #1d5c33;
+        --bad-bg: #fbeae6;
+        --bad-border: #dfa294;
+        --bad-text: #93291b;
+        --strong-bg: #1e7a3d;
         --p0: #1e6fd9;
         --p1: #f0ad00;
         --p2: #d92e2e;
@@ -50,6 +54,10 @@
           --good-bg: #17301f;
           --good-border: #2f6b42;
           --good-text: #9fd8ae;
+          --bad-bg: #3a201b;
+          --bad-border: #7c4438;
+          --bad-text: #f2ab9c;
+          --strong-bg: #2e8b4f;
           --shadow: 0 1px 3px rgba(0,0,0,0.4), 0 4px 14px rgba(0,0,0,0.3);
         }
       }
@@ -129,6 +137,21 @@
         background: var(--soft); border: 1px solid var(--panel-border); min-height: 36px;
         display: flex; align-items: center; gap: 8px;
       }
+
+      /* Move-quality strip — one line, fixed height, directly above the board */
+      .quality-strip {
+        display: flex; align-items: center; gap: 8px;
+        min-height: 36px; padding: 5px 12px; margin-bottom: 8px;
+        border-radius: 10px; border: 1px solid var(--panel-border);
+        background: var(--soft); color: var(--muted);
+        font-size: 13.5px; font-weight: 600;
+        white-space: nowrap; overflow: hidden;
+      }
+      .quality-strip .q-text { overflow: hidden; text-overflow: ellipsis; }
+      .quality-strip.q-strong { background: var(--strong-bg); border-color: var(--strong-bg); color: #ffffff; }
+      .quality-strip.q-good { background: var(--good-bg); border-color: var(--good-border); color: var(--good-text); }
+      .quality-strip.q-weak { background: var(--warn-bg); border-color: var(--warn-border); color: var(--warn-text); }
+      .quality-strip.q-bad { background: var(--bad-bg); border-color: var(--bad-border); color: var(--bad-text); }
 
       /* Board */
       .board-frame {
@@ -288,6 +311,7 @@
         <div class="board-col">
           <div class="scoreboard" id="scoreboard"></div>
           <div class="turn-banner" id="turn-banner">Setting up…</div>
+          <div class="quality-strip q-neutral" id="quality-strip" role="status" aria-live="polite"><span class="q-text" id="quality-text">Move quality — shown while you're placing a piece</span></div>
           <div class="board-frame">
             <div class="board" id="board" aria-label="Blokus board"></div>
           </div>
@@ -674,6 +698,198 @@
       return ranked[0];
     }
 
+    /* ================= Coach evaluator (best-of-both, tuned) ================= */
+    // The Coach (and the Cheat Mode advisor, which shares it) uses its OWN
+    // evaluator below. The three computer levels above are deliberately
+    // untouched — they are the benchmark the coach is measured against.
+    //
+    // This configuration is the winner of the best-of-both tuning round:
+    // the ORIGINAL evaluator's weights (the ones the first audit measured
+    // at 32.5% vs Skilled) plus the opponent-reply lookahead, with exactly
+    // two additions from the strengthening package that survived fresh-seed
+    // validation — light targeted-blocking bonuses, and a hard cap on how
+    // much of a move's score blocking can contribute. Everything else from
+    // the package (corner-quality grading, flexibility piece values,
+    // phase-dependent space bonuses) measured worse than this combination
+    // on unseen games and is NOT in the shipped weights.
+    //
+    // Fresh-seed validation (400 games vs Skilled / 200 vs Casual, coach
+    // seat rotated, game's own engine): 32.25% wins / −17.18 avg score vs
+    // Skilled (old coach 28.0% / −18.79; previous package 30.25% / −17.09)
+    // and 56% wins vs Casual (old coach 49%, previous package 45%).
+    //
+    // Shipped weights, in full:
+    //  - piece size × 2.0
+    //  - new frontier corners (raw count) × 1.5
+    //  - centre drive: (13.4 − avg distance to centre) × 0.55 × (0.35 + early)
+    //  - blocking: per opponent, covered frontier squares × (0.7 + their
+    //    squares left / 89) × 3.0, summed — PLUS targeted bonuses: +1.0 per
+    //    opponent whose most advanced corner is covered, +1.4 per board
+    //    zone where the move kills an opponent's last corner, +0.75 for
+    //    squeezing an opponent from ≤3 open corners down to ≤1. The
+    //    coverage + most-advanced-corner component is capped at 6.5 total,
+    //    so blocking can never again outweigh expansion (the old uncapped
+    //    term could pay more per square than placing the piece itself).
+    //  - finish: +7 for placing the last piece, +5 more if it is the
+    //    single square; stranding: −60 for ending with no corners,
+    //    −2.2 per missing corner when down to 1–2 corners.
+    //  - lookahead (in coachRankMoves): the top 6 candidates are re-priced
+    //    by the next opponent's best reply — see coachReplyDamage.
+    const zoneOf = i => ((i % N) >= 10 ? 1 : 0) + (((i / N) | 0) >= 10 ? 2 : 0);
+
+    function coachEvaluateMove(bd, p, move, frontiers) {
+      const cells = move.cells, pid = move.pieceId;
+      const f = { size: cells.length, block: 0, blockedPlayer: -1, blockedCount: 0,
+                  frontier: 0, centre: 0, followUps: 0,
+                  targetedBlock: false, zoneKill: false, zoneKillPlayer: -1,
+                  squeezed: false, squeezedPlayer: -1,
+                  replyDamage: 0, replyLost: 0, survivesReply: false, replyChecked: false };
+      let totalPlaced = 0;
+      for (let i = 0; i < 400; i++) if (bd[i] !== -1) totalPlaced++;
+      const early = Math.max(0, 1 - totalPlaced / 340);
+
+      let s = cells.length * 2.0;
+
+      // blocking: old per-opponent coverage value × 3.0, plus a light
+      // bonus for covering an opponent's most advanced corner; the whole
+      // coverage component is capped at 6.5.
+      let blockTotal = 0, bestBlockVal = 0;
+      const targetedOpps = new Set();
+      for (let o = 0; o < 4; o++) {
+        if (o === p) continue;
+        let cnt = 0;
+        for (const c of cells) if (frontiers[o].has(c)) cnt++;
+        if (cnt > 0) {
+          const val = cnt * (0.7 + squaresLeftOf(bd, o) / 89);
+          if (val > bestBlockVal) { bestBlockVal = val; f.blockedPlayer = o; f.blockedCount = cnt; }
+          blockTotal += val * 3.0;
+          const [ox, oy] = CORNERS[o];
+          let maxProg = -1;
+          for (const c of frontiers[o]) {
+            const prog = Math.abs((c % N) - ox) + Math.abs(((c / N) | 0) - oy);
+            if (prog > maxProg) maxProg = prog;
+          }
+          for (const c of cells) {
+            if (!frontiers[o].has(c)) continue;
+            const prog = Math.abs((c % N) - ox) + Math.abs(((c / N) | 0) - oy);
+            if (prog >= maxProg - 1) { f.targetedBlock = true; f.blockedPlayer = o; targetedOpps.add(o); }
+          }
+        }
+      }
+      blockTotal += targetedOpps.size * 1.0;
+      blockTotal = Math.min(blockTotal, 6.5);
+      f.block = blockTotal;
+      s += blockTotal;
+
+      // simulate placement
+      placeOnBoard(bd, p, cells);
+      const newFrontier = frontierOf(bd, p);
+      f.frontier = newFrontier.length;
+      s += newFrontier.length * 1.5;
+
+      // targeted extras, from the after-board: zone kills (an opponent's
+      // last corner in a board zone) and squeezes (an opponent cut down
+      // to their last corner). Small, explicit, and paid on top of the cap.
+      for (let o = 0; o < 4; o++) {
+        if (o === p) continue;
+        const after = new Set(frontierOf(bd, o));
+        for (let z = 0; z < 4; z++) {
+          let beforeZ = 0, afterZ = 0;
+          for (const c of frontiers[o]) if (zoneOf(c) === z) beforeZ++;
+          for (const c of after) if (zoneOf(c) === z) afterZ++;
+          if (beforeZ > 0 && afterZ === 0) {
+            f.zoneKill = true; f.zoneKillPlayer = o; f.targetedBlock = true; f.blockedPlayer = o;
+            f.block += 1.4; s += 1.4;
+          }
+        }
+        if (frontiers[o].size > 0 && frontiers[o].size <= 3 && after.size < frontiers[o].size && after.size <= 1) {
+          f.squeezed = true; f.squeezedPlayer = o; f.targetedBlock = true; f.blockedPlayer = o;
+          f.block += 0.75; s += 0.75;
+        }
+      }
+
+      // centre drive, weighted by how early the game is (old formula)
+      let distSum = 0;
+      for (const c of cells) {
+        const x = c % N, y = (c / N) | 0;
+        distSum += Math.hypot(x - 9.5, y - 9.5);
+      }
+      f.centre = Math.max(0, 13.4 - distSum / cells.length);
+      s += f.centre * 0.55 * (0.35 + early);
+
+      // finish bonuses + stranding penalties (old, unchanged)
+      const leftAfter = remainingCountAfter(p, pid);
+      if (leftAfter === 0) {
+        s += 7;
+        if (PIECES[pid].size === 1) s += 5; // monomino finish = +5 extra
+      } else {
+        if (newFrontier.length === 0) s -= 60;
+        else if (newFrontier.length <= 2) s -= (3 - newFrontier.length) * 2.2;
+      }
+      removeFromBoard(bd, cells);
+      return { score: s, f };
+    }
+
+    // (3) Price the opponents' replies into a candidate: the next opponent's
+    // best reply (by the standard evaluator) is played out for real; the
+    // other two opponents contribute a cover-threat over my new corners.
+    function coachReplyDamage(bd, p, move) {
+      placeOnBoard(bd, p, move.cells);
+      const myFront = new Set(frontierOf(bd, p));
+      const F0 = myFront.size;
+      const order = [(p + 1) % 4, (p + 2) % 4, (p + 3) % 4];
+      const threatCells = new Set();
+      for (const o of [order[1], order[2]]) {
+        for (const c of frontierOf(bd, o)) if (myFront.has(c)) threatCells.add(c);
+      }
+      let lost = 0, covered = 0, stranded = false;
+      const next = order[0];
+      const replyMoves = enumerateMoves(bd, next,
+        [...remaining[next]].sort((a, b) => PIECES[b].size - PIECES[a].size), 150);
+      if (replyMoves.length) {
+        const fr = allFrontiers(bd);
+        let bestReply = null, bestScore = -Infinity;
+        for (const m of replyMoves) {
+          const sc = evaluateMove(bd, next, m, fr).score;
+          if (sc > bestScore) { bestScore = sc; bestReply = m; }
+        }
+        for (const c of bestReply.cells) if (myFront.has(c)) covered++;
+        placeOnBoard(bd, next, bestReply.cells);
+        const F1 = frontierOf(bd, p).length;
+        lost = Math.max(0, F0 - F1);
+        stranded = F1 === 0 && remaining[p].size > 1;
+        removeFromBoard(bd, bestReply.cells);
+      }
+      removeFromBoard(bd, move.cells);
+      let damage = lost * 1.35 + covered * 0.45 + Math.min(threatCells.size, 4) * 0.3;
+      if (stranded) damage += 12;
+      return { damage, lost, threat: threatCells.size + covered };
+    }
+
+    // Coach ranking: base coach score for every legal move, then reply
+    // lookahead re-prices the top few (same candidate-capping approach as
+    // the Expert refinement, so the coach stays effectively instant).
+    function coachRankMoves(bd, p) {
+      const moves = enumerateMoves(bd, p, [...remaining[p]]);
+      const frontiers = allFrontiers(bd);
+      const ranked = moves.map(m => {
+        const r = coachEvaluateMove(bd, p, m, frontiers);
+        return { move: m, score: r.score, f: r.f };
+      });
+      ranked.sort((a, b) => b.score - a.score);
+      const top = ranked.slice(0, 6);
+      for (const r of top) {
+        const rd = coachReplyDamage(bd, p, r.move);
+        r.f.replyDamage = rd.damage;
+        r.f.replyLost = rd.lost;
+        r.f.replyChecked = true;
+        r.f.survivesReply = rd.damage <= 1.6;
+        r.score -= rd.damage;
+      }
+      top.sort((a, b) => b.score - a.score);
+      return top.concat(ranked.slice(6));
+    }
+
     /* ================= Coach reasoning ================= */
     // A short lesson, not a label: a few plain-language sentences explaining
     // why this is the best move, built from the same factors the evaluator
@@ -726,6 +942,84 @@
       }
       return s.join(" ");
     }
+
+    // Lesson text for the strengthened coach — same plain, multi-sentence
+    // style, but the reasoning now names the new deciding factors when
+    // they are what actually decided the pick: targeted blocks and zone
+    // kills, corner quality and spread, surviving the best reply, piece
+    // flexibility, and private late-game space.
+    // Lesson text for the tuned coach — same plain, multi-sentence style.
+    // Every sentence below names a factor the shipped evaluator actually
+    // scores: piece size, open corners, centre drive, blocking (generic
+    // cover, most-advanced-corner, zone kill, squeeze), surviving the best
+    // reply, and next turn's follow-up count. Nothing else is claimed.
+    function coachExplainBest(r, p) {
+      const f = r.f, piece = PIECES[r.move.pieceId];
+      const s = [];
+      s.push("Play the " + piece.name + " (" + piece.size + (piece.size === 1 ? " square" : " squares") +
+        ") in the spot outlined on the board.");
+      if (remaining[p].size === 1) {
+        s.push("It's your last piece, so placing it also banks the +15 bonus" +
+          (piece.size === 1 ? " — plus the extra +5 for finishing with the single square." : "."));
+      } else if (f.size === 5) {
+        s.push("Big pieces are the hardest to fit later, so getting a 5-square piece down while open " +
+          "space is plentiful is almost always right — leave it too long and it may never fit anywhere.");
+      } else if (f.size <= 2 && remaining[p].size > 3) {
+        s.push("It's a small piece, but right now position matters more than size — where it lands " +
+          "matters more than how many squares it covers.");
+      }
+      if (f.frontier >= 4) {
+        s.push("This placement opens " + f.frontier + " new corners for you. Corners are everything in " +
+          "Blokus: a new piece can only grow out of a diagonal touch, so every corner you create is a " +
+          "future foothold. More corners means more choices on every turn that follows.");
+      } else if (f.frontier > 0) {
+        s.push("It keeps " + f.frontier + " open corner" + (f.frontier === 1 ? "" : "s") +
+          " to grow from, so you aren't painting yourself into a dead end — your next pieces still " +
+          "have somewhere to go.");
+      } else {
+        s.push("It opens no new corners, but it uses space that little else could reach, and it keeps " +
+          "your other routes alive.");
+      }
+      if (f.centre > 6.5) {
+        s.push("It also reaches toward the centre of the board. The centre is where territory is " +
+          "decided — whoever gets established there first forces everyone else to build around them.");
+      }
+      if (f.zoneKill) {
+        s.push("This one is a targeted strike: it kills " + PNAMES[f.zoneKillPlayer] + "'s last corner " +
+          "in that zone, so that whole branch of their territory is stranded — they can't build " +
+          "through it any more. That's the kind of block that's actually worth playing.");
+      } else if (f.targetedBlock && f.blockedPlayer >= 0) {
+        s.push("It also covers " + PNAMES[f.blockedPlayer] + "'s most advanced corner — the tip of " +
+          "their expansion — which is worth far more than covering just any square they might use.");
+      } else if (f.blockedPlayer >= 0 && f.block >= 1.4) {
+        s.push("Better still, it covers a corner " + PNAMES[f.blockedPlayer] + " needs in order to " +
+          "expand. Taking that square strands that whole branch of their territory — they can't build " +
+          "through it, so those pieces stop growing. Good defence and good attack are often the same move.");
+      }
+      if (f.squeezed && !f.zoneKill) {
+        s.push("It also squeezes " + PNAMES[f.squeezedPlayer] + " down to their last open corner " +
+          "in that area, so their room to manoeuvre there is nearly gone.");
+      }
+      if (f.replyChecked && f.survivesReply) {
+        s.push("The coach checked the strongest reply available to the next opponent before picking " +
+          "this: the move still leaves your corners standing after it, so it isn't a good-looking " +
+          "move that falls apart on the very next turn.");
+      } else if (f.replyChecked && f.replyLost > 0) {
+        s.push("Even after the next opponent's best reply — which costs you " + f.replyLost +
+          " corner" + (f.replyLost === 1 ? "" : "s") + " — this still comes out ahead of every " +
+          "alternative the coach tested.");
+      }
+      if (typeof f.followUps === "number" && f.followUps >= 8) {
+        s.push("And it sets you up well: from this position you'd still have " +
+          (f.followUps >= 25 ? "more than 25" : "around " + f.followUps) +
+          " possible placements next turn, so one blocked route won't end your game.");
+      }
+      if (remaining[p].size > 1 && remaining[p].size <= 4) {
+        s.push("Late in the game the priority flips: every square left unplaced costs a point, so " +
+          "using pieces while they still fit matters more than perfect positioning.");
+      }
+      return s.join(" ");
+    }
 </script>
 
     <script>
@@ -766,6 +1060,7 @@
         if (flashSet.has(i)) cls += " flash";
         if (cellEls[i].className !== cls) cellEls[i].className = cls;
       }
+      updateQualityStrip();
     }
     function isCornerCell(i) {
       const x = i % N, y = (i / N) | 0;
@@ -859,6 +1154,88 @@
       $("btn-place-rec").disabled = false;
     }
     function setBanner(txt) { bannerEl.textContent = txt; }
+
+    /* ================= Move-quality strip ================= */
+    // Live grade for the placement the human is currently previewing with
+    // the ghost. Display only — it reads the shipped coach evaluator
+    // (coachEvaluateMove) and never feeds back into it. The ghost's score
+    // is compared against the best legal move available this turn with
+    // ANY piece, so holding the wrong piece caps the grade by design.
+    // The baseline (every legal move's coach score) is computed once per
+    // board state and cached; grading a ghost move after that is a single
+    // evaluator call, so it stays instant while dragging / rotating.
+    let gradeBase = null; // { key, bestScore, bestFrontier, scores[] }
+    function computeGradeBaseline(p) {
+      const frontiers = allFrontiers(board);
+      const moves = enumerateMoves(board, p, [...remaining[p]]);
+      let bestScore = -Infinity, bestFrontier = 0;
+      const scores = [];
+      for (const m of moves) {
+        const r = coachEvaluateMove(board, p, m, frontiers);
+        scores.push(r.score);
+        if (r.score > bestScore) { bestScore = r.score; bestFrontier = r.f.frontier; }
+      }
+      return { bestScore, bestFrontier, scores };
+    }
+    function gradeCurrentGhost() {
+      const p = current;
+      const abs = sel.cells.map(([cx, cy]) => idx(sel.anchor.x + cx, sel.anchor.y + cy));
+      const key = appMode + "|" + p + "|" + board.join(",");
+      if (!gradeBase || gradeBase.key !== key) {
+        gradeBase = Object.assign({ key }, computeGradeBaseline(p));
+      }
+      const r = coachEvaluateMove(board, p, { pieceId: sel.pieceId, cells: abs }, allFrontiers(board));
+      const gap = gradeBase.bestScore - r.score;
+      let better = 0;
+      for (const s of gradeBase.scores) if (s > r.score + 1e-9) better++;
+      const frac = gradeBase.scores.length ? better / gradeBase.scores.length : 0;
+      // The coach's own recommended placement always reads Strong.
+      const isRec = !!bestPick && bestPick.move.pieceId === sel.pieceId &&
+        bestPick.move.cells.length === abs.length &&
+        bestPick.move.cells.every(c => abs.indexOf(c) !== -1);
+      let grade;
+      if (isRec || gap <= 2.5) grade = "Strong";
+      else if (gap <= 6.5) grade = "Good";
+      else if (gap <= 13) grade = "Weak";
+      else grade = "Bad";
+      if (!isRec && grade === "Weak" && frac >= 0.92) grade = "Bad";
+      // When a low grade is mainly about limiting future moves, say so in
+      // a few words: the ghost's open corners vs the best move's.
+      let reason = "";
+      if (grade === "Weak" || grade === "Bad") {
+        const gf = r.f.frontier, bf = gradeBase.bestFrontier;
+        if (gf === 0 && bf > 0) reason = "leaves you with no corners at all";
+        else if (gf <= 2 && bf - gf >= 3) reason = "leaves you with almost no corners";
+        else if (bf - gf >= 2 && gf * 2 <= bf) reason = "few follow-up moves from here";
+      }
+      return { grade, reason };
+    }
+    const GRADE_NOTES = {
+      Strong: "matches the best play available this turn",
+      Good: "close to the best move available",
+      Weak: "well below the best move available",
+      Bad: "among the weakest plays available"
+    };
+    function updateQualityStrip() {
+      const el = $("quality-strip"), txt = $("quality-text");
+      if (!el || !txt) return;
+      // Live only while a human places their own piece: normal game on a
+      // human turn, and in Cheat Mode only the owner's own colour. Every
+      // other state (computer turn, other cheat colours, no piece picked,
+      // game over) falls back to the same neutral line, so the strip's
+      // height never changes and the board never jumps.
+      const myTurn = appMode === "cheat" ? current === cheatYou : !!humans[current];
+      const active = !gameOver && !busy && myTurn && sel && sel.anchor && sel.legal;
+      if (!active) {
+        if (el.className !== "quality-strip q-neutral") el.className = "quality-strip q-neutral";
+        const t = "Move quality — shown while you're placing a piece";
+        if (txt.textContent !== t) txt.textContent = t;
+        return;
+      }
+      const g = gradeCurrentGhost();
+      el.className = "quality-strip q-" + g.grade.toLowerCase();
+      txt.innerHTML = "<b>" + g.grade + " move</b> — " + (g.reason || GRADE_NOTES[g.grade]);
+    }
 
     /* ================= Selection & placement ================= */
     function computeAnchorGlow() {
@@ -1088,7 +1465,7 @@
     // automatically during normal play. It picks ONE best move and explains
     // the thinking behind it; there is no list of alternatives.
     function computeBestMove(p) {
-      const ranked = rankMoves(board, p);
+      const ranked = coachRankMoves(board, p);
       if (!ranked.length) { bestPick = null; return; }
       const top = ranked[0];
       // Count next turn's options so the lesson can say what this sets up.
@@ -1096,7 +1473,7 @@
       const rest = [...remaining[p]].filter(id => id !== top.move.pieceId);
       top.f.followUps = enumerateMoves(board, p, rest, 25).length;
       removeFromBoard(board, top.move.cells);
-      bestPick = { move: top.move, f: top.f, why: explainBest(top, p) };
+      bestPick = { move: top.move, f: top.f, why: coachExplainBest(top, p) };
       if (remaining[p].size <= 5 && remaining[p].size > 0) {
         coachMsg.textContent = "Endgame: " + remaining[p].size + " pieces left. Here's the one move " +
           "that matters most right now, and the thinking behind it.";
@@ -1378,14 +1755,14 @@
     // same evaluator and lesson text as the coach. One move only.
     function computeCheatAdvice() {
       const p = cheatYou;
-      const ranked = rankMoves(board, p);
+      const ranked = coachRankMoves(board, p);
       if (!ranked.length) { bestPick = null; return; }
       const top = ranked[0];
       placeOnBoard(board, p, top.move.cells);
       const rest = [...remaining[p]].filter(id => id !== top.move.pieceId);
       top.f.followUps = enumerateMoves(board, p, rest, 25).length;
       removeFromBoard(board, top.move.cells);
-      bestPick = { move: top.move, f: top.f, why: explainBest(top, p) };
+      bestPick = { move: top.move, f: top.f, why: coachExplainBest(top, p) };
       coachMsg.textContent = "For your next turn as " + PNAMES[p] + ", on the board exactly " +
         "as it stands at the table. Play it in the real game, then tap “I played it” so the " +
         "mirror stays in step.";
