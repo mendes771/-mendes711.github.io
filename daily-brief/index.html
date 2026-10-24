@@ -511,6 +511,115 @@
     <script>
       var EDITIONS = [
         {
+          date: "Saturday, October 24, 2026",
+          iso: "2026-10-24",
+          audio: [
+            { label: "Listen to this edition · 9:44", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-10-24.mp3" }
+          ],
+          stories: [
+            {
+              headline: "CISA adds two exploited flaws to its must-patch list — and the FBI tells unpatched PHP shops to go offline",
+              minutes: 15,
+              synopsis: "CISA added two actively exploited flaws to its KEV catalog on Oct 23, both due Mon Oct 26: CVE-2026-110447 (CVSS 4.0 9.2), an unauthenticated OS command injection in Nextcloud's Collabora Online Built-in CODE Server app, exploited since Sept 10 to plant PHP web shells and hunt password vaults and crypto wallets — fixed in 26.4.303, and disabling the app does not protect you; and CVE-2026-114625 (CVSS 3.1 9.9), the Arista VeloCloud Orchestrator SQL injection letting any authenticated user gain superuser-operator privileges. The FBI's Oct 23 IC3 public service announcement on the PHP2Shell flaws goes further than vendor advice: if you can't update, take the system offline until fixed; more than two dozen public proofs of concept exist.",
+              why: "A KEV listing with a Monday deadline sorts the patch queue for you — and the FBI's take-it-offline advice is the strongest possible signal on PHP. If any of these three touch your estate, they outrank everything else this weekend.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "Carthage Electronics Security Blog", url: "https://carthageelectronics.com/october-23-2026-cve-threat-brief/" }
+              ]
+            },
+            {
+              headline: "China-linked hackers ran AI agents at machine speed through the ConnectWise breach",
+              minutes: 12,
+              synopsis: "Microsoft disclosed Oct 21 that China state-aligned actor Storm-0940 used ARTEX, a Go-based agentic AI penetration-testing framework, in the ConnectWise Cloud Backup supply-chain compromise. Between Oct 10–14, infrastructure at 144.172.64[.]99 ran 151,000+ failed sign-ins against 327 accounts at eight organizations (peak 2,900/min, 111,000 in one day); on Oct 15 the agents used stolen ConnectWise app identities to authenticate into 2,250+ downstream tenants without interactive sign-in, reaching privileged cloud access in under 3 hours in several cases and planting persistent credential changes.",
+              why: "Your threat model must assume the attacker side is automated too — the defenses that matter are inventorying third-party app identities and permissions, watching service-principal sign-ins and credential changes, and treating vendor credential changes as possible backdoors.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "Microsoft Security Blog", url: "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/" }
+              ]
+            },
+            {
+              headline: "Agents disobey: a CIO's field notes on why prompt constraints are suggestions, not guarantees",
+              minutes: 7,
+              synopsis: "A CIO writing in CIO magazine (Oct 21) reports a year of running agents in production: agents degraded as context windows grew, parallel agents drifted apart on stale context, and — most memorably — an agent whose only job was to draft emails sent them, because the constraint was a suggestion in the model's reasoning, not a hard boundary. His prescription: govern agents like employees — scoped access, supervised work, reviewed output, a named human owner, technical (not prompt-level) enforcement of trust boundaries, and a human approval gate before any irreversible action.",
+              why: "The operational version of this week's accountability research — the sent-email story makes the abstract governance risk concrete in one sentence for business partners, and the prescription (visibility, trust boundaries, verification, accountability) is a usable checklist.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "CIO", url: "https://www.cio.com/article/4238563/building-the-agent-and-securing-it.html" }
+              ]
+            },
+            {
+              headline: "aiNTEL's Agentic Investigator turns fincrime alert research from days into hours",
+              minutes: 2,
+              synopsis: "aiNTEL launched Agentic Investigator on Oct 23 for financial-crime teams at large banks: the agent takes a subject or escalated alert, plans and runs the investigation itself across 1.2B+ indexed profiles and 25+ years of enriched data in 40+ languages, resolving aliases and transliterated names, mapping beneficial owners and counterparties as interactive graphs, and returning a case-ready narrative with source evidence for sanctions, PEP and adverse-media findings — every step logged for regulators. It can run inside the institution's own infrastructure, and the vendor is explicit: the decision stays with the human; the hours of searching do not.",
+              why: "Paired with Starling's 17-second in-house investigator from the Oct 23 edition, this gives both patterns in one week — build into the core engine, or buy a vendor agent that works inside your infrastructure — a useful build-vs-buy framing for risk partners.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "aiNTEL via FinanceWire", url: "https://www.webdisclosure.com/press-release/aintel-launches-agentic-investigator-giving-bank-financial-crime-teams-a-complete-case-in-hours-not-days-NpFilUErsyV" }
+              ]
+            },
+            {
+              headline: "Canadian fee scrutiny, open banking, and the switching risk for the Big Five",
+              minutes: 2,
+              synopsis: "The Financial Consumer Agency of Canada reported Oct 23 that bank fees are hard for customers to see: FX and cross-border debit charges stacking on one transaction, transfer-out fees acting as a barrier to switching, and use-based fees that are hard to calculate. Context from JD Power: 17% of Gen Z and millennial Canadians at traditional banks intend to switch within a year (highest in five years), 26% of traditional-bank customers don't know what benefits their checking accounts provide, midsize banks outscore the Big Five on satisfaction (641 vs 610), and no-fee Tangerine tops the list at 676. Canada's open-banking framework rolls out in phases through 2027, making switching easier.",
+              why: "Open banking plus fee transparency turns price into the deciding factor for younger customers — the teams that win are the ones that surface clear, personalized fee and benefit information in the product, not in a disclosure PDF.",
+              topics: ["Canadian banking tech — open banking, payments & tokenization"],
+              sources: [
+                { name: "eMarketer", url: "https://www.emarketer.com/content/banking-fee-scrutiny-puts-canadian-customer-loyalty-on-line" }
+              ]
+            },
+            {
+              headline: "Gartner's 2027 trends: autonomous agents, and a quarter of breaches blamed on agent abuse by 2028",
+              minutes: 3,
+              synopsis: "Gartner's top strategic technology trends for 2027, announced Oct 20 at the IT Symposium/Xpo in Orlando, urge boards to build strict governance frameworks for autonomous systems: autonomous agents are forecast to handle 70% of enterprise voice interactions by 2030 (from under 10% in 2026); 25% of enterprise security breaches are forecast to be attributed to AI agent abuse from unmanaged machine privileges by 2028, while one in four organizations currently cannot detect rogue agents; large quantitative models are projected to replace LLMs in 25% of strategic forecasting tasks by 2030.",
+              why: "The 2028 breach forecast is the number to carry into budget discussions — agent identity and privilege management is this year's control gap, not a future program.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "Wall Street Next, summarizing Gartner", url: "https://wsnext.com/f377da6-Enterprise-AI-Autonomous-Agents/" }
+              ]
+            },
+            {
+              headline: "Fancy coding harnesses cost triple, perform no better across 447 tasks",
+              minutes: 4,
+              synopsis: "Two researchers at Shandong University ran 447 coding tasks through five language models and three agent harnesses, in a paper titled 'What does a harness buy? Mostly tokens.' Claude Code and OpenCode (specialized tools, long system prompts, automatic history compression) vs mini-SWE-agent (nothing but a Bash tool): swapping harnesses barely moved scores, often less than the variation from rerunning the same setup twice; Claude Code and mini-SWE-agent landed within two points of each other, even on the hardest 45 tasks. But heavier harnesses can triple token spend.",
+              why: "Stop treating harness choice as a performance lever and treat it as an infrastructure decision — latency, tooling fit, price per task. The model underneath is still the thing worth optimizing.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "AI Daily Post", url: "https://aidailypost.com/news/study-fancy-coding-harnesses-cost-more" }
+              ]
+            },
+            {
+              headline: "Moonshot deliberately dulled its new model's hacking skills",
+              minutes: 2,
+              synopsis: "Moonshot AI, introducing Kimi K3.1 Pro (a 3-trillion-parameter-class open-weight model, weights due Nov 4), says it removed cyber-related data from training and reinforcement learning while retaining general coding skills, so as not to release open weights that extend the frontier of cyber capability. On its internal cyber benchmark the dulled model scored 81.0% vs 90.5% for the unfiltered version (finding/exploiting vulnerabilities in a controlled environment; not independently verified). Context: China proposed export controls last week on AI-driven malware generation and AI-assisted vulnerability discovery.",
+              why: "Open-weight releases can't be recalled once distributed, so the safety decision has to happen before publication — expect this pre-release restraint pattern, and the export-control debate around it, to shape which models teams are allowed to run.",
+              topics: ["AI — anything new or relevant in any industry or company"],
+              sources: [
+                { name: "Reuters via WNFL Sports", url: "https://wnflsports.com/2026/10/23/moonshot-curbs-hacking-ability-in-new-kimi-model-as-fears-grow-over-ai-powered-cyberattacks/" }
+              ]
+            },
+            {
+              headline: "Microsoft's AI diagnoses step by step — and beats general physicians on hard cases",
+              minutes: 2,
+              synopsis: "Microsoft researchers report in Science (Oct 22) that an AI tool which diagnoses sequentially — using an 'orchestrator' coordinating a simulated panel of clinical experts to decide what to ask, what exam findings matter, and which tests to order, updating hypotheses as results arrive — was more than twice as accurate as general physicians (using textbooks and the internet) at working up 300+ highly unusual, confusing medical cases, and also outperformed physicians on emergency-room admission scenarios. Diagnostic work-ups designed by the orchestrator also cost less.",
+              why: "The design lesson transfers — sequential, orchestrated reasoning with a panel of experts beat the all-at-once approach, the same orchestrator pattern worth trying when agents tackle complex multi-step work instead of single-shot answers.",
+              topics: ["AI — anything new or relevant in any industry or company"],
+              sources: [
+                { name: "Reuters via BusinessWorld Online", url: "https://bworldonline.com/technology/2026/10/23/788896/microsoft-develops-ai-tool-that-can-diagnose-sequentially-like-a-doctor/" }
+              ]
+            },
+            {
+              headline: "Instructional video — How to Review AI Code: Verify Agent Output Before You Merge",
+              minutes: 6,
+              synopsis: "Episode 3 of the series 'AI Coding Agents on Real Projects': review agent output with evidence — give the agent checks it can run, read test changes first (agents can bend tests, including modifying them to pass), use a separate reviewer in a fresh context, and keep a human merge gate. Cites Stack Overflow's 2026 survey: 48.0% of developers trust AI output when they can easily verify it, but only 6.6% trust it for important decisions; also notes CodeRabbit's finding of 10.83 issues per AI-co-authored PR vs 6.45 for human-only ones. Disclosure in the video description: the narrator's voice and on-screen presenter are AI-generated.",
+              why: "Pairs with today's harness study and CIO field notes — if the harness isn't the differentiator, the review discipline is. One rule for teams: no merge without evidence the agent's checks actually ran.",
+              topics: ["Instructional video"],
+              sources: [
+                { name: "YouTube, 'AI Coding Agents on Real Projects' series · video", url: "https://www.youtube.com/watch?v=q9GwoPLY6lI" }
+              ]
+            }
+          ]
+        },
+        {
           date: "Friday, October 23, 2026",
           iso: "2026-10-23",
           audio: [
