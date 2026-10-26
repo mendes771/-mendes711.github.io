@@ -511,6 +511,95 @@
     <script>
       var EDITIONS = [
         {
+          date: "Monday, October 26, 2026",
+          iso: "2026-10-26",
+          audio: [
+            { label: "Listen to this edition · 6:19", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-10-26.mp3" }
+          ],
+          stories: [
+            {
+              headline: "Deadline day: CISA's Nextcloud and Arista flaws due today — patch, then hunt",
+              minutes: 7,
+              synopsis: "CISA's Known Exploited Vulnerabilities entries for CVE-2026-110447 (Nextcloud built-in Collabora CODE server, CVSS 9.2, unauthenticated OS command injection via proxy.php) and CVE-2026-114625 (Arista VeloCloud Orchestrator, CVSS 9.9, SQL injection) carry a federal remediation deadline of October 26, 2026. The Nextcloud flaw has been exploited in the wild since September; the vulnerable window opens whenever the CODE server restarts, and administrators report web shells surviving the patch. CISA's entry carries forensic-triage requirements: patch to richdocumentscode 26.4.303, run the integrity check, look for unexpected PHP files, and rotate credentials the web-server user could read.",
+              why: "Patch-and-hunt is the pattern: a ticket that says 'patched' is not a ticket that says 'clean' — and this flaw's restart-window shape is exactly the kind an annual pentest or banner-checking scanner would miss.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "ZeroHunt · article", url: "https://zerohunt.ai/blog/collabora-online-cve-2026-110447-code-server-rce/" }
+              ]
+            },
+            {
+              headline: "HSBC launches HSBCnio: read-only agent access, built by the bank",
+              minutes: 1,
+              synopsis: "HSBC announced HSBCnio on October 26, 2026 for corporate and institutional clients: a digital tool letting clients access HSBC banking services via web/mobile with existing HSBCnet logins and permissions, or connect internal systems via APIs. Clients' AI tools can access authorised account and transaction data on a read-only basis through the bank's Model Context Protocol server. More transaction banking features are planned, including Ask HSBC, an AI-enabled tool for querying and interpreting banking information.",
+              why: "This is the read-only half of the agent-access model, built by the bank itself — the bank keeps the permission boundary and the audit trail, which is the pattern to point to when partners ask what safe agent access looks like.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "Tech in Asia · article", url: "https://www.techinasia.com/news/hsbc-launches-ai-tool-corporate-banking-clients" }
+              ]
+            },
+            {
+              headline: "Banks expect autonomous decisions within 5 years — only 18% have AI governance ready",
+              minutes: 5,
+              synopsis: "FT Longitude, SAS and Microsoft surveyed 300 banking leaders across 31 countries for the report 'Why AI at Scale Needs Governance at Speed': 76% expect AI to make autonomous credit and risk decisions at scale by 2031, but only 18% have fully operational, embedded AI governance today; 42% lack defined kill switches for models crossing preset boundaries; only 19% have real-time model drift monitoring; 92% report at least one LLM operating outside formal governance frameworks; and 63% would use a black-box model if it performed better. Tangerine's Head of Credit Risk, Nishant Taneja, notes that in retail credit portfolios more than 90% of decisions are already AI-based with very little human in the loop, while high-risk portfolios deliberately keep humans in place.",
+              why: "The ambition-governance gap is now measured, and the kill-switch number is the one to quote in governance conversations — a model you cannot switch off is a control failure already in place.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "BrandIconImage, summarizing FT Longitude/SAS · article", url: "https://www.brandiconimage.com/2026/10/banks-expect-to-hand-decisions-to-ai.html" }
+              ]
+            },
+            {
+              headline: "JPMorgan: AI makes wealth advisors more productive — and headcount still grows",
+              minutes: 2,
+              synopsis: "JPMorgan's private bank is using AI to onboard clients, for investment research and other tasks, aiming to make wealth advisors more effective and efficient, according to EMEA head Pablo Garnica. At the same time the bank is still hiring: advisor headcount in EMEA private banking is expected to grow 10–15% over the next three to five years, as more productive advisors can onboard more clients. Citi earlier this year said it wants to add 400 wealth advisors in US retail banking and 100 in private banking.",
+              why: "Productivity gains that let advisors serve more clients are the hiring case, not the cutting case — the framing that survives a room full of people worried about their jobs.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "Moneyweb / Bloomberg · article", url: "https://www.moneyweb.co.za/news/tech/jpmorgan-using-ai-to-make-its-wealth-advisors-more-efficient/" }
+              ]
+            },
+            {
+              headline: "Apollo: most companies see zero financial payoff from AI so far",
+              minutes: 3,
+              synopsis: "Apollo's chief economist published an analysis (October 25, 2026) finding that the vast majority of companies deploying AI are experiencing zero measurable financial returns on their investments, despite billions in corporate spending. The analysis blames integration complexity with legacy systems, insufficient training and change management, mismatched use cases aimed at low-value problems, ongoing operational costs above budget, and data quality limits — and recommends disciplined approaches with clear ROI frameworks before deployment, predicting a consolidation period where underperforming initiatives get cut and resources shift to proven use cases.",
+              why: "Paired with Gartner's 13% from last week, the pattern is consistent — the returns gap is an implementation gap, not a technology gap, and the fix is change management and picking the right problem.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "Emergent, summarizing Apollo · article", url: "https://emergent.sh/news/ai-delivers-zero-financial-payoff-most" }
+              ]
+            },
+            {
+              headline: "Broadcom's VMware AI Factory: private AI in hours, plus agent chain-of-custody",
+              minutes: 2,
+              synopsis: "At VMware Explore 2026, Broadcom launched VMware AI Factory, the software-defined foundation of VMware Private AI Cloud, compressing bare-metal server setup to first model run from weeks to hours, with GPU support from Nvidia and AMD, server certification from Cisco, Dell, Lenovo and Supermicro, and compatibility with 150+ models including Nemotron 3, Gemma 4 and Qwen 3.7-Max. Agent governance was a major theme: AgentMinder delivers chain-of-custody oversight across developers and multiple agents, alongside VMware vDefend and Avi Load Balancer as agent security infrastructure. Broadcom cites proprietary research that 56% of enterprises operate or intend to deploy production AI on private cloud.",
+              why: "Private cloud keeps sensitive workloads in-house without giving up platform tooling — and chain-of-custody for agents is the governance feature to ask every platform vendor about, because an agent's actions need an audit trail just like a person's do.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "BitRss / Blockonomi · article", url: "https://bitrss.com/broadcom-avgo-reveals-vmware-ai-factory-ahead-of-q3-earnings-report-246879" }
+              ]
+            },
+            {
+              headline: "Video: AI at Scale — agent pricing, security and agentic banking",
+              minutes: 93,
+              synopsis: "A Seattle Data AI & Security community speaker session from October 2026 covering enterprise AI market transformation, agent pricing and token economics, moving agents from pilot to production, and a dedicated agentic banking segment: how AI assistants could interact with banking services, open banking APIs replacing screen scraping, Model Context Protocol servers connecting agents to banking capabilities, agent identity and token scoping, read-only access versus autonomous transactions, step-up approvals, consent validation, browser-agent fraud risks, and the accountability question of who authorized an action and how a harmful one can be detected or reversed.",
+              why: "The fullest plain-language map of agent-ready banking in one session — and it lands the same conclusion as this week's briefs: read-only access first, transactions only with explicit approval.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "Seattle Data AI & Security · video", url: "https://www.youtube.com/watch?v=xJPrZigsWYg" }
+              ]
+            },
+            {
+              headline: "Instructional video: Context Engineering — why a good prompt isn't enough",
+              minutes: 5,
+              synopsis: "A short illustrated explainer on context engineering: an AI application selects, organizes and updates the information a model can actually use. It follows one fictional customer-renewal meeting — a current contract, an open support ticket, an account note — then the ticket changes, and the next answer needs updated evidence, not just a rewritten prompt. Four practical questions for checking context, and the closing line: evidence is not permission. Primary sources cited: Anthropic's engineering writing and LangChain's context engineering blog.",
+              why: "Every agent your teams build will answer from stale context sooner or later, and the fix is not prompt craft — it is making sure the context is current, selected and authorized before the model ever sees it.",
+              topics: ["Instructional video"],
+              sources: [
+                { name: "GorillAI · video", url: "https://www.youtube.com/watch?v=miHRAc-bBSo" }
+              ]
+            }
+          ]
+        },
+        {
           date: "Sunday, October 25, 2026",
           iso: "2026-10-25",
           audio: [
