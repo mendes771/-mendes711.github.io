@@ -511,6 +511,138 @@
     <script>
       var EDITIONS = [
         {
+          date: "Wednesday, October 28, 2026",
+          iso: "2026-10-28",
+          audio: [
+            { label: "Listen to this edition · 10:37", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-10-28.mp3" }
+          ],
+          stories: [
+            {
+              headline: "CISA KEV: Magento PolyShell and Brotli HTTP2Shell — patch by November 10, and hunt first",
+              minutes: 9,
+              synopsis: "On October 27, 2026, CISA added two actively exploited flaws to its Known Exploited Vulnerabilities catalog, with a federal remediation deadline of November 10, 2026. CVE-2026-48356 (PolyShell, CVSS 9.3) is an unauthenticated file-upload flaw in Adobe Commerce and Magento Open Source up to 2.4.9, fixed by Adobe's July 2026 bulletin APSB26-73. CVE-2026-111497 (CVSS 9.2) is an out-of-bounds write in Google's Brotli decoder, bundled into Node.js, Python, .NET, Go frameworks and more, fixed in Brotli 1.0.10/1.1.1/1.2.1. Sansec's October 24 report shows the PolyShell loader hiding in the cms_block database table — patching does not remove it, and one patched store was re-infected within an hour via a rogue admin account planted September 16; the campaign has hit 953 stores since July 2025.",
+              why: "Patch-and-hunt again: clean the database, remove rogue admins and backdoors, rotate credentials, then patch — and for Brotli, the fix means updating every runtime and library that bundles the decoder, which takes weeks.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "SecurityOnline.info · article", url: "https://securityonline.info/cisa-kev-magento-brotli-vulnerability/" },
+                { name: "KinoSec · article", url: "https://kinosec.ai/articles/magento-polyshell-cve-2026-48356-cms-block-loader" }
+              ]
+            },
+            {
+              headline: "RBC blocks third-party AI agents; BofA and UBS draw the same line",
+              minutes: 5,
+              synopsis: "RBC told all employees on October 27, 2026 that it is blocking third-party personal AI agents, including Meta's Muse, from direct access to its authenticated digital properties, after a comprehensive security review, citing 'unacceptable customer risk' including agents acting beyond customer expectations and liability exposure. The message came from Naim Kazmi (group head, technology and operations) and Erica Nielsen (group head, personal banking). The same day, Bank of America emailed customers never to share banking credentials with an AI assistant, and UBS CEO Sergio Ermotti said UBS will not allow external AI models to execute actions for clients. Market analyst Jim Bianco countered that banks are also protecting deposit revenue that agents would sweep into money-market funds.",
+              why: "Banks, agents and customers are now in a three-way negotiation — the winning side offers a sanctioned, permissioned path (like bank-built read-only access) rather than just saying no.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "Briefs Finance · article", url: "https://www.briefs.co/news/royal-bank-of-canada-blocks-third-party-ai-agents-from-its-s/" },
+                { name: "TechCrunch · article", url: "https://techcrunch.com/2026/10/27/bank-of-america-kindly-asks-that-you-dont-share-your-banking-password-with-your-ai-assistant/" }
+              ]
+            },
+            {
+              headline: "Canada's draft stablecoin rules: rewards for spending yes, yield for holding no",
+              minutes: 13,
+              synopsis: "Draft regulations published in the Canada Gazette on October 24, 2026 (consultation open until December 23) propose that a payment or reward tied to a stablecoin transaction is not interest or yield, while payments tied to holding are banned — even when labeled points or perks, and even when routed through a funded intermediary (section 14's indirect-yield clause). Reserves must cover outstanding coins at each day's end, held with qualified financial institutions domiciled in Canada, segregated from issuer and custodian assets, with monthly reporting to the Bank of Canada. Issuers must redeem any amount within three business days for a fee capped at 1%. Bank-issued coins are excluded from the Stablecoin Act, keeping the Big Six tokenized-deposit project on a separate legal path.",
+              why: "This is the rulebook tokenized-money conversations now sit inside — and the spending-vs-holding line is the design test for any rewards program a partner proposes.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "crypto.news · article", url: "https://crypto.news/canada-will-allow-stablecoin-rewards-for-spending-but-not-for-holding/" }
+              ]
+            },
+            {
+              headline: "Scotiabank's digital update: self-serve, proactive savings nudges, and a Client Innovation Day",
+              minutes: 5,
+              synopsis: "Scotiabank announced on October 27, 2026 a set of digital banking enhancements: a redesigned mobile-first Scotiabank.com, personalized insights in the Scotia app that notify clients when they are close to the next interest tier on its relationship-based High Interest Savings Account, in-app appointment booking with preparation reminders, and expanded self-serve options including credit-card PIN changes, damaged-card replacement, and scheduled future-dated and recurring Interac e-Transfers. The bank also hosted its inaugural Client Innovation Day this month, co-creating features with clients in real time with AI-assisted prototyping.",
+              why: "The bar for good digital banking keeps moving toward self-serve plus proactive nudges — and the Client Innovation Day format is a cheap idea to borrow for partner feedback loops.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "Cantech Letter / CNW · article", url: "https://www.cantechletter.com/newswires/scotiabank-digital-banking-update-simplifying-everyday-banking-with-new-self-serve-and-money-transfer-capabilities/" }
+              ]
+            },
+            {
+              headline: "Backbase Delivery Factory: bank teams plus specialist agents, one shared context",
+              minutes: 2,
+              synopsis: "Backbase launched Delivery Factory on October 27, 2026, an AI software factory pairing bank delivery teams with specialist AI agents from the first agreed requirement to working code. Unlike generic coding assistants that start from the code in front of them, Delivery Factory builds one shared project context from scoping documents, architecture specifications, meeting notes and Backbase product knowledge, used by every person and agent through design, planning, implementation and review. Backbase reports teams delivered twice as fast as traditional teams and 30% faster than teams using generic assistants, with 80% less requirements effort and 60% more test coverage (vendor figures, not independent benchmarks).",
+              why: "The shared-context idea is the one to steal — most agent pilots fail on lost context between handoffs, and a single agreed source of truth from requirement to code is the fix, bought or built.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "PYMNTS · article", url: "https://www.pymnts.com/news/artificial-intelligence/2026/backbase-helps-banks-deploy-agentic-ai-with-delivery-factory/" }
+              ]
+            },
+            {
+              headline: "Amazon: developers aren't shrinking — their job is moving up to oversight",
+              minutes: 2,
+              synopsis: "Amazon engineering leadership published guidance on October 27, 2026 on how developer roles adapt to AI-assisted workflows: developers remain central, with accountability for code quality, security and architecture resting with humans, not AI. New competencies include prompt engineering, code review expertise, understanding model limitations, and architecture knowledge; traditional fundamentals (algorithms, data structures, system design) remain critical. The recommended operating model is hybrid: AI handles initial code generation, boilerplate and documentation while humans control critical-path logic — treating AI tools as junior developers requiring supervision, with iterative refinement, comprehensive testing and a human review gate before production.",
+              why: "This is the staffing and accountability frame for his own teams — the developer's job moves up a level, and the review gate is where accountability lives.",
+              topics: ["Process improvements"],
+              sources: [
+                { name: "Emergent · article", url: "https://emergent.sh/news/amazon-engineering-updates-developer-role-ai" }
+              ]
+            },
+            {
+              headline: "Two warnings for dev-tool security: Aokigahara stealer and the Warp vendor breach",
+              minutes: 4,
+              synopsis: "Check Point detailed a new Windows infostealer on October 27, 2026, named Aokigahara, that specifically targets authentication files, session data and configuration for Claude, ChatGPT Desktop, Codex, Cursor, Windsurf, GitHub Copilot and Gemini CLI, plus Git credentials, SSH private keys, API keys and AWS/Azure/Google Cloud configs — stolen AI sessions are resellable and conversation histories containing proprietary code carry extortion value. Separately, Warp (agentic development environment, 800,000+ developers) disclosed that an attack on a third-party vendor exposed agent decision logs and telemetry for roughly 1% of users, without yet clarifying whether source code, prompts or credentials were included; CrowdStrike is assisting the investigation.",
+              why: "Developers' AI sessions are now a credential class of their own — treat them like production secrets, shorten their lifetimes, and cover AI sessions in incident response checklists.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "Pivot News, reporting Check Point · article", url: "https://pivotnews.ai/security/new-aokigahara-stealer-hunts-ai-assistant-sessions-check" },
+                { name: "Pivot News, reporting BleepingComputer · article", url: "https://pivotnews.ai/five/warp-says-vendor-breach-exposed-ai-agent-logs-and-telemetry" }
+              ]
+            },
+            {
+              headline: "Akamai: open-weight inference plus a sandbox for agent-written code",
+              minutes: 4,
+              synopsis: "Akamai launched two beta services on October 27, 2026: Akamai Inference, serving 12 open-weight models (8B to 2.8T parameters, including Nvidia Nemotron 3 Ultra, OpenAI gpt-oss-120b and Google Gemma 4) through OpenAI-compatible APIs with serverless or dedicated deployment, and Akamai Agent Sandbox, which runs agent-generated code in isolated WebAssembly environments (via the Spin framework) with customer-set limits on compute, memory, system capabilities and outbound connections. Nvidia Blackwell Ultra clusters were also added to its GPU fleet.",
+              why: "The sandbox pairs with agent identity — identity governs who the agent is, the sandbox governs what its code can touch — and both are now checkboxes for any agent platform evaluation.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "AI Affairs · article", url: "https://www.aiaffairs.com/technology/akamai-inference-agent-sandbox-launch/" }
+              ]
+            },
+            {
+              headline: "Longer listen — J.P. Morgan Payments at Sibos: orchestrate every rail, bet on none",
+              minutes: 8,
+              synopsis: "In a Sibos 2026 interview, J.P. Morgan Payments' Global Product Head for Cross Currency Payments, Rakesh Purohit, describes the bank's approach: clients want their bank to manage an increasingly complex payments ecosystem — traditional rails, real-time networks via the Thunes partnership, and tokenized deposits through Kinexys (recently extended to AUD, HKD, JPY, RMB and SGD accounts) — and hand them something simple and reliable. On AI, the bank is deliberately controlled: fraud capabilities first, agentic transactions only once they can be enabled in a controlled way, with data quality and ISO 20022 structured data doing the quiet work underneath. The business processed $10 trillion a day and reported record Q3 2026 net revenue of $5.6 billion.",
+              why: "The incumbent's version of the Backbase/Google strategy — absorb the new rails, don't bet the franchise on any single one.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "FXC Intelligence · article", url: "https://www.fxcintel.com/research/reports/ct-jpmorgan-sibos-2026-interview" }
+              ]
+            },
+            {
+              headline: "How to build an agent that banks won't ban",
+              minutes: 8,
+              synopsis: "An enterprise architect's analysis published in October 2026 argues the web is not rejecting AI agents — it is rejecting anonymous, badly behaved ones. Amazon began blocking Meta's Muse on September 20, JPMorgan Chase and Charles Schwab blocked outside agents from customer accounts, and RBC became the first Canadian bank to do so this week. The piece maps each block to an engineering fix and offers five design rules for agents that get let in: verified identity, scoped permissions, respect for the site's terms, auditable actions, and no credential sharing — noting that over 10 million people in the US and Canada have set up personal Muse agents, mostly for shopping.",
+              why: "If his teams build agents that touch customer accounts, these five rules are the design-review checklist — build the verified, scoped, auditable agent now, or expect to be blocked later.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "Medium · article", url: "https://medium.com/@arunprasathravi0/the-web-is-starting-to-block-ai-agents-heres-how-to-build-one-that-won-t-get-banned-5853208a4198" }
+              ]
+            },
+            {
+              headline: "Instructional video — How to Review AI Code: Verify Agent Output Before You Merge",
+              minutes: 6,
+              synopsis: "Episode 3 of the series 'AI Coding Agents on Real Projects': a practical method for reviewing agent output with evidence — give the agent checks it can run, read test changes first (a bent test is how an agent fakes success), use a separate reviewer in a fresh context, and keep a human merge gate. Grounded in Stack Overflow's 2026 Developer Survey (48.0% trust AI output when they can easily verify it; only 6.6% trust it for important decisions), CodeRabbit's finding of 10.83 issues per AI-co-authored pull request vs 6.45 human-only, and Veracode's finding that ~44% of raw-model code generation tasks introduced a risky vulnerability.",
+              why: "The gap between 6.6% and 48% trust is the entire adoption problem for AI coding on his teams — and verification, not better models, is what closes it.",
+              topics: ["Instructional video"],
+              sources: [
+                { name: "YouTube · video", url: "https://www.youtube.com/watch?v=q9GwoPLY6lI" }
+              ]
+            },
+            {
+              headline: "Video — AI Agents Could Access Your Bank Account. Banks Are Fighting Back",
+              minutes: 8,
+              synopsis: "A plain-language explainer (Tomorrow In 10, checked October 16, 2026) on the permission boundary behind the bank-agent fight: reading versus acting, why banks are concerned about agents moving money, open banking and payment permissions, agentic commerce, and what safe delegation looks like — read-only access first, explicit approval for transactions, and clear answers to who authorized an action and how a harmful one gets reversed.",
+              why: "The ten-minute version of the argument to hand a business partner who asks why the bank won't just let their assistant in.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "Tomorrow In 10, YouTube · video", url: "https://www.youtube.com/watch?v=COJ0PMS-x1k" }
+              ]
+            }
+          ]
+        },
+        {
           date: "Tuesday, October 27, 2026",
           iso: "2026-10-27",
           audio: [
