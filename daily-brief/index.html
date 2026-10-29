@@ -511,6 +511,118 @@
     <script>
       var EDITIONS = [
         {
+          date: "Thursday, October 29, 2026",
+          iso: "2026-10-29",
+          audio: [
+            { label: "Listen to this edition · 11:16", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-10-29.mp3" }
+          ],
+          stories: [
+            {
+              headline: "CISA KEV: Linux kernel Fragnesia chained with PHP2Shell — patch by Saturday, plus a VMware logging blind spot",
+              minutes: 16,
+              synopsis: "On October 28, 2026, CISA added Linux kernel flaw CVE-2026-46300 (Fragnesia, CVSS 7.8) and VMware ESX flaw CVE-2026-41709 (insufficient logging, CVSS 2.7) to its Known Exploited Vulnerabilities catalog. Fragnesia, in the kernel's IPsec ESP code, lets a low-privileged local user write into cached copies of read-only files — a short road to root — and attackers are chaining it with the PHP2Shell flaws: security firm Dream reports a suspected China-linked group rooted 25 internet-facing firewalls on October 23–24 and used two to breach a U.S. government-affiliated network and target Active Directory. Federal deadlines: Fragnesia by October 31, ESX by November 11; the PHP2Shell deadline itself is today, October 29.",
+              why: "Patch the kernel and reboot — a kernel patch does nothing until the new kernel runs — and hunt for planted PHP files, new SSH keys, and rogue admins on any box exposed and unpatched last week; for ESX, ship logs to a separate server so a compromised host cannot erase its own trail.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "SecurityOnline.info · article", url: "https://securityonline.info/cisa-kev-linux-kernel-php2shell-vmware-esx/" },
+                { name: "Carthage Electronics · article", url: "https://carthageelectronics.com/october-28-2026-cve-threat-brief/" }
+              ]
+            },
+            {
+              headline: "The blockade widens: TD and BMO block AI agents, Scotiabank limits, OSFI warns",
+              minutes: 16,
+              synopsis: "Following RBC's October 27 block, TD now says it blocks all third-party personal AI agents from direct access to banking information wherever authentication is required, and BMO says it does not permit AI agents to access its digital properties or execute transactions. Scotiabank says it will limit agent access, CIBC warned customers not to trust agents with financial information, and National Bank says it is monitoring consumer agents including Meta's Muse. The key word in the RBC and TD statements is 'authenticated' — the blocks target agents inside a customer's logged-in session. Meanwhile OSFI's July 2026 technology-risk bulletin warned that agentic AI brings excessive permissions, data leakage, unintended actions, and weak third-party oversight, reiterated in its October 8 risk update.",
+              why: "TD's wording — holding the block 'while we ensure the appropriate safeguards, authorization mechanisms and oversight are in place' — is the sanctioned, permissioned path in the making; those three words are the design brief for any agent that touches customer accounts.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "Tech Insider · article", url: "https://tech-insider.org/ca/canadian-banks-block-ai-agents-rbc-td-bmo-2026/" },
+                { name: "Money.ca · article", url: "https://money.ca/banking/rbc-ai-agents-banking-osfi-warning" }
+              ]
+            },
+            {
+              headline: "GitHub Copilot Fusion: model routing at half the cost, as agents drive 40% of pull requests",
+              minutes: 5,
+              synopsis: "At GitHub Universe, GitHub launched Copilot Fusion, an orchestration engine (not another model) that routes coding tasks across models including Claude Opus 5.5 and GPT-6 Astra, choosing the cheapest model that can do the job. Independent testing by Artificial Analysis put Fusion Max within two points of Claude Opus 5.5 Max on the Coding Agent Index at $5.59 per task versus $11.42 — about 51% less. All GitHub Enterprise users now get full Copilot access, paying only for AI credits consumed, and GitHub added Copilot Projects, Connectors, Automations, AI Scans, and a package firewall that inspects npm downloads. The backdrop: agents started over 40% of pull requests by September (up from 17% in March), and September saw 7.4 billion commits — five times last year.",
+              why: "Model routing is the cost control AI coding budgets have been missing — stop paying flagship prices for routine tasks — and the 40% figure settles whether agent-written code is a pilot or the mainstream.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "The Outpost · article", url: "https://theoutpost.ai/news-story/github-copilot-fusion-launches-with-50-cost-savings-as-infrastructure-expands-to-handle-ai-agent-surge-32804/" }
+              ]
+            },
+            {
+              headline: "OpenAI and ServiceNow: ChatGPT becomes a governed front door to enterprise workflows",
+              minutes: 5,
+              synopsis: "OpenAI and ServiceNow expanded their partnership on October 28, 2026: a ServiceNow MCP plugin is live in the OpenAI marketplace, letting staff pull business context and take workflow actions — find similar incidents, assess change risk, update records — inside ChatGPT, with ServiceNow's Action Fabric applying the customer's existing business rules and permissions. Coming next: a Codex integration in ServiceNow's AI Workflow Factory, a joint OpenAI-powered security solution (early access January 2027, general availability Q2 2027), and voice-driven risk assessment in Q1 2027. ServiceNow will give all employees ChatGPT Work and Codex, and OpenAI joins ServiceNow's new Control Tower Alliance.",
+              why: "The governed-action pattern — the system of record stays the system of record, permissions travel with the user, actions execute in the governed system — is the shape to copy for any ChatGPT-near-production plan.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "Unite.AI · article", url: "https://www.unite.ai/openai-and-servicenow-expand-partnership-with-chatgpt-workflow-plugin/" },
+                { name: "TokenPost · article", url: "https://www.tokenpost.com/news/business/43302" }
+              ]
+            },
+            {
+              headline: "Opsera Forge: a governed software factory for legacy modernization",
+              minutes: 4,
+              synopsis: "Opsera relaunched on October 28, 2026 as an AI-native software factory built around Opsera Forge, a governed platform that turns legacy logic, architecture, and business intent into living specifications and reviewable work orders for any model or coding assistant, with a human in the loop and evaluations, security, and compliance checks at every stage. A ForgeScore assessment tool blueprints legacy modernization by technical risk, complexity, and AI readiness; the company reports customers cutting time to market from two weeks to two days and token use by up to 75% (vendor numbers). A companion product, Unified Insights, connects AI spend to delivery results.",
+              why: "The audit trail is the product — agent-written code without a record of why a change was made, what it was checked against, and who approved it becomes a liability the next team inherits.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "GenZ NewZ · article", url: "https://genznewz.com/opsera-forge-relaunch-turns-legacy-code-into-agent-work" }
+              ]
+            },
+            {
+              headline: "Bloomberg BQuant Assistant: a domain-grounded coding assistant for finance",
+              minutes: 2,
+              synopsis: "Bloomberg launched BQuant Assistant, a conversational AI coding assistant built into BQuant Desktop and BQuant Enterprise, turning natural-language questions into Python code and Bloomberg Query Language queries across more than 22,000 data fields — equities, funds, fixed income, FX, commodities, indices, derivatives — plus screens, universes, and visualizations via Plotly and Jupyter Widgets. It explains existing code as well as generating new scripts, and asks approval before reading from or writing to a notebook. Generally available in BQuant Enterprise, limited beta in Desktop, end of October 2026.",
+              why: "Domain grounding is the differentiator — an assistant grounded in your own data structures, documentation, and workflows is the one analysts will actually trust; ask the same of any AI tool your teams evaluate.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "CFO Tech · article", url: "https://cfotech.co.uk/story/bloomberg-adds-ai-coding-assistant-to-bquant-platform" }
+              ]
+            },
+            {
+              headline: "Gartner: only 13% of CIOs see significant AI value — the vanguard discipline is knowing when to walk away",
+              minutes: 3,
+              synopsis: "Gartner's 2027 CIO and Technology Executive Agenda survey of 2,002 CIOs and technology executives (May–July 2026), presented at IT Symposium/Xpo in Orlando on October 19, found only 13% say their enterprise has realized significant or transformational value from AI, and any given use case has a one-in-five chance of success. 'Vanguard' CIOs share stopping rules: organizations with guidelines for when a pilot should not move to production are 2.3x more likely to be vanguards, and those with guidelines for abandoning low-value production initiatives are 2.6x more likely — yet only 31% and 17% of CIOs have those practices. Just 4% have plans to redesign roles for a human-agent workforce.",
+              why: "'Volume is not value' — the cheapest AI governance to adopt this week is a written walk-away rule at pilot and at production, agreed with business partners before sunk cost sets in.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "Gartner · article", url: "https://www.gartner.com/en/newsroom/press-releases/2026-10-19-gartner-survey-finds-only-13-percent-of-cios-say-their-enterprise-has-realized-significant-or-transformational-value-from-ai" }
+              ]
+            },
+            {
+              headline: "Sopra Steria: four in five enterprise AI decisions have no named owner",
+              minutes: 11,
+              synopsis: "Research published October 21, 2026 by Sopra Steria Next (CIO Compass survey of CIOs and digital leaders) found fewer than 20% of AI-influenced or AI-executed decisions in large organizations have an identified business owner, explicit decision rules, or formal accountability, and fewer than 25% of AI-driven decisions in production can be traced and replayed end to end. A single automated-decision failure can affect 10–100x as many operations, customers, or revenue streams as a conventional outage. The report frames this as a compliance liability — EU AI Act Articles 13, 14, and 26 (transparency documentation, human oversight, six-month log retention) apply to high-risk systems from December 2, 2027 — and prescribes a Chief Data & AI Officer role whose job is to make accountability explicit. Shadow AI compounds the gap: an estimated 8 in 10 office workers use public AI tools without IT approval.",
+              why: "Data governance got built over a decade; decision governance did not. If your teams run AI that decides anything about customers, ask for the replay — model version, inputs, rules, output. If you cannot replay it, you cannot govern it.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "Tech Times · article", url: "https://www.techtimes.com/articles/329368/20261022/ai-decisions-outrun-accountability-four-five-enterprise-deployments-have-no-named-owner.htm" }
+              ]
+            },
+            {
+              headline: "Canada's next-gen payment systems: real-time rails, open banking APIs, identity without cards",
+              minutes: 5,
+              synopsis: "A look at Canada's payment trajectory as of 2026: real-time rail integration targeting millisecond-level T+0 settlement, open-banking API standardization across federally and provincially regulated institutions, digital identity layers that authorize payments without card credentials, inclusive wallet infrastructure, and cross-border frameworks connecting Canadian rails to U.S. and EU networks. Contactless already accounts for over 80% of in-person Visa transactions in Canada (2023 Visa study); the federal open-banking posture has shifted from consultation toward implementation guidance, and Payments Canada's Real-Time Rail remains the infrastructure piece to watch.",
+              why: "The Real-Time Rail and consumer-driven banking are the ground tokenized-money and agentic-payment conversations will run on — watch the rails, not just the apps.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "First Touch Online · article", url: "https://firsttouchonline.com/canadas-next-gen-digital-payment/" }
+              ]
+            },
+            {
+              headline: "Instructional video — How to Write AI Prompts: 7 Simple Rules for Beginners",
+              minutes: 9,
+              synopsis: "A beginner-friendly video tutorial with live before-and-after demos: seven prompting rules — be specific, give context, set a role, give an example, ask for a format, iterate, and verify — drawn from official OpenAI, Google, and Anthropic guidance. The closing rule, verify (trust, but check), ties the week's review-gate theme together.",
+              why: "Most bad AI answers are bad prompts in disguise, and the seven-rule checklist is something you can hand to any team member or business partner today — no jargon, just the exact words to type.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "YouTube — Beginner AI Lab · video", url: "https://www.youtube.com/watch?v=9z-yLle2bR0" }
+              ]
+            }
+          ]
+        },
+        {
           date: "Wednesday, October 28, 2026",
           iso: "2026-10-28",
           audio: [
