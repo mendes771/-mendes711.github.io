@@ -511,6 +511,146 @@
     <script>
       var EDITIONS = [
         {
+          date: "Friday, October 30, 2026",
+          iso: "2026-10-30",
+          audio: [
+            { label: "Listen to this edition · 10:41", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-10-30.mp3" }
+          ],
+          stories: [
+            {
+              headline: "CISA KEV, October 29: GitLab CVSS 10.0 code execution and Cisco firewall reboot flaw — due November 1",
+              minutes: 8,
+              synopsis: "On October 29, 2026, CISA added two actively exploited flaws to its Known Exploited Vulnerabilities catalog, both with a November 1, 2026 federal remediation deadline. CVE-2026-97229 is a CVSS 10.0 integer overflow in GitLab's CI/CD regular-expression processing (Ruby's Onigmo engine) allowing unauthenticated remote code execution on GitLab CE/EE; fixes shipped October 12 in versions 19.2.8, 19.3.5 and 19.4.2, but Alpine Linux's October 28 post-mortem showed upgrading GitLab alone did not close the hole because the fix lives in GitLab's bundled Ruby. CVE-2026-76418 is a CVSS 8.6 unchecked-return-value flaw in Cisco ASA/FTD Remote Access SSL VPN that lets an unauthenticated remote attacker force a device reload when secondary authentication is configured on a tunnel group; Cisco lists no workarounds, only fixed releases.",
+              why: "A maximum-severity code-execution flaw in the tool developers build with, plus a firewall that can be knocked over on demand — and for GitLab, the check is the bundled Ruby version, not just the GitLab version.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "Cyber Security News · article", url: "https://cybersecuritynews.com/gitlab-integer-overflow-vulnerability-exploited/" },
+                { name: "ZeroDayFeed, reporting Cisco · article", url: "https://zerodayfeed.com/article/cisco-asa-ftd-vpn-flaw-cve-2026-76418-exploited-reboot-october-2026" }
+              ]
+            },
+            {
+              headline: "CIBC goes live on Thought Machine Vault Core, starting with Simplii",
+              minutes: 5,
+              synopsis: "CIBC has become the first large Canadian bank to go live on Thought Machine's Vault Core, starting with The Simplii Account, as reported October 29, 2026. Vault Core is a cloud-native core banking platform in which products are configured through parameters rather than built by rewriting code, aimed at faster product launches and changes.",
+              why: "The third Canadian core-modernization pattern in one week — and the first actually live on a new core at a Big Six bank, not just announced. What Simplii ships next is the proof of the platform.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "The Paypers · article", url: "https://thepaypers.com/fintech/news/cibc-selects-thought-machines-vault-core-to-modernise-retail-banking" }
+              ]
+            },
+            {
+              headline: "Scotiabank's predictive payment prompts: 95% of app visits, 77% completion",
+              minutes: 1,
+              synopsis: "Scotiabank's patented AI-Powered Predictive Payment Prompts — timely reminders for bill payments, Interac e-transfers and account-to-account transactions — have powered millions of transactions, appear in 95% of Scotia app visits, engage more than 22% of active mobile banking clients, and convert around 77% of prompted actions into completed transactions, with bill payments above 92% completion.",
+              why: "The proactive-nudge pattern with conversion numbers attached — a cheap, measurable idea to borrow for any partner-facing flow where completion matters more than novelty.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "The Digital Banker · article", url: "https://thedigitalbanker.com/scotiabanks-ai-prompts-help-clients-manage-everyday-payments/" }
+              ]
+            },
+            {
+              headline: "UBS: 12,700 personal AI agents, 608 live use cases, up 81% year over year",
+              minutes: 2,
+              synopsis: "UBS reported alongside its Q3 results (October 29, 2026) that employees use more than 12,700 personal AI agents daily, including AI coding tools used by 18,000 software developers, and its STAAT advisor tool has generated more than 30 million insights. The bank has 608 AI use cases live in production, 81% more than a year ago, with more than 1,090 applications in development.",
+              why: "Twelve thousand agents inside one bank is the new normal to plan around — the governance question is whether you can see, count and control them.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "PYMNTS · article", url: "https://www.pymnts.com/news/banking/2026/ubs-employees-run-12700-ai-agents-as-bank-automation-accelerates/" }
+              ]
+            },
+            {
+              headline: "Bank of England / FCA: 86% of UK financial firms now use AI, 80% have deployed agents",
+              minutes: 3,
+              synopsis: "The Bank of England and FCA's \"Artificial intelligence in UK financial services – 2026\" survey of 196 firms (reported October 27, 2026) found AI adoption at 86%, up from 75% in 2024 and 58% in 2022; generative AI accounts for 56% of reported AI systems; 80% of firms have deployed AI agents, with 14% more planning to within 12 months, though most keep human oversight and few run highly autonomous agents. Leading concerns are data protection and security, third-party and supply-chain dependence, and generative AI risks; 94% have organisation-wide AI standards and 84% centralised governance forums, while oversight of third-party AI systems remains a top implementation challenge.",
+              why: "When eight in ten firms in a regulated market run agents, the outlier is the firm that cannot explain its agent governance — and the third-party concentration warning belongs in vendor reviews.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "IBS Intelligence, reporting Bank of England / FCA · article", url: "https://ibsintelligence.com/ibsi-news/ai-adoption-in-uk-finance-reaches-86-study-shows/" }
+              ]
+            },
+            {
+              headline: "Gartner CEO survey: 44% struggle to show AI returns — redesign the operating model",
+              minutes: 3,
+              synopsis: "Gartner's 2027 CEO Survey (203 CEOs and senior executives, April–May 2026, reported October 29, 2026) found 44% of CEOs struggle to demonstrate AI-driven financial returns, yet 75% plan to increase technology investment; 80% say technology has become strategy. Sixty-three percent identify radically redesigning the operating model as a top move to accelerate tangible AI returns through 2027, 52% cite aggressively deploying AI agents as employees, and 47% cite unlocking capital through business restructuring. Gartner's advice to CIOs: redesign workflows around intelligence, build for strategic freedom, and measure outcomes, not AI activity.",
+              why: "Paired with only 13% of CIOs seeing significant AI value, the message from the top is consistent — redesign the work, don't just bolt AI onto old processes.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "Business News Week, reporting Gartner · article", url: "https://businessnewsweek.in/business/gartner-says-44-percent-of-ceos-struggle-to-demonstrate-ai-financial-returns-as-technology-becomes-central-to-growth/" }
+              ]
+            },
+            {
+              headline: "Deloitte State of AI: faster decisions, but only 25% deeply transforming — and 40% let AI act unsupervised",
+              minutes: 4,
+              synopsis: "Deloitte's \"State of AI in the Enterprise: Built Differently\" (3,500 director- to C-suite-level leaders, 25 countries, May–June 2026, released October 29, 2026) found 81% report faster decision-making and execution, 28% report revenue gains from AI (up from 20% in January), but only 25% say they are using AI to deeply transform the business. Sixty percent have redesigned jobs around AI to at least a moderate degree, yet only 15% report a significant shift in decision-making authority. Forty percent allow AI to execute decisions or take actions without human approval at least to a moderate degree, while 23% say accountability is unclear when an AI outcome goes wrong; only 44% track per-unit inference cost.",
+              why: "Speed without redesign is the trap both surveys name — and an AI that acts without a named owner for a bad outcome is a governance gap, not an efficiency win.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "Deloitte via PR Newswire · article", url: "https://www.wcia.com/business/press-releases/cision/20261029NY84138/enterprise-ai-enters-an-roi-reckoning-more-use-uneven-value-reveals-deloitte-survey/" }
+              ]
+            },
+            {
+              headline: "Island launches an Enterprise Browser for Agents: govern the browser, not the agent",
+              minutes: 4,
+              synopsis: "Island introduced its Enterprise Browser for Agents on October 29, 2026: agents access SaaS, web and internal apps through a browser that applies the organisation's existing enterprise controls — governed access to browser tools and MCP capabilities per agent and application, identity binding with separate agent policy, human-vs-agent attribution on every event, read-only mode on sensitive systems of record, data boundaries and credential isolation (credentials injected into login forms, never passing through model context), zero-trust internal access without a VPN, and digital experience monitoring for agent sessions.",
+              why: "The control plane for browser-based agent work — identity, credential isolation and attribution in one place, instead of safeguards bolted onto consumer browsing tools.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "Island via GlobeNewswire · article", url: "https://www.globenewswire.com/news-release/2026/10/29/3391421/0/en/island-brings-the-enterprise-browser-to-ai-agents.html" }
+              ]
+            },
+            {
+              headline: "\"Embrace\": embedded-browser flaws in five AI coding tools — Codex and VS Code still unpatched",
+              minutes: 2,
+              synopsis: "Research published October 29, 2026 by Forever Security, reported by The Register, found a class of \"Embrace\" (embedded browser) flaws in Cursor, GitHub Copilot, Claude Desktop, VS Code and OpenAI's Codex: Cursor's integrated browser let a web page call the agent's composer, opening a prompt-injection path to code execution; local pages in Claude Desktop, Codex and VS Code could escape project-folder restrictions via web workers (Codex lacked the restriction entirely); Copilot 1.1.27 accepted a page's own address claim, enabling address-bar spoofing. Cursor was silently patched October 1 and Copilot fixed in build 1.1.29 on October 13; Codex and VS Code remained unpatched months after disclosure.",
+              why: "Developers' AI tools are part of the attack surface — a browser inside a coding tool is not a safe sandbox just because it looks like one.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "Pivot News, reporting The Register / Forever Security · article", url: "https://pivotnews.ai/five/embedded-browsers-in-five-ai-coding-tools-carry-flaws" }
+              ]
+            },
+            {
+              headline: "Itaú and GFT: AI agents cut batch-system cloud migration time by up to 70%",
+              minutes: 3,
+              synopsis: "Itaú Unibanco and GFT Technologies announced October 29, 2026 a consolidated AI-based model for moving batch systems — scheduled mainframe routines behind closings, settlements and reconciliations — to the cloud, using GFT's Batch2Cloud tool integrated into its Wynxx generative AI platform. AI agents performed repetitive analysis, code generation and validation while specialists kept technical decisions, architecture and process governance; the initial implementation cut migration time by up to 70% and accelerated project delivery by up to 3.3 times.",
+              why: "The legacy-modernization pattern worth stealing — agents accelerate the grind, humans keep the decisions, and business rules survive the move.",
+              topics: ["Process improvements"],
+              sources: [
+                { name: "GFT Technologies via EQS News · article", url: "https://www.sharewise.com/us/news_articles/EQSNews_GFT_and_Itau_Unibanco_Build_AIBased_Solution_to_Accelerate_the_Banks_Migration_of_Systems_GFT_Technologies_eqsen_20261029_0926" }
+              ]
+            },
+            {
+              headline: "UOB: agentic finance arrives gradually — machine payments first, credit decisions around 2031",
+              minutes: 4,
+              synopsis: "UOB's October 2026 report \"Agentic Finance: Building the foundations for trusted, bounded autonomy\", drawing on eight respondents across payments, infrastructure and digital assets, expects bounded autonomous finance to expand first in machine-to-machine payments, then enterprise workflows (treasury, procurement, reconciliation) possibly by 2027, then tightly bounded consumer activities (budgeting, cash-flow, predefined savings mandates) possibly from 2029, with autonomous credit decisioning last, possibly around 2031. The three unresolved blockers are liability, agent identity and interoperability.",
+              why: "A credible roadmap to quote when a partner pitches full autonomy now — start where mandates are tight and outcomes measurable, and treat liability and identity as prerequisites.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "Fintech News Singapore, reporting UOB · article", url: "https://fintechnews.sg/139830/ai/ai-agents-will-enter-finance-gradually-uob-report/" }
+              ]
+            },
+            {
+              headline: "Longer listen — \"Agentic AI in Regulated Industries: Autonomy, Trust and the Human in the Loop\" (CDO Vision Boston 2026)",
+              minutes: 28,
+              synopsis: "A panel from CDO Vision Boston 2026 with data and AI leaders from healthcare, pharma and Citizens Bank on what the shift from generative to agentic AI means for governance, trust and accountability: agentic AI as coordinated sets of agents where context and orchestration are the hard problems, token costs making agents right for high-value high-volume work only, a risk-and-confidence framework for autonomy, human-in-the-loop as permanent for high-stakes decisions, and autonomy granted like an intern's — for a task, then taken back. Closing line: winners will have the strongest governance, clean data foundations and clear accountability, not the best model or most agents.",
+              why: "The fullest governance framing of the week, from leaders in regulated industries — and the intern analogy is the one to use with business partners.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "CDO Vision Boston, YouTube · video", url: "https://www.youtube.com/watch?v=AWM8Vz3tLJY" }
+              ]
+            },
+            {
+              headline: "Instructional video — \"AI Agent Evals: A Manager's Playbook\"",
+              minutes: 15,
+              synopsis: "A manager-level tutorial on AI agent evals, based mainly on Anthropic's \"Demystifying evals for AI agents\": testing vs evals, the anatomy of an eval (task, trial, grader, transcript, outcome), code-based vs LLM-as-judge vs human graders in that order, capability vs regression evals, pass@k vs pass^k (75% single-run success falls to about 42% over three consecutive runs), evaluating coding, conversational, research and computer-use agents, a 9-step roadmap to a first eval suite, and wiring evals into release gates (PR, nightly, canary, GA).",
+              why: "The pass-rate math is why teams need evals in release gates — a demo that works once is not a system you can ship.",
+              topics: ["Instructional video"],
+              sources: [
+                { name: "Program Strategy HQ, YouTube · video", url: "https://www.youtube.com/watch?v=5KHWRnkeydU" }
+              ]
+            }
+          ]
+        },
+        {
           date: "Thursday, October 29, 2026",
           iso: "2026-10-29",
           audio: [
