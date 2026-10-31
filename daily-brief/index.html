@@ -511,6 +511,115 @@
     <script>
       var EDITIONS = [
         {
+          date: "Saturday, October 31, 2026",
+          iso: "2026-10-31",
+          audio: [
+            { label: "Listen to this edition · 10:34", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-10-31.mp3" }
+          ],
+          stories: [
+            {
+              headline: "CISA KEV, October 30: two more Ivanti Connect Secure flaws chained to root — patch by November 2",
+              minutes: 2,
+              synopsis: "On October 30, 2026, CISA added Ivanti Connect Secure flaws CVE-2026-111357 (CVSS 8.8, privilege escalation) and CVE-2026-118527 (CVSS 4.3, authenticated file upload) to its Known Exploited Vulnerabilities catalog, chained with the October 13 authentication-bypass zero-day CVE-2026-104935. Volexity, which found the attacks, says actor UTA0576 exploited the chain from October 3 against a fully patched appliance (22.8R2.4) to gain root, steal stored LDAP credentials, search Active Directory for LAPS passwords and BitLocker recovery keys, and delete log entries. The chain patches library code in memory and restores configuration data, so Ivanti's Integrity Checker Tool detects nothing. Fixed releases 25.1.1.3 and 22.8R2.6 shipped October 29; the federal deadline for CVE-2026-111357 is November 2, and CISA advises factory reset plus new credentials for possibly hit appliances.",
+              why: "The October patch alone is not enough — the fixed releases are 25.1.1.3 and 22.8R2.6, and the integrity checker cannot clear a possibly compromised appliance, so exposed devices need forensic checks and possible factory reset.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "Cybersecurity ASEAN · article", url: "https://cybersecurityasean.com/daily-news/ivanti-connect-secure-cve-2026-111357-cve-2026-118527-exploited" }
+              ]
+            },
+            {
+              headline: "Drupal warns Commerce Core flaw is actively exploited — update to 2.41 or 3.3.13",
+              minutes: 3,
+              synopsis: "Drupal's security team warned (advisory October 28, reported October 30) that attackers are actively exploiting CVE-2026-118539, a highly critical access-bypass flaw in Commerce Core, the contributed module adding cart and checkout features to Drupal sites. Drupal rates it 21 out of 25 on its own risk scale, says certain routes and entity fields are inadequately protected, creating risk of financial harm to merchants, and notes it can be exploited without authentication. Fixed versions are 8.x-2.41 and 3.3.13.",
+              why: "Any customer-facing storefront running Drupal Commerce needs patching and an audit of recent orders — an unauthenticated flaw in checkout code is a direct path to financial harm.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "Abijita · article", url: "https://www.abijita.com/drupal-commerce-core-cve-2026-118539-exploited/" }
+              ]
+            },
+            {
+              headline: "Barclays names Anita Tanna as its first chief AI officer — a commercial leader, not a technologist",
+              minutes: 2,
+              synopsis: "Barclays appointed group chief of staff Anita Tanna as its first chief AI officer, reported October 30, 2026 (via QA Financial). Tanna, who joined Barclays in 2021 running EMEA equity sales and became chief of staff in 2024, says she will speed up AI adoption and target areas of greatest value. HSBC, ANZ and Bank of Ireland have each appointed a first holder of the role this year. Context: CEO C.S. Venkatakrishnan said the bank intends to 'employ AI at scale' alongside roughly 5,000 job cuts this year, 60% in support functions; Barclays engineers cite observability as the first production concern, with agents needing 'autonomy within bounds' and programmable kill switches.",
+              why: "The chief AI officer job is becoming a commercial appointment — the role's real test is deciding where AI is worth deploying and what evidence is demanded before an agent faces customers.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "Resultsense, reporting QA Financial · article", url: "https://www.resultsense.com/news/2026-10-30-barclays-anita-tanna-chief-ai-officer/" }
+              ]
+            },
+            {
+              headline: "DBS named World's Best Digital Bank 2026 — and Best Bank for AI in Finance again",
+              minutes: 2,
+              synopsis: "DBS announced October 30, 2026 that Global Finance named it World's Best Digital Bank 2026, the first Asia-headquartered bank to take the programme's top accolade in its 27-year history. DBS also retained World's Best Corporate/Institutional Digital Bank for a third consecutive year, won World's Best Bank for AI in Finance – Corporate for a second consecutive year, and took the global win for Best AI in Fraud Detection/Prevention. Global Finance cited end-to-end digital transformation, digital infrastructure, and turning complex ecosystems into frictionless customer journeys.",
+              why: "DBS is the benchmark partners will quote for an AI-enabled bank — digital strength plus AI embedded across the business — and the fraud-detection award is the proof point that matters most to a bank audience.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "DBS via PR Newswire · article", url: "https://www.tradingview.com/news/prnewswire:ddeb980a9aaa8:0-dbs-named-world-s-best-digital-bank/" }
+              ]
+            },
+            {
+              headline: "Hatch Bank's new CTO: AI's value is in the 'operational middle,' not the front end",
+              minutes: 2,
+              synopsis: "Hatch Bank named Jason Garcia chief transformation officer (joined October 14), a new role folding operations and technology into one mandate. Garcia told FinAi News that AI's value is in the 'operational middle' — the mundane work of a person reading a document and rekeying it into a second system, repeated across partner onboarding, reconciliation, reporting and reviews. His argument: everyone has access to the same models, so the edge is redesigning processes with controls built in and standardizing partner data at ingestion before layering AI on top; under board-level oversight, people still make every decision affecting a customer or partner.",
+              why: "The constraint is rarely the model — it is the data and the process underneath it. Fix the workflow and standardize data at ingestion before layering AI on top.",
+              topics: ["Process improvements"],
+              sources: [
+                { name: "FinAi News · article", url: "https://finainews.com/banking/hatch-banks-new-cto-sees-most-ai-impact-on-operational-middle/" }
+              ]
+            },
+            {
+              headline: "Android Studio Rabbit 2 goes stable with bring-your-own-agent for 40+ coding agents",
+              minutes: 6,
+              synopsis: "Google declared Android Studio Rabbit 2 stable (announced October 28), headlined by Bring Your Own Agent: developers can connect more than 40 AI coding agents — including Claude Agent, OpenAI's Codex, Junie and Google Antigravity — via the open Agent Client Protocol, instead of relying on the built-in assistant. Connected agents can use Android Studio tools including the emulator, build systems and Logcat, and Android skills for complex tasks. The release also adds Android XR emulators, LeakCanary integration, an agent skills manager, AI Change Review, and enterprise support via Gemini Enterprise.",
+              why: "The IDE is becoming agent-neutral — the governance question shifts from which assistant was bought to which agents developers connect and what those agents can touch in the codebase.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "MobileNApps, reporting Google · article", url: "https://www.mobilenapps.com/articles/1725541/20261030/android-studio-rabbit-2-ai-coding-agents.htm" }
+              ]
+            },
+            {
+              headline: "Vercel Labs open-sources agent-desktop: computer use through the accessibility tree, not screenshots",
+              minutes: 5,
+              synopsis: "Vercel Labs released agent-desktop (v1.0.2, October 30, 2026, Apache-2.0), an open-source Rust CLI and C library that lets any shell-capable coding agent operate desktop apps via the OS accessibility tree (macOS AX, Windows UI Automation, Linux AT-SPI) rather than screenshots. Agents get JSON snapshots with refs for every element; actions are headless by default (no cursor movement or focus stealing), refs fail closed on stale or ambiguous targets, and skeleton snapshots cut tokens 78–96% on dense apps (self-reported, not independently benchmarked). Apps without an accessibility tree remain out of reach.",
+              why: "Computer-use agents just got cheaper and model-agnostic — the security review for a workstation-driving agent should cover what it can click, not just what it can read.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "MarkTechPost · article", url: "https://www.marktechpost.com/2026/10/31/vercel-labs-agent-desktop-computer-use/" }
+              ]
+            },
+            {
+              headline: "77% have already paid a price for an ungoverned AI agent — usually a surprise cloud bill",
+              minutes: 7,
+              synopsis: "Redwood Software's October 22, 2026 report (300 senior technology, risk and AI leaders, surveyed by Leger Opinion) found 77% have experienced a negative consequence from an ungoverned AI agent — most commonly an unexpected cloud bill, then operational disruption and compliance issues. Only 42% have a centralized agent registry and only 51% monitor agent activity in real time; 82% say existing systems are a bigger obstacle to scaling AI than lack of strategy. IBM's separate study of 3,200+ executives (October 14) found 80% had an AI incident reach the board or C-suite in the past year, but only 40% changed governance policy in response; 54% acknowledge gaps covering vendors' AI, and only 21% continuously monitor third-party AI risk. The report's minimum checklist: registry, named owner, scoped access, spending limit, approval thresholds, action logs, and an off switch.",
+              why: "The ungoverned-agent tax is already being paid in invoices and outages, not headlines — and the seven-point checklist is a usable minimum to adopt before agents take on more autonomy in 2027.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "Workmate, reporting Redwood Software and IBM · article", url: "https://www.workmate.com/blog/77-of-companies-have-already-paid-a-price-for-an-ungoverned-ai-agent" }
+              ]
+            },
+            {
+              headline: "Credit Saison claims a 954% ROI from a ChatGPT Enterprise pilot — adoption followed usefulness",
+              minutes: 5,
+              synopsis: "Japanese financial services firm Credit Saison says a pilot of ChatGPT Enterprise produced a 954% return on investment, pushing the company to widen use across the business. The pilot involved both leaders and employees in shaping how the technology was used from the start, rather than staying locked inside a small innovation team — and enterprise software decisions are increasingly being tied to measurable financial impact.",
+              why: "Adoption followed usefulness, not hype — the co-design pattern (workers shaping the workflow from the start) is the part worth copying; the 954% figure should be quoted with its method attached, not on its own.",
+              topics: ["Innovation"],
+              sources: [
+                { name: "ENMNEWS · article", url: "https://enmnews.com/2026/10/31/credit-saisons-ai-bet-pays-fast" }
+              ]
+            },
+            {
+              headline: "Longer listen: Context Engineering for Agents — Lance Martin, LangChain (video)",
+              minutes: 63,
+              synopsis: "A 63-minute talk by LangChain's Lance Martin on context engineering for agents: prompt engineering is a subset of context engineering, and agents need far more careful context management than chat models because they run long trajectories with tool calls. Four strategies — writing context to scratchpads and memory, selecting what to pull in, compressing by summarization, and isolating context across agents — plus failure modes including context poisoning, distraction, curation and clash, and the trade-offs of offloading, summarization and caching.",
+              why: "As teams build agents that touch real systems, the difference between a demo and a reliable agent is usually what the agent was shown and what it remembered — this is the clearest single explanation of that discipline.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "LangChain talk · video", url: "https://youtu.be/_IlTcWciEC4" }
+              ]
+            }
+          ]
+        },
+        {
           date: "Friday, October 30, 2026",
           iso: "2026-10-30",
           audio: [
