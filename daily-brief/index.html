@@ -511,6 +511,165 @@
     <script>
       var EDITIONS = [
         {
+          date: "Sunday, November 1, 2026",
+          iso: "2026-11-01",
+          audio: [
+            { label: "Listen to this edition · 13:56", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-01.mp3" }
+          ],
+          stories: [
+            {
+              headline: "Deadline day: GitLab and Cisco flaws due today, first Ivanti flaw due tomorrow — and PHP2Shell now hitting Palo Alto firewalls",
+              minutes: 10,
+              synopsis: "CISA's Known Exploited Vulnerabilities catalog carries federal due dates of November 1, 2026 for GitLab CVE-2026-97229 (CVSS 10.0, integer overflow letting an unauthenticated attacker run code via a crafted regex in a CI/CD configuration; fixed in 19.2.8, 19.3.5, 19.4.2) and Cisco Secure Firewall ASA/FTD CVE-2026-76418 (CVSS 8.6, NULL-pointer dereference in the remote-access SSL VPN service causing reload/DoS, no workaround). Ivanti Connect Secure CVE-2026-111357 comes due November 2 and CVE-2026-118527 on November 13. No new KEV entries were added October 31 (catalog still 2026.10.30). Separately, Palo Alto Networks updated its advisory October 30 to confirm active exploitation of the PHP flaws (CVE-2026-109618/109619) against internet-exposed PAN-OS management interfaces, with fixed hotfixes for every supported branch.",
+              why: "Today is the day to confirm these patches, not discover a vulnerable release still running — and the Ivanti chain still needs footprint-hunting, since the appliance's integrity checker cannot clear it.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "Runbook Lab · article", url: "https://runbooklabhq.com/news/cisa-kev-cisco-asa-gitlab-ivanti-php/" }
+              ]
+            },
+            {
+              headline: "Brotli flaw follow-up: public exploit, reportedly exploited — and .NET is affected too",
+              minutes: 12,
+              synopsis: "Singapore's Cyber Security Agency alert AL-2026-154 (October 30, 2026) says CVE-2026-111497, the out-of-bounds write in the Brotli decoder, now has a public proof-of-concept exploit and is \"reportedly being actively exploited\" — CSA relays reported activity rather than asserting verified compromises, and cites no specific breach. The alert broadens scope beyond Node.js: Microsoft .NET 8, 9, 10 and 11 are affected, with out-of-band fixes 8.0.33, 9.0.22, 10.0.14 and 11.0.0-rc.3 shipped October 25. CSA rates it CVSS 9.8; Microsoft's own .NET advisory rates it 8.1. Node.js fixes remain 22.23.4, 24.22.1, 26.12.1. Self-contained .NET apps and containers must be rebuilt and redeployed — a host runtime update does not fix them.",
+              why: "One flaw in a shared compression library has rippled across two runtimes in a week — inventory checks must cover every bundled copy of a library, not just the one you know about.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "Pandromeda · article", url: "https://pandromeda.com/security/brotli-flaw-now-under-active-attack-patch-nodejs-and-net" }
+              ]
+            },
+            {
+              headline: "Oracle E-Business Suite flaw draws exploit probes a week after patching",
+              minutes: 2,
+              synopsis: "Exploitation attempts have begun against CVE-2026-101767, a CVSS 9.8 unauthenticated SQL injection in Oracle E-Business Suite's Thin Client Framework servlet (/OA_HTML/AppsTCFServer) that chains to remote code execution as the APPS database user. Oracle fixed it in the October 20, 2026 Critical Patch Update (affecting EBS 12.2.3–12.2.15); on October 27, Defused Cyber's EBS decoys recorded the first exploratory exploit attempts. No production compromise has been publicly confirmed. Censys counts 2,246 EBS web properties exposed; Horizon3.ai advises removing the servlet from the URL firewall allowlist and restricting the web tier to trusted networks until patched.",
+              why: "If your organization runs E-Business Suite, the October patch is the priority — and attackers have succeeded before simply because customers had not applied available patches.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "Help Net Security · article", url: "https://www.helpnetsecurity.com/2026/10/29/oracle-e-business-suite-cve-2026-101767-exploitation/" }
+              ]
+            },
+            {
+              headline: "Ottawa buys into Cohere: up to C$1.6B for a stake, with strings attached",
+              minutes: 7,
+              synopsis: "Prime Minister Mark Carney announced October 29, 2026 that the Government of Canada will invest up to C$1.6 billion, paid in stages via the Canada Development Investment Corporation, for an equity stake in Toronto AI company Cohere, as part of a Series E round targeting up to C$7 billion at a C$35.7 billion valuation — the largest financing ever by a Canadian tech company. In return Cohere must keep its headquarters in Canada, invest at least C$1.7 billion in Canadian computing infrastructure by 2030, and create at least 1,000 technical jobs. The round is led by Germany's Schwarz Group; Cohere is merging with German AI developer Aleph Alpha. Cohere reports 165% year-over-year ARR growth and 300 customers; only an initial close has been announced, with most of the target reportedly secured.",
+              why: "A government stake plus a big round makes Cohere much less likely to be bought by a US giant or move south — stability that sovereignty-minded regulated buyers pay for — and staged, milestone-tied money may become a template other countries copy.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "djcroman · article", url: "https://djcroman.com/posts/canada-cohere-equity-stake-1-6-billion" }
+              ]
+            },
+            {
+              headline: "Shopify puts Shop Pay inside rival AI agents — on card network tokens",
+              minutes: 2,
+              synopsis: "Shopify's Fall '26 Edition (announced October 28, 2026) puts Shop Pay checkout inside personal AI agents — Muse from Meta, Claude Duet and Instinct at launch — and, for merchants off Shopify's platform, agents pay with single-use card credentials on Mastercard, Visa and Discover network tokens (American Express coming soon). The card number never reaches the agent; the buyer taps Allow or Deny. Shopify says 400 million people trust Shop Pay, and its connectors now work with nine agents including ChatGPT, Claude, Copilot, Gemini and Perplexity; Shop.md lets buyers point an agent at over a billion products. Shopify discloses no token issuance/verification detail or fees.",
+              why: "Agent checkout is now concrete — your bank sees only the token, not the agent — and liability and dispute handling for agent-initiated purchases are live questions for fraud and chargeback flows.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "Let's Data Science · article", url: "https://letsdatascience.com/news/shopify-extends-shop-pay-to-ai-agents-with-card-network-toke-4384d341" }
+              ]
+            },
+            {
+              headline: "Mastercard Q3: value-added services now 41% of revenue as agentic commerce and stablecoins move in",
+              minutes: 2,
+              synopsis: "Mastercard reported Q3 2026 net revenue of $9.8 billion, up 14% year over year, with net income of $4.6 billion, beating expectations. Value-added services and solutions surged 19% to $4.1 billion — now 41% of revenue — while payment-network revenue rose 11% to $5.7 billion. CEO Michael Miebach pointed to agentic commerce (Agent Suite launched January, Agent Connect added late summer) and to the Global Money Platform built on BVNK, the $1.8 billion stablecoin acquisition closed in August and launched October 15 with Nuvei and Marqeta among early adopters; this month Mastercard also launched Stablecoin Security, a risk-intelligence service for stablecoin transactions.",
+              why: "The networks are monetizing trust services faster than transactions — if your roadmap has a stablecoin or agent-commerce line, Mastercard now sells the rails and the risk tooling as one package.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "The Daily Upside · article", url: "https://www.thedailyupside.com/finance/mastercards-earnings-beat-underscores-payments-pivot-to-cryptocurrency-fraud-services-agentic-commerce/" }
+              ]
+            },
+            {
+              headline: "Smaller models, lower bills: Bank of America and Capital One on routing AI spend",
+              minutes: 3,
+              synopsis: "At the Evident AI Symposium, Bank of America CTO Hari Gopalkrishnan said the bank's Orchestra routing layer uses a small classifier model to send each query to the most financially-effective model, and the bank plans to double its AI budget next year while leaning on routing. Capital One's Prem Natarajan said distilling open-weight models fine-tuned on proprietary data into smaller models for Chat Concierge, a multi-agent car-buying assistant, cut latency fivefold and lifted dealer engagement 50%. Bank of America's 2027 agent strategy adds highly-controlled guardrails keeping agents within allotted runtimes and barred from completing multiple tasks autonomously; Capital One stresses the data foundation underneath (\"massive enablers or massive constrainers\").",
+              why: "Model routing is becoming the standard AI cost control — and bounded runtimes plus single tasks is the governance line to borrow for your own agent deployments.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "CIO Dive · article", url: "https://www.ciodive.com/news/bank-of-america-capital-one-manage-ai-costs/873112/" }
+              ]
+            },
+            {
+              headline: "Santander: AI generated €194M in business value in nine months",
+              minutes: 2,
+              synopsis: "Santander reported its AI initiatives generated €194 million in business value in the first nine months of 2026, with AI embedded across bank processes to cut low-value tasks. Standard Chartered and Novartis also reported AI contributing to revenue, costs or profitability in Q3 results. Corporate AI investment reached $581.7 billion in 2025, up 130% year over year; hyperscalers Microsoft, Amazon, Google and Meta are expected to spend a combined $700 billion on AI infrastructure in 2026.",
+              why: "The partner conversation is shifting from pilots to booked value — Santander's number is a proof point for AI payback, quoted as a directional signal (the bank did not split revenue vs. cost savings), not an audited figure.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "WiseVoter · article", url: "https://wisevoter.com/world/2026/11/01/santander-ai-194-million-euros-business-value" }
+              ]
+            },
+            {
+              headline: "Narmi brings read-only bank customer data into Microsoft 365 Copilot",
+              minutes: 2,
+              synopsis: "Narmi announced October 26, 2026 that its Model Context Protocol capabilities now extend to Microsoft 365 Copilot, letting bank and credit-union staff query customer financial activity in plain language from existing workflows — relationship management, lending and liquidity, operations and risk, and onboarding. The Copilot Connector server links Copilot to Narmi's administrative banking platform, preserving existing institutional permissions; the connector is read-only, so assistants cannot modify accounts or initiate transactions.",
+              why: "Read-only first is the deployment pattern that gets AI into regulated workflows without reopening the authorization debate — retrieval now, transactions only after the permission model is proven.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "FinTech Global · article", url: "https://fintech.global/2026/10/26/narmi-brings-customer-data-into-microsoft-365-copilot/" }
+              ]
+            },
+            {
+              headline: "DeepSeek open-sources Super-agent: a coding agent that fixes bugs unasked",
+              minutes: 4,
+              synopsis: "DeepSeek's Harness team published \"Super-agent Design Exploration\" (October 31, 2026) alongside dsh-superagent-prototype, an MIT-licensed research prototype: a proactive coding agent for one GitHub repository that watches GitHub and optionally Feishu chat, opens work items, and replies in the original conversation, potentially with a pull request — without anyone tagging it. The design uses a resident Router assigning work to isolated Worker sessions, with a Watchdog for failure recovery; DeepSeek says its internal instance already reproduces and fixes bugs and answers code reviews. Guardrail: unprompted work is off by default — observe mode only logs what it would have done; auto mode requires team-written rules. In synthetic tests of ~20 requests, half completed within 12.4 minutes.",
+              why: "Proactive agents are the next governance question for dev teams — the policy to write now is which jobs an agent may take on unprompted, and who approves that list.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "MadRobot · article", url: "https://madrobot.blog/2026/11/01/deepseek-super-agent-open-source-proactive-coding-agent/" }
+              ]
+            },
+            {
+              headline: "Factory AI releases Droid 1.0: scripted tool calls, lower harness costs",
+              minutes: 1,
+              synopsis: "Factory AI released Droid 1.0 (October 31, 2026), adding programmatic tool calling to its coding-agent harness: a Script tool lets models write JavaScript workflows executing hundreds of tool calls within one model request, sandboxed without direct file, network or system access, with tool results staying inside the program unless printed. Factory reports Script mode cut costs 15% with Claude Opus 5.5, and Droid beat Codex, Cursor, OpenCode, Devin and Claude Code on Terminal-Bench 4 at up to 24% lower cost — vendor-run benchmarks. A typical production request now reads 98% of input from prompt cache.",
+              why: "The harness layer is where coding-agent costs are being won or lost — scripted tool batches beat one model call per tool, so ask whether your teams' harness batches or pays per call.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "Daily AI Brief · article", url: "https://dailyaibrief.com/news/factory-ai-releases-droid-1-0-programmatic-tool-calling-jEzWwJs4" }
+              ]
+            },
+            {
+              headline: "Google shuts Jules: export before November 11 read-only, gone December 31",
+              minutes: 2,
+              synopsis: "Google announced October 29, 2026 that it is closing Jules, its asynchronous coding agent (launched May 2025), folding agentic coding into its Antigravity platform. Sessions run until November 11, 2026, then Jules turns read-only, winding down completely December 31, 2026. Code, branches and pull requests already live in GitHub; what lives only in Jules — settings, environment variables, scheduled tasks, connected repos, memories, setup scripts, session prompts, plans and logs — must be exported via Jules Tools CLI, whose access token expires about an hour after login. Google has not said what happens to paid plans or refunds.",
+              why: "Scheduled tasks in Jules stop running November 11 — move those jobs and export before then, store the export access-controlled (it contains environment variable values), and rotate the variables after.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "TrustList · article", url: "https://trustlist.uk/news/google-jules-coding-agent-read-only-from-11-november-shuts-31-december-2026-export-before" }
+              ]
+            },
+            {
+              headline: "Longer watch (video) — Scaling AI in Highly Regulated Banking: Barclays & GitLab Transcend keynote",
+              minutes: 12,
+              synopsis: "A GitLab Transcend keynote fireside with GitLab CEO Bill Staples and Barclays' Snehal Kamalapurkar, Director of Development Platform, on scaling AI-assisted delivery across 23,000+ engineers: consolidating fragmented DevOps toolchains into GitLab cut developer time-to-first-commit from weeks to within an hour; migration parties moved 3,500 engineers in 4 months; the bank runs 1M+ commits per month, reports 15–20% productivity gains and over 1M engineering hours saved annually. Governance core: internal AI platform and marketplace, shift-left compliance, guardrails for autonomous agents, DORA metrics, and spec-driven development (coding evolving into markdown specification and agent orchestration).",
+              why: "The most concrete large-bank delivery story of the month — onboarding time, commit volume and hours saved are the metrics to benchmark your own platform against.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "GitLab Transcend keynote via YouTube · video", url: "https://www.youtube.com/watch?v=7Uk8CRiUa5Y" }
+              ]
+            },
+            {
+              headline: "Longer watch (video) — The Agentic Shift: building products when AI can actually do things",
+              minutes: 22,
+              synopsis: "Jaclyn Konzelmann's talk from The AI Conference, San Francisco (September 30, 2026): every product now has two users — the person and the agent acting for them — and anything a user can achieve, your agent should be able to achieve too. Part one: three forces and four pieces of advice (push frontier models, strip guardrails built for last year's models, keep the lessons not the prototype, you still set the goal). Part two: your product is bigger than your UI, someone else's agent will use it, and three questions to take into Monday — ending on who decides and why your product should still exist.",
+              why: "For a bank, the two-users framing is the right lens for every customer journey — if a customer's agent cannot complete a task your website allows, that journey is broken for a growing share of users.",
+              topics: ["Innovation"],
+              sources: [
+                { name: "The AI Conference talk via YouTube · video", url: "https://www.youtube.com/watch?v=IvHj9JzJUF8" }
+              ]
+            },
+            {
+              headline: "Instructional — Prompt engineering 101: a crash course for 2026 (AssemblyAI)",
+              minutes: 21,
+              synopsis: "AssemblyAI's rewritten crash course argues the skill has changed: prompting is no longer about wording tricks but about plumbing what you already know to the model, in what form, at what moment. Covers the five elements of a prompt\u0020(instruction, question, input/context, examples, output format), eight tips that survived four model generations (be clear, be concise, supply context, show examples, specify format, push factuality, align with the goal, use persona as style control), and the part most guides skip: prompting a speech-to-text model works in reverse — the prompt describes the audio rather than instructing the model. Benchmark across 20,000 real calls: detailed context cut word error rate 21%, name errors 49%, place errors 44%; hallucinated words fell as context rose.",
+              why: "Context beats cleverness — start with no prompt, add context only where you see errors, and measure every change. The speech-prompting inversion matters for any voice-agent work your teams touch.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "AssemblyAI · article", url: "https://www.assemblyai.com/blog/prompt-engineering-101" }
+              ]
+            }
+          ]
+        },
+        {
           date: "Saturday, October 31, 2026",
           iso: "2026-10-31",
           audio: [
