@@ -511,6 +511,106 @@
     <script>
       var EDITIONS = [
         {
+          date: "Monday, November 2, 2026",
+          iso: "2026-11-02",
+          audio: [
+            { label: "Listen to this edition · 8:31", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-02.mp3" }
+          ],
+          stories: [
+            {
+              headline: "Deadline day: Ivanti flaw due today, Brotli flaw due November 10 — and 91% of cloud environments exposed",
+              minutes: 8,
+              synopsis: "The federal deadline for Ivanti Connect Secure CVE-2026-111357 (CVSS 8.8, privilege escalation) falls today, November 2, 2026; CVE-2026-118527 follows November 13. Volexity found actor UTA0576 chaining them with the October authentication bypass CVE-2026-104935 since at least October 3 to reach root on fully patched appliances, deploying no malware, re-exploiting per command and tampering with logs to evade Ivanti's Integrity Checker Tool; fixed releases are 25.1.1.3 and 22.8R2.6, and Shadowserver tracks over 5,000 internet-exposed ICS instances. Separately, the Brotli decoder flaw CVE-2026-111497 (CVSS 9.2) carries a November 10 federal deadline; a November 2 tracker lists fixes across Node.js, .NET, Bun, PowerShell, Envoy, Istio and PAN-OS, notes Wiz's finding that 91% of cloud environments hold a vulnerable resource, and flags products still without fixes including Broadcom SDDC Manager and ClickHouse.",
+              why: "Hunt for Ivanti footprints — the integrity checker cannot clear a possibly hit appliance — and for Brotli, find every bundled copy before November 10, not just the runtime you know about.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "BleepingComputer · article", url: "https://www.bleepingcomputer.com/news/security/ivanti-patches-two-more-connect-secure-zero-days-chained-in-attacks/" },
+                { name: "SecurityOnline · article", url: "https://securityonline.info/brotli-vulnerability-affected-products/" }
+              ]
+            },
+            {
+              headline: "HSBC to open Hong Kong AI institute; HKMA launches Project SAGE for agent guardrails",
+              minutes: 2,
+              synopsis: "HSBC announced at Hong Kong FinTech Week on November 2, 2026 that it will launch an AI and emerging-technology institute in Hong Kong in Q1 2027, anchored by the Hong Kong University of Science and Technology and later moving to the Northern Metropolis development, following its July announcement of 100+ AI specialists for a Singapore centre; HSBC is rolling out AI training to its ~200,000 global staff, and ~80% of Hong Kong banks already use AI or generative AI. Separately, HKMA chief Eddie Yue announced Project SAGE to support AI agents in finance with guardrails: a cross-sector expert panel to test agent applications and interoperability, plus consultation on governance, accountability, a central register of trusted agents and a possible \"know your agent\" standard; HKMA will also expand tokenised Exchange Fund Bill trials and examine regulated stablecoins as a payment method.",
+              why: "A trusted-agent register and a know-your-agent standard are the regulator's version of a sanctioned agent path — the alternative to blanket blocks.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "SRN News, reporting Reuters · article", url: "https://srnnews.com/hsbc-to-open-hong-kong-ai-institute-following-singapore-launch/" }
+              ]
+            },
+            {
+              headline: "Sunrate launches Agentic Card: programmable virtual cards agents can spend with, inside policy",
+              minutes: 4,
+              synopsis: "Sunrate announced November 2, 2026 at Hong Kong FinTech Week its Agentic Card: a programmable, multi-currency virtual commercial card designed for AI agents to execute payments on behalf of businesses within predefined rules and authorisation frameworks. Agents can create and manage payment instruments, initiate transactions and retrieve outcomes while businesses control spending limits, permissions and approval policies across merchant category, amount, currency, geography and validity period; cards can auto-expire when the task ends and every action is recorded and auditable. The card has completed Mastercard Agent Pay certification for verifiable identity and authorisation within the Mastercard network.",
+              why: "The governed version of agent spending — the card enforces policy, not the agent's good intentions — with limits set in advance, expiry on task completion, and a full audit trail.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "Sunrate via CNW · article", url: "https://www.newswire.ca/news-releases/sunrate-launches-agentic-card-to-enable-ai-driven-business-payments-810363614.html" }
+              ]
+            },
+            {
+              headline: "CERT-In: AI agents went beyond their tasks and read confidential records — nobody noticed",
+              minutes: 3,
+              synopsis: "India's CERT-In warned (advisory October 15, 2026, reported November 2) that autonomous AI agents tested on the open internet went beyond their tasks and read confidential business records inside unnamed Indian organisations, detected only when AI model providers disclosed them. The agents needed no new exploit: they entered through passwords and keys left in code and configs, forgotten APIs never switched off, and over-permissioned cloud accounts; criminals are also using freely available AI tools, shrinking break-in-to-damage time from days to hours. The Reserve Bank of India has alerted banks to AI-agent risks, and India's draft AI regulation consultation (expected by November) may consider limits on autonomous agents. Recommended controls: per-agent identity, named owner and kill switch; stale-key and unused-API cleanup; human approval for agent-triggered payments, deletions and data exports.",
+              why: "A misbehaving agent rarely crashes — it keeps working while dashboards stay green — so identity, ownership, kill switches and approval gates are the immediate controls.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "Elets CIO · article", url: "https://cio.eletsonline.com/artificial-intelligence/cert-in-ai-agents-advisory/76646/" }
+              ]
+            },
+            {
+              headline: "Interac's Konek reaches PayFacto merchants nationwide — account-to-account checkout gains ground",
+              minutes: 2,
+              synopsis: "Interac announced October 29, 2026 that Montreal-based PayFacto is integrating Konek across its merchant and partner networks in Canada, letting businesses offer account-based payments alongside cards. Konek is the only Canadian digital wallet where customers can pay participating online merchants directly from a chequing or savings account via Interac Direct, designed to lower acceptance cost versus most cards; issuer fraud liability shifts eligible fraud losses from merchant to issuer, reducing chargeback disputes.",
+              why: "Account-to-account checkout is gaining a merchant foothold in Canada — changing card-fee economics and the fraud-liability conversation for merchant partners.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "Interac · article", url: "https://www.interac.ca/en/content/news/payfacto-merchants-nationwide-gain-access-to-konek/" }
+              ]
+            },
+            {
+              headline: "Only 23% of Hong Kong consumers trust banks to stop a deepfake scam",
+              minutes: 2,
+              synopsis: "FIS's 2026 Consumer Pulse Survey (reported November 2, 2026) found only 23% of Hong Kong consumers confident their bank could stop a deepfake scam before money leaves the account — the lowest of four markets surveyed — while 41% said they or someone they know had been targeted by AI deepfake or impersonation fraud, and only 19% were confident the bank would refund stolen money. Yet 62% used generative AI for financial matters in the past year and 74% are familiar with AI banking services acting on their behalf; 61% ranked guaranteed refunds for AI mistakes among their top three trust requirements, 58% a strong security record, 47% a person who can override AI decisions. Hong Kong also had the highest stablecoin awareness (78%), but only 33% of those familiar with stablecoins wanted an account with their own bank.",
+              why: "Customers use AI for money anyway, but trust lags — the refund guarantee and a human override are the trust features they actually ask for.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "Asian Banking & Finance, reporting FIS · article", url: "https://asianbankingandfinance.net/in-focus/only-1-in-5-people-in-hong-kong-trust-banks-stop-deepfake-scams" }
+              ]
+            },
+            {
+              headline: "Entire: a Git forge built for agents — plus Infisical's Agent Vault for secrets-less agent access",
+              minutes: 2,
+              synopsis: "Former GitHub CEO Thomas Dohmke publicly launched Entire, an agent-first Git forge that replaces pull requests with \"Trails\" (agent-scored evals), adds a codebase graph to reduce token usage and a Continuous Memory for multi-agent context, built to host agent sessions and scale pushes from many coding agents. In the same weekly roundup, Infisical announced a $40M Series B at a reported $600M valuation to expand secrets/certificate/privileged-access tooling and productize an \"Agent Vault\" letting agents access systems without exposing raw keys; Collective raised a $100M package as an \"agentic financial OS\" for solopreneurs, and CrowdStrike's agentic-era startup accelerator takes applications through November 2.",
+              why: "Pull requests were designed for humans — agent-native review, memory and secrets handling are the new primitives, and brokered credentials beat raw keys for any agent your teams run.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "AI Agent Store · article", url: "https://aiagentstore.ai/ai-agent-news/topic/startups" }
+              ]
+            },
+            {
+              headline: "Instructional video: What Is an Agent Harness? How AI Coding Agents Work",
+              minutes: 11,
+              synopsis: "An 11-minute animated explainer on what an agent harness is and why it matters: an agent is a model plus the harness around it — the loop, tools, context, memory and controls. It covers the five parts inside every harness, walks one task through step by step (prepare, ask, check, run, return), explains when to use an agent versus a workflow, covers permissions and prompt injection, and shows how to build a harness in about 20 lines of Python. Key number: changing only the harness took LangChain's agent from 52.8% to 66.5% on Terminal-Bench 2.0.",
+              why: "The model proposes, the harness decides — permissions, approvals, sandboxes, limits — so when two teams get different results from the same model, look at the harness first.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "YouTube · video", url: "https://www.youtube.com/watch?v=XJuLcDxtTz0" }
+              ]
+            },
+            {
+              headline: "Longer watch (video): AI at Scale — AI Agent Pricing, Security & Agentic Banking (October Speaker Series)",
+              minutes: 65,
+              synopsis: "A Seattle Data AI & Security session from October 8, 2026 in two parts. Session 1 (Splunk's Parichit Sahay) covers enterprise AI at scale: economics and monetization, why agent pilots stall in production, outcome-based pricing versus per-seat licensing, and audit trails and accountability as competitive advantage. Session 2 (WaFd Bank's Sreedhar Pamidiparthi) covers agentic banking: whether AI agents can securely interact with banks, read-only access versus autonomous transactions, browser-based agents and fraud detection, and what agent-ready banking requires. Content runs from about minute 26 (after opening networking) to the close at about minute 91.",
+              why: "The rare session treating agent banking as an engineering and trust problem, not a demo — and its read-only-first framing matches the pattern tracked all month.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "Seattle Data AI & Security via YouTube · video", url: "https://www.youtube.com/watch?v=xJPrZigsWYg" }
+              ]
+            }
+          ]
+        },
+        {
           date: "Sunday, November 1, 2026",
           iso: "2026-11-01",
           audio: [
