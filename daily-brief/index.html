@@ -511,6 +511,105 @@
     <script>
       var EDITIONS = [
         {
+          date: "Tuesday, November 3, 2026",
+          iso: "2026-11-03",
+          audio: [
+            { label: "Listen to this edition · 11:51", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-03.mp3" }
+          ],
+          stories: [
+            {
+              headline: "Max-severity Node-RED flaw under active exploitation — the fix has existed since August",
+              minutes: 2,
+              synopsis: "VulnCheck warned November 2, 2026 that attackers are actively exploiting CVE-2026-58115, a CVSS 10.0 missing-authentication flaw in Node-RED's HTTP interface, against exposed hosts. Siemens assigned the identifier in August 2026 for SIMATIC IoT2050 Advanced gateways and fixed it in version 4.3.4.1, which enforces authentication. VulnCheck's canaries caught exploitation from October 30: a single source address sent the complete exploit in one POST /flows request, wiring an inject node to an exec node so a command ran on deployment, then downloading a Linux AMD64 bot; later payloads planted a persistent command backdoor surviving reboot. The same address made 16 attempts on this flaw and 125 hits across eight CVEs, assessed as opportunistic mass scanning. Caveat: the flaw is in VulnCheck's KEV catalog, not yet in CISA's KEV as of press time.",
+              why: "The fix has existed since August — the job is finding any Node-RED instance, including inside vendor products, that is reachable from outside and still running without authentication.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "The Register · article", url: "https://www.theregister.com/security/2026/11/02/max-severity-bug-in-widely-used-ot-programming-tool-exploited-to-deliver-linux-malware/5307086" }
+              ]
+            },
+            {
+              headline: "Fifth Third's answer to AI cash-sweeping agents: do the job inside its own apps",
+              minutes: 2,
+              synopsis: "Fifth Third Bancorp plans to counter AI-driven cash-optimization tools by incorporating similar services — subscription savings, budgeting help, cash-flow insights — into its own apps, betting customer relationships and bank-grade data security retain deposits. CEO Tim Spence outlined the response on the bank's October 19 third-quarter earnings call, reported November 3. About $2.5 billion in deposits is sorted monthly on Fifth Third's platform as paychecks land, promotions end or certificates mature; the bank retains about 80%, with about 90% of retained money returning to deposit products. Spence argues price-only competitors — online-only banks and wealth platforms with inferior sweep yields — face the greatest risk from agents that move cash to higher yields.",
+              why: "If customers' agents start sweeping idle cash to the best yield, banks whose apps already do that job inside the relationship survive; banks that only block the agent do not.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "Credit Union Daily, reporting PYMNTS · article", url: "https://thecudaily.com/heres-how-one-big-bank-is-responding-to-ai-based-financial-management-tools-services/" }
+              ]
+            },
+            {
+              headline: "Accenture CIO Pulse: AI deployment is broad, but value conversion and governance lag",
+              minutes: 10,
+              synopsis: "Accenture's first CIO Pulse survey (published November 3, 2026; 300 CIOs and IT leaders at organizations over $1 billion revenue, surveyed August–September 2026) finds enterprise AI deployment broad but value conversion lagging: 64% are scaling deployment versus 7% optimizing at scale; 70% use AI mainly for individual productivity versus 37% for end-to-end agent orchestration; 49% in IT operations still run agents with manual approvals. Top barriers: user adoption and workforce training (53%) and governance/responsible AI (54%), yet only 32% have reached advanced or leading governance maturity. Token consumption rose at 97% of organizations, up 47% on average. 61% expect significant transformation or fundamental redesign of enterprise architecture within three years, but only 27% have the agentic layer in scope.",
+              why: "Sequence by workflow and outcome, and get orchestration, access-control and memory layers into the architecture redesign now — retrofitting them later costs far more.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "Accenture · article", url: "https://www.accenture.com/en/insights/ai-data/cio-pulse-survey" }
+              ]
+            },
+            {
+              headline: "Salesforce Agent Fabric adds evals, a kill switch and hard cost caps",
+              minutes: 3,
+              synopsis: "Salesforce announced November 1, 2026 new Agent Fabric capabilities: Agent Evals (automatically generated pre-deployment tests plus ongoing production scoring against quality thresholds), API Evals (functional and performance tests generated from API specifications), an Agent Kill Switch that can pull an agent offline with human sign-off where policy requires, and hard cost controls via a FinOps Dashboard and Model Wallet that block requests once a budget is reached, plus cost-optimization policies Salesforce says cut token usage up to 75% in test scenarios. Agent Fabric already handles more than 1.2 billion requests a day across platforms. Kill switch, cost controls and federated API policies are generally available now; the scanner is in beta; Agent Evals and API Evals enter beta in November 2026, generally available January 2027.",
+              why: "Evaluate continuously, cap spend hard, and make stopping an agent a tested operation — a checklist that ports to any agent platform, Salesforce or not.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "Elets CIO · article", url: "https://cio.eletsonline.com/artificial-intelligence/salesforce-agent-fabric-agent-evals-kill-switch-ai-agent-governance-cost-controls/76624/" }
+              ]
+            },
+            {
+              headline: "ServiceNow EmployeeWorks: no-code agents inside the platform, plus ToolSmith to build them",
+              minutes: 3,
+              synopsis: "ServiceNow announced November 3, 2026 new EmployeeWorks capabilities on a third-generation employee-centric AI harness: Productivity Assistants for complex, role-specific work and Productivity Routines for predictable, recurring work, both configurable without coding within administrator-defined controls over behaviour, content, tools and access. Initial assistants cover talent insights, HR business partners, managers, research and calendaring. ToolSmith is a conversational development environment that describes an automation in natural language and draws on knowledge of more than 75,000 APIs to plan integrations, build agent tools, test and recommend fixes from logs. A Conversations API brings EmployeeWorks into other applications. All in controlled availability as of November 3.",
+              why: "No-code agent building is arriving inside platforms staff already use — governance must travel with the builder, because employees will build agents whether IT blesses it or not.",
+              topics: ["Process improvements"],
+              sources: [
+                { name: "TahawulTech · article", url: "https://www.tahawultech.com/industry/technology/servicenow-expands-employeeworks-with-no-code-ai-agents-and-developer-tools/" }
+              ]
+            },
+            {
+              headline: "Dev week in review: GPT-6.1 Terra, Copilot Fusion GA — and a tampered Claude Code extension",
+              minutes: 13,
+              synopsis: "ODSC's week-in-review (November 2, 2026) rounds up the developer-platform week: OpenAI released GPT-6.1 Terra on October 26 at $1 per million input tokens and $5 per million output tokens, half the rate of GPT-6.1 Sol, reporting 50.3% on Terminal-Bench 4.0 at maximum effort (vendor results, not independently reproduced). GitHub made Copilot Fusion generally available on all Copilot plans: developers pick Fusion and an effort level (Standard, High, Max) and Copilot selects and coordinates models per task, with a limited-time 30% discount on paid plans; Copilot Projects run managed agent sessions across several repositories. The security warning: a tampered Claude Code extension was distributed through Cursor's marketplace on October 29 for about 11 hours, affecting at most 5,000 users; it added an attacker-controlled SSH key labelled \"svc-telemetry\", tried to open a reverse tunnel and exfiltrated host details including names (not values) of up to 40 environment variables. Version 2.1.314 is clean, but uninstalling does not remove the key or startup entries — affected machines need those removed and secrets rotated.",
+              why: "Extensions run with a developer's own permissions, so a bad update reaches source, cloud credentials and build systems — check marketplace auto-update and allowed extension sources.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "ODSC · article", url: "https://opendatascience.com/last-week-in-ai-october-26-to-november-1-2026/" }
+              ]
+            },
+            {
+              headline: "Wandhöfer at Open Banking Expo: AI agents break human-first payment authentication",
+              minutes: 3,
+              synopsis: "In her Open Banking Expo UK & Europe keynote (reported November 2, 2026), Dr Ruth Wandhöfer warned that AI agents threaten traditional payment authentication because security frameworks were designed around humans actively approving individual transactions, and agents have no human biometrics. She described a \"post-payment world\" in which agents identify needs, select products and execute payments while customers may never touch the bank's app, and argued the industry needs delegated financial authority: reliable digital identity for agents plus clearer rules on consent, accountability and liability. She also warned that for open banking, access alone does not guarantee value capture — the provider the agent selects wins on reliable outcomes, transparent economics, trusted identity, reach and clear accountability.",
+              why: "Authentication that assumes a human tapping approve will not survive delegated agent spending — identity and liability design must come before the volume does.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "Open Banking Expo · article", url: "https://www.openbankingexpo.com/news/ai-agents-could-render-traditional-payment-authentication-obsolete-warns-dr-ruth-wandhofer/" }
+              ]
+            },
+            {
+              headline: "Instructional video: AI agent evals, demystified — anatomy, graders and release gates",
+              minutes: 15,
+              synopsis: "A manager-level tutorial on AI agent evals, based mainly on Anthropic's engineering guide \"Demystifying evals for AI agents\": what evals are and why every AI team needs them, the anatomy of an eval (task, trial, grader, transcript, outcome), code-based versus LLM-as-judge versus human graders and the order to use them, capability versus regression evals, and pass@k versus pass^k — why 75% per-run success becomes 42% when an agent must succeed three times in a row. It covers evaluating coding, conversational, research and computer-use agents, gives a 9-step roadmap from zero to a first eval suite, and shows how to wire evals into release gates (pull request, nightly, canary, general availability) and what to track on an eval dashboard.",
+              why: "An eval suite is what tells you an agent is drifting before a customer does — and release-gate wiring makes that signal enforceable, not advisory.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "Program Strategy HQ via YouTube · video", url: "https://www.youtube.com/watch?v=5KHWRnkeydU" }
+              ]
+            },
+            {
+              headline: "Longer watch (video) — CDO Vision Boston panel: agentic AI in regulated industries",
+              minutes: 30,
+              synopsis: "A panel from CDO Vision Boston 2026 on agentic AI in regulated industries — autonomy, trust and the human in the loop — moderated by Mass General Brigham's Nirav Parikh with panelists from Athena Health, Ipsen and Citizens Bank (Sid Chopra, VP Platform Experience). The panel argues enterprise AI has moved from \"what can generative AI produce?\" to \"what can AI do on its own?\", that agentic AI is rarely a single agent but a coordinated set whose hard problems are context and orchestration, and that agentic systems use far more tokens so they fit high-value, high-volume work, not everything. Its framework is risk- and confidence-based: low risk with high confidence can be automated, high-stakes or regulated decisions keep a human in the loop, and agent autonomy should be treated like an intern's — granted for a task and taken back afterwards. Closing line: the winners will not have the best model or most agents, but the strongest governance, clean data foundations and clear accountability.",
+              why: "A regulated-industry panel stating plainly that empathy, trust and accountability stay human — AI cannot be held accountable for a decision — the same line auditors will draw.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "CDO Vision Boston via YouTube · video", url: "https://www.youtube.com/watch?v=AWM8Vz3tLJY" }
+              ]
+            }
+          ]
+        },
+        {
           date: "Monday, November 2, 2026",
           iso: "2026-11-02",
           audio: [
