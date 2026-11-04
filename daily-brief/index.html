@@ -511,6 +511,95 @@
     <script>
       var EDITIONS = [
         {
+          date: "Wednesday, November 4, 2026",
+          iso: "2026-11-04",
+          audio: [
+            { label: "Listen to this edition · 9:51", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-04.mp3" }
+          ],
+          stories: [
+            {
+              headline: "Google's November Android bulletin: a potential zero-click flaw among 216 fixes",
+              minutes: 3,
+              synopsis: "Google's November 2026 Android security bulletin addresses 216 vulnerabilities, including 23 rated Critical. Headline flaw CVE-2026-58868 is a heap buffer overflow in FrameDecoder.cpp's onOutputReceived function affecting Android 14 through 17, allowing remote code execution with no user interaction and no additional privileges — a potential zero-click attack — fixed via security patch level 2026-11-01 or later, depending on manufacturer and carrier. Two further System-component flaws (CVE-2026-58876, CVE-2026-58936) also allow no-interaction remote code execution, plus critical kernel, Bluetooth, pKVM and MediaTek modem flaws, and CVE-2026-58882 (the reported 'SMS of Death') which could crash the phone component via a malformed WAP Push message. Google says it is aware of active exploitation of flaws in the bulletin.",
+              why: "A fleet patching job, not a single app update — check patch levels on corporate Android devices and chase lagging manufacturers/carriers, because a zero-click flaw does not wait for a convenient window.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "Security Affairs · article", url: "https://securityaffairs.com/202414/mobile-2/cve-2026-58868-critical-android-bug-could-let-attackers-run-remote-code.html" }
+              ]
+            },
+            {
+              headline: "WordPress core flaw joins CISA's exploited list — due November 6, and block the upgrade folder before you update",
+              minutes: 15,
+              synopsis: "CISA added CVE-2026-119977 to its Known Exploited Vulnerabilities catalog on November 3, 2026, due November 6 with a forensic triage flag. It is an unauthenticated, high-complexity race condition (time-of-check time-of-use) in WordPress Core 4.7.0 through 7.1.3: during a full-package core update, a complete copy of the new WordPress including the installer is extracted to a predictable folder under wp-content/upgrade/, and an attacker who wins the race can reach remote code execution. WordPress rates it low, Wordfence (the CNA) scores it CVSS 8.1, and CISA marks exploitation 'active'. Wordfence recorded more than 18,500 requests aimed at staged installer paths in the first 21 hours after shipping a firewall rule, with no successful compromise reported. Fixed in WordPress 7.1.4 plus backports to every branch back to 4.7; Patchstack advises blocking web access to wp-content/upgrade/ before updating, since the update is run by the old vulnerable code.",
+              why: "Block the upgrade folder first, then update, then confirm — a plugin firewall alone may never see a request aimed at a temporary copy.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "XHack · article", url: "https://xhack.io/blog/cve-2026-119977-wordpress-core-upgrade-rce" }
+              ]
+            },
+            {
+              headline: "Banks are the second gate on agent shopping: nobody has settled who pays when the agent buys wrong",
+              minutes: 4,
+              synopsis: "CX Dive reported November 3, 2026 that banks are increasingly on edge about AI shopping agents moving money inside customer accounts. After Amazon and Walmart blocked or restricted Meta's Muse shopping agent, executives from PNC, Wells Fargo, BMO, Stripe, Visa and Cross River Bank said nobody has settled liability when an agent buys the wrong thing. Early Warning Services CEO Cameron Fowler's example: his son used Muse to buy a red coat that did not fit — 'who's liable for that?' PNC CEO Bill Demchak said a 'massive liability shift' onto tech companies would be needed before banks go along; Stripe's John Piazza said 'we don't have case law on liability'; Visa's Kaitlan Moran wants a full audit trail first; Wells Fargo warns customers who share their login with an AI tool that they may be liable for the tool's mistakes.",
+              why: "The platform holds the product and the bank holds the money — neither gate opens until liability is settled — so any agent-checkout plan needs a liability design and audit trail before a demo.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "Alva Chew, reporting CX Dive · article", url: "https://www.alvachew.com/writing/banks-asking-who-is-liable-for-ai-shopping-is/" }
+              ]
+            },
+            {
+              headline: "Fiserv: agents cut fraud-review decision times by two-thirds — nearly 200 banks in the AgentOS pipeline",
+              minutes: 3,
+              synopsis: "On Fiserv's Q3 2026 earnings call (November 3, 2026), CEO Takis Georgakopoulos said embedding agents in Clover's risk-hold process cut fraud-review decision times by two-thirds and false positives by more than 40%. Fiserv's agent platform for banks, AgentOS, has nearly 200 banks in the pipeline, with pilot banks nearing production and a broader opening planned next year; it is built on an open architecture for third-party integrations, starts every use case human-in-the-loop, and prices tied to client savings. Fiserv is also running an agentic call center built with Sierra returning 5–10x its token costs with no negative NPS impact, and is applying agents across digital identity, fraud, KYC, underwriting and autonomous agents, plus shortening implementation and migration timelines via agents in XD, Cash Flow Central, DNA and CoreAdvance.",
+              why: "The production proof point — start human-in-the-loop, measure decision time and false positives, price on savings — and a platform partners may already be evaluating.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "AIM Media House · article", url: "https://aimmediahouse.com/banking/fiservs-ai-agents-cut-fraud-reviews-by-two-thirds-200-banks-want-in" }
+              ]
+            },
+            {
+              headline: "Snowflake's agentic enterprise pitch: governed definitions plus one gateway for every agent",
+              minutes: 6,
+              synopsis: "At Snowflake Expedition 2026 (announced November 3–4, 2026), Snowflake positioned itself as the foundation of the agentic enterprise: Business Ontology in Horizon Catalog governs business-approved definitions (e.g. net revenue) with an accountable owner per definition, so every agent returns the same auditable answer; Cortex AI Gateway is the single front door applying one set of access, authentication and cost policies to agent connections, with prompt-injection guardrails, hard spending limits, dynamic model routing and trajectory-level abuse detection. CoCo (coding agent for data teams) and CoWork (work agent for knowledge workers) gain recurring automations, and always-on CoCo/CoWork Bots are in private preview. Underpinning stat (MIT Technology Review report sponsored by Snowflake): 55% of executives cite lack of business context as the primary cause of low-quality agent insights.",
+              why: "The governed-control-plane answer to the pilot trap — if agents disagree about what revenue means or nobody can say what an agent cost, fix definitions plus a gateway, not the model.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "Market Dot News · article", url: "https://marketdotnews.com/technology/snowflake-powers-the-agentic-enterprise-giving-every-ai-agent-the-business-context-controls-and-autonomy-to-move-from-pilot-to-production" }
+              ]
+            },
+            {
+              headline: "Goldman Sachs limits Claude Code and GitHub coding tools to engineers only",
+              minutes: 5,
+              synopsis: "Bloomberg reported November 2, 2026 that Goldman Sachs internal guidance updated in October restricts Anthropic's Claude Code and Microsoft's GitHub coding tools to its engineers (about 12,000 of roughly 47,000 staff), cutting off traders and bankers who had used them for months to track client trading flows, model market moves and draft materials; hybrid quant-engineers ('strats') keep access. In July CIO Marco Argenti publicly praised trader 'vibe coding'; by October, after a productivity and risk review, the bank said the experimentation phase is over. Goldman's in-house AI assistant remains available to all staff — the restriction targets third-party agents that write and run code on their own with the user's own access. Goldman is also a lead underwriter on Anthropic's IPO, expected to price in November.",
+              why: "A borrowable line — agent-written code must come from people trained to review it and pass the same information-barrier, entitlement and approval controls as human-written code.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "State of AI, reporting Bloomberg · article", url: "https://www.thestateofai.com/news/goldman-sachs-claude-code-traders-bankers" }
+              ]
+            },
+            {
+              headline: "Longer watch (video) — From Idea to Agent: infrastructure and the new pace of agentic development (DC Fintech Week 2026)",
+              minutes: 13,
+              synopsis: "A DC Fintech Week 2026 session with Chris Knott, Head of Solution Architecture for Federal Financial Services at Amazon Web Services: a behind-the-scenes look at how a complex financial workflow became a working AI agent, and at the infrastructure underneath the agentic economy — how agents are developed, deployed and permissioned at cloud scale, and what that architecture means when agents operate inside regulated financial systems, where every action must be authorized, auditable and traceable to its source.",
+              why: "Permissioning and auditability are the parts of agent infrastructure that decide whether a workflow can go live in a bank at all — the engineering half of the governance conversation.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "DC Fintech Week via YouTube · video", url: "https://www.youtube.com/watch?v=jK9iQPWGVDc" }
+              ]
+            },
+            {
+              headline: "Enterprise agent race: most large firms run multi-model portfolios, not one vendor",
+              minutes: 4,
+              synopsis: "A November 2026 analysis of the enterprise AI agent race finds most U.S. enterprises run multi-model portfolios rather than picking one agentic vendor: Anthropic leads coding and API spend, OpenAI keeps the broadest seat footprint, Google gains through its cloud, and Microsoft wins through bundling (M365 Copilot passed 30 million paid seats in July 2026). In the a16z early-2026 CIO survey, 81% of Global 2000 respondents run three or more model families in production; Ramp's October 2026 index shows 43.8% of U.S. businesses paying Anthropic and 40.6% paying OpenAI; Gartner expects over 40% of agentic projects to be cancelled by end-2027. The three newest always-on agents — Anthropic's Claude Tag (June 23, 2026), OpenAI's Dots (September 29, 2026) and xAI's Grok Bot (August 11, 2026 beta) — are all very new with no meaningful production data yet, and export-control suspensions made fallback models and multi-vendor routing a procurement requirement.",
+              why: "Architect for plurality — an AI gateway with at least two contracted providers per critical workload, a fallback, and quarterly failover drills — and keep always-on agents in sandboxed pilots until they ship enterprise spend caps and policy inheritance.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "Chier Hu via Medium · article", url: "https://chierhu.medium.com/enterprise-ai-agents-who-wins-who-gets-paid-and-why-vendors-get-rejected-668118613c20" }
+              ]
+            }
+          ]
+        },
+        {
           date: "Tuesday, November 3, 2026",
           iso: "2026-11-03",
           audio: [
