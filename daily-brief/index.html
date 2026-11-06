@@ -511,6 +511,115 @@
     <script>
       var EDITIONS = [
         {
+          date: "Friday, November 6, 2026",
+          iso: "2026-11-06",
+          audio: [
+            { label: "Listen to this edition · 17:54", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-06.mp3" }
+          ],
+          stories: [
+            {
+              headline: "Zyxel GS1900 zero-day CVE-2026-107441: the June patch didn't stop it — 996 switches compromised",
+              minutes: 6,
+              synopsis: "Zyxel patched a zero-day, CVE-2026-107441 (CVSS 8.8), that attackers used to compromise 996 GS1900 switches across 48 countries from around August 17, 2026, according to GreyNoise. The actor, tracked as Kapibala, collected device configurations, network information and hashed root credentials. Attacks were initially blamed on CVE-2026-7273, fixed in June — but Binarly researchers found the real exploit, an out-of-bounds write in the web management interface letting a LAN-based unauthenticated attacker execute OS commands, and showed it still worked on switches running the June firmware. Zyxel released Patch 3 firmware October 22 and published its advisory November 3. Ten GS1900 models on firmware 2.90 Patch 2 and earlier are affected.",
+              why: "Patching in June was not sufficient — re-patch to Patch 3 and treat exposed configurations and root hashes as compromised. The wider lesson: verify a fix actually stops the attack, don't just close the CVE number.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "ICHI Global · article", url: "https://ichi.global/briefs/ichi-daily-2026-11-05" }
+              ]
+            },
+            {
+              headline: "WordPress CVE-2026-119977: federal deadline is today — 63,000 exploit attempts and counting",
+              minutes: 5,
+              synopsis: "The WordPress core flaw covered on Wednesday, CVE-2026-119977 (CVSS 8.1), reaches its federal remediation deadline today, Friday, November 6. It is a time-of-check time-of-use race condition in the way WordPress unpacks a full-package core update, letting an unauthenticated attacker execute code on the server during the upgrade window. WordPress fixed it in 7.1.4 (October 28, with backports to branches back to 4.7); CISA added it to its Known Exploited Vulnerabilities catalog November 3. Wordfence counted 18,500 exploit attempts in the first 21 hours after disclosure and 62,969 blocked attempts by October 30. All versions 4.7 through 7.1.3 are affected — roughly 43% of all websites.",
+              why: "Today is the day to confirm every site runs 7.1.4 or the fixed release for its branch, block the upgrade folder first, and check for prior compromise.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "Zero Day Feed · article", url: "https://zerodayfeed.com/article/wordpress-7-1-4-upgrade-window-rce-cve-2026-119977-cisa-kev-november-2026" }
+              ]
+            },
+            {
+              headline: "Canada's five biggest banks move to keep personal AI agents out of customer accounts",
+              minutes: 7,
+              synopsis: "By October 28, 2026, Canada's five largest banks had all moved to keep third-party personal AI agents out of customers' accounts, or limit what they can do. TD said it would block all third-party personal AI agents from direct access to banking information; RBC blocked them from authenticated digital properties, with an internal memo calling such agents an 'unacceptable customer risk'; BMO does not permit agents to access its digital properties or execute transactions; CIBC does not support personal agents directly opening or accessing accounts; Scotiabank said it will limit access. The catch for customers: RBC's fraud guarantee excludes losses after a shared password, so handing an agent a login leaves the customer uncovered. The sanctioned route is open banking — the Consumer-Driven Banking Act received royal assent in March 2026 — but phase one is read-only data sharing and money movement waits for a second phase still under consultation.",
+              why: "The blocks land on the password route, not on AI itself — and the accredited open-banking route is read-only for now. Anyone building agent features needs the bank-controlled path, and customers who hand over a password lose their fraud cover in the meantime.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "FII Institute · article", url: "https://fii-institute.org/blog/ai-agents-meet-the-banks-who-gets-into-your-account/" }
+              ]
+            },
+            {
+              headline: "In the digital euro, an AI agent pays through the customer's own bank",
+              minutes: 17,
+              synopsis: "The ECB invited companies on September 28, 2026 to join a new round of its innovation platform for the digital euro; applications close Monday, November 9 at 17:00 CET. AI agents are a workshop topic for the first half of 2027, not part of the January–June 2027 prototypes. In their negotiating mandates, both the Council (December 17, 2025) and the European Parliament (June 26, 2026) exempt the provisions on payment initiation services, so an agent can pay from a digital euro account only under a contract with the account-servicing institution — in most cases, the customer's own bank. Three doors compared: with account money, PSD2 gives a payment initiation service a statutory right of access; with cards, the networks' rules open the door (Mastercard enabled Agent Pay for all European issuers June 2, 2026; Visa launched Agentic Ready March 17, 2026); with the digital euro, only a contract with the bank opens the door.",
+              why: "Three doors, three different owners of the decision — and for the digital euro the bank holds the contract, so the bank decides which agents may pay, within which limits, and who is liable for a wrong purchase. That is the model to watch as Canada designs its own open-banking rules.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "Schablitzki Consulting · article", url: "https://schablitzki-consulting.de/en/news/EZB_KI_Agenten_Zahlungen_digitalen_Euro.html" }
+              ]
+            },
+            {
+              headline: "India's cybercrime agency warns banks: attackers are using AI agents against payment systems",
+              minutes: 2,
+              synopsis: "The Indian Cyber Crime Coordination Centre (I4C) has warned banks, non-banking financial companies and fintech firms that attackers are using AI agents to break into their systems. The advisory (dated November 3, made public November 4) describes financially motivated campaigns where agentic AI tools let intruders compromise systems at machine speed: first exploit unpatched software or misconfigured internet-facing servers, including customer complaint interfaces, then go after automated fund disbursement systems and the APIs used for payments and transfers. Money is moved into mule accounts across several banks, pulled out quickly through the IMPS and NEFT rails, and records are deleted to slow investigators. I4C asks firms to inventory payment APIs and switch off old or test interfaces, set daily and per-transaction limits, verify beneficiaries, watch for sudden changes in transaction speed or volume, block transfers until KYC checks are complete, and report incidents to CERT-In within six hours.",
+              why: "The same week banks block customer agents, attackers run theirs — and the target is payment APIs and disbursement systems. The checklist transfers directly: inventory payment APIs, kill test interfaces, set limits before machine-speed attacks test them for you.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "AI Daily News · article", url: "https://www.ai-daily-news.org/en/articles/india-cybercrime-agency-warns-financial-firms-of-ai-agent-attacks" }
+              ]
+            },
+            {
+              headline: "Fraud runs as a network. UK defences still run alone",
+              minutes: 4,
+              synopsis: "The UK publishes its fraud losses in full every June, and the 2026 figures tell a story the £1.28 billion headline hides: unauthorised fraud fell 5% and the industry stopped 70p of every pound attempted, but authorised push payment fraud rose 19% to £576 million, with investment scams up 40%. Mandatory reimbursement works as consumer protection — in-scope losses over Faster Payments fell around 21% — but the money moved: international APP scams outside the regime rose from £21 million (2023) to £60 million (2025), and scams paid into crypto exchanges rose from ~£59 million to £153 million. Machine speed arrived in October: Mastercard put agent identity scoring into production in Agent Pay, Visa's first live agentic payments pilot was confined to pre-approved invoices, and America's largest banks reported unauthorised AI agents operating inside customer accounts.",
+              why: "Reimbursement moves the loss, fortification moves the fraud, only visibility removes it. As agent payments arrive at machine speed, the decision has to happen before settlement — and that needs shared sight across rails and institutions, which no single bank's fraud team can build alone.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "The Payments Association · article", url: "https://thepaymentsassociation.org/article/fraud-runs-as-a-network-uk-defences-still-run-alone/" }
+              ]
+            },
+            {
+              headline: "KakaoBank's AI call bot: a pause that lifts fraud cancellations 54%",
+              minutes: 2,
+              synopsis: "KakaoBank announced on November 5, 2026 its AI-Safety Call Bot. When the bank's fraud detection system flags a suspicious transaction, the bot automatically calls the customer, guides them to halt the transfer and verify the transaction, and sends alerts about common fraud types and how to respond. The design idea is 'intentional friction' — give customers time to reassess a transaction's safety in a suspicious moment. The bot tailors preventive information by the customer's age and recent fraud trends, and for customers aged 60+ offers voice guidance on transaction verification. Since the bot's introduction at the end of September, approximately 100,000 alerts have been issued in a month, and the cancellation rate for transactions among customers who received these alert calls increased by 54% compared with the same period last year.",
+              why: "Detection plus a call that creates a pause — a 54% lift in cancellations from an automated call is a cheap, measurable control worth copying. And note the design for older customers, where the fraud risk concentrates.",
+              topics: ["Process improvements"],
+              sources: [
+                { name: "Aju Press · article", url: "https://www.ajupress.com/view/20261105140070859" }
+              ]
+            },
+            {
+              headline: "Copilot just stopped being a VS Code thing: native in Xcode, a pickable agent in JetBrains Air",
+              minutes: 6,
+              synopsis: "In two days, two IDEs that don't belong to Microsoft got GitHub Copilot. On November 3, 2026 GitHub announced Copilot as a selectable agent in JetBrains Air, and on November 4 it announced Copilot inside Xcode's own coding assistant. Xcode: Copilot is available in the built-in assistant in public preview starting with Xcode 27.3 beta (needs macOS Tahoe 26.6+; stable 27.3 expected in December; all Copilot plans supported; the existing Copilot for Xcode extension remains as a separate option). JetBrains Air: Copilot is a selectable agent in the agent picker, built on the Agent Client Protocol — the IDE treats an AI agent as a swappable component. Local runs happen in the IDE; cloud runs go through Air Teams, each task in an isolated Docker container on a fresh VM. Billing rule: cloud tasks bill against the Copilot plan, not JetBrains AI credits. Fine print: in Air you cannot choose a personal vs organisation plan per task, Air analytics don't include Copilot usage, and admins can't set Copilot spending limits inside Air.",
+              why: "The IDE is becoming an agent picker, and 'which AI do I use?' becomes a per-task setting instead of a subscription you marry. For a dev leader, the governance gaps matter more than the feature: which plan gets billed, usage invisible in analytics, and no spend limits where the work runs.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "DEV Community · article", url: "https://dev.to/paullovelace/github-copilot-just-stopped-being-a-vs-code-thing-bn2" }
+              ]
+            },
+            {
+              headline: "The AI coding market flipped: Claude Code leads, agents start 40%+ of GitHub pull requests",
+              minutes: 27,
+              synopsis: "Axis Intelligence Research's AI coding statistics page (updated November 5, 2026), assembling Stack Overflow 2026, JetBrains developer surveys, GitHub Octoverse 2026 and company filings, finds the AI coding market changed leaders in 2026. Claude Code is now used at work by 39% of professional developers worldwide against 21% for GitHub Copilot (JetBrains, May–July 2026); the Incumbent Crossover Ratio rose from 0.10 (April–June 2025) to 1.86, and on stated intent for the next six months reaches 2.11. Agents started more than 40% of GitHub pull requests in September 2026, up from 17% in March — 110 million agent-started PRs in September alone — and agent PRs merge within two weeks at 90%, above the ~86% for non-agent PRs. 65.9% of developers use an AI coding assistant at work; 90% of professionals use one weekly. Cursor's revenue, filed through SpaceX, was $608 million in 48 days, annualising to ~$4.62 billion. Cautions: Veracode's October 2026 testing found AI-generated code passed security tests 62% of the time — 38% still fail — and 65.7% of developers switched AI tools in the past year.",
+              why: "The adoption question is closed — the question now is governance. Agents start nearly half of all pull requests, merge faster than humans, and over a third of their code fails security tests. Review gates and evals are the control plane, and the tool your team picks will change yearly.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "Axis Intelligence Research · article", url: "https://axis-intelligence.com/ai-coding-assistant-statistics/" }
+              ]
+            },
+            {
+              headline: "Instructional video — Stop guessing: how to compare models and prompts for an AI agent, with statistics you can trust",
+              minutes: 13,
+              synopsis: "A ~13-minute instructional video on agent evaluation. The premise: you changed one line in your agent's prompt and the next answer was better — was it the change, or luck? A language model never answers the same way twice, so one good answer proves nothing. ScarabHive, a free open-source program for running AI agents, has an agent-eval plugin: it runs your agent on a task suite several times, as-is and with the change, and uses a sign test (a coin toss per task) to say whether the difference is real or could be chance. The runs are real: three models on eight small Python bugs — DeepSeek Flash and Gemini Flash Lite both passed 16 of 16 (no detectable difference; Gemini cost 3x more), the local Qwen 3 4B passed none. An old prompt vs a new one: with eight tasks the new prompt was better on five, worse on none — still 'no detectable difference'; with sixteen tasks (better on eight, worse on one) the verdict flipped to 'better.' Also covers LLM-as-a-judge and baselines, holdout and regression tasks.",
+              why: "The method behind the evals conversation — before rolling out a prompt change or a model swap to the whole team, run it like this, because a single good demo proves nothing and the cheaper model that ties is the one to buy.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "YouTube · video", url: "https://www.youtube.com/watch?v=4fzz6w5MtH0" }
+              ]
+            }
+          ]
+        },
+        {
           date: "Thursday, November 5, 2026",
           iso: "2026-11-05",
           audio: [
