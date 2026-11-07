@@ -511,6 +511,106 @@
     <script>
       var EDITIONS = [
         {
+          date: "Saturday, November 7, 2026",
+          iso: "2026-11-07",
+          audio: [
+            { label: "Listen to this edition · 17:24", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-07.mp3" }
+          ],
+          stories: [
+            {
+              headline: "SonicWall SSL-VPN flaw bypasses SAML — including SAML-enforced MFA — and it's already exploited",
+              minutes: 2,
+              synopsis: "SonicWall has released fixes for seven vulnerabilities in SonicOS firewalls, including CVE-2026-19868, an SSL-VPN authentication bypass exploited in attacks. It lets an attacker with valid credentials for an alternate authentication method bypass SAML authentication controls, potentially including SAML-enforced multi-factor authentication. CVSS 7.1; only SSL-VPN services configured to use SAML are affected. Reported by Ryan Harris of The Electronic Office. CISA added the flaw to its Known Exploited Vulnerabilities catalog on November 6, confirming exploitation in the wild; federal civilian agencies must fix it by November 20. Fixes: SonicOS 7.3.4-7013 (Gen 7) and 8.2.3-8015 (Gen 8); no workaround. The same advisory also fixes two management-interface flaws rated 8.8. Canada's Centre for Cyber Security issued advisory AV26-1133.",
+              why: "This defeats the control most teams rely on to stop credential theft — if your firewall uses SAML for VPN, the useful deadline is now, not November 20, and check which accounts can still sign in another way while you patch.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "BleepingComputer · article", url: "https://www.bleepingcomputer.com/news/security/sonicwall-warns-of-new-ssl-vpn-mfa-bypass-flaw-exploited-in-attacks/" }
+              ]
+            },
+            {
+              headline: "OpenSSH \"*sshole\" CVE-2026-123158: a 257-character password opens accounts with no password",
+              minutes: 15,
+              synopsis: "CVE-2026-123158, nicknamed *sshole, lets a 257- to 1,024-byte password log in to accounts with no password set on Linux systems using musl libc without PAM — in practice Alpine Linux, Buildroot and Yocto systems. Since 1980 a \"*\" in /etc/shadow has meant \"no password can match\"; but musl's SHA-256/SHA-512 code refuses passwords over 256 bytes and reports failure by returning \"*\". Since 2016 (CVE-2016-6210 fix), OpenSSH hashes the password even for accounts with no real hash, borrowing settings from another account — so stored \"*\" meets returned \"*\" and the login succeeds. Disclosed November 5; fix is OpenSSH 10.6p2 (a four-character minimum hash length), with patched Alpine packages back to 3.16 — but sshd must be restarted. Previdian reports exploitation attempts within ~8 hours 19 minutes of CVE publication, including root on an Alpine honeypot. Not in CISA's KEV catalog; EPSS ~1%. OpenSSH rushed the fix because, in Damien Miller's words, \"we have recently observed multiple cases of rapid bug rediscovery by AI agents, sometimes within hours, and so now consider long embargo periods to be a dangerous practice that primarily benefits attackers.\" Researcher Özgün Kültekin found it with ~17,600 login attempts, with AI agents helping run them.",
+              why: "The window from public fix to first attack is now measured in hours. Audit for Alpine containers or appliances running SSH with password logins still on — key-only was a claim nobody had tested, and on these systems a long password was a key.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "Blackout Map · article", url: "https://blackoutmap.net/blog/openssh-sshole-cve-2026-123158" }
+              ]
+            },
+            {
+              headline: "Barracuda Email Security Gateway: two flaws chain to root with no login",
+              minutes: 26,
+              synopsis: "Two flaws in Barracuda's Email Security Gateway can be chained to run commands as root with no login. CVE-2026-116606 (CVSS 9.3) is a pre-authentication authorization bypass: when a password change fails, the code returns the current user role instead of stopping the request, leaving a backup-restore function open to unauthenticated users. CVE-2026-111560 (CVSS 8.6) is a command injection: a timezone value restored from a backup is passed unsanitized into a shell command running as root. Backups are guarded by a checksum, but the secret used to compute it is built into the code, so an attacker can forge a valid one. watchTowr demonstrated the chain by writing a file to the appliance as root. Barracuda released patches Monday, November 2; the Email Security Gateway is fixed in firmware 9.4.0.030 and later. The command injection reaches five other Barracuda products but still needs an administrator account there. Neither flaw is in CISA's KEV catalog and no public report ties either to an attack; watchTowr released a detection tool, not an exploit. The same gateway was hit in 2023 by UNC4841 via CVE-2023-2868, a case that forced physical hardware replacement.",
+              why: "A failed password change that doesn't stop the request is the kind of logic flaw no scanner finds — patch, then review the appliance for unexpected changes, because this box has been a target before.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "watchTowr Labs · article", url: "https://labs.watchtowr.com/barracuda-networks-is-your-new-best-friend-barracuda-email-security-gateway-pre-auth-remote-root-rce-cve-2026-116606-cve-2026-111560/" },
+                { name: "The Hacker News · article", url: "https://thehackernews.com/2026/11/experts-demonstrate-barracuda-email.html" }
+              ]
+            },
+            {
+              headline: "Budget 2026: Real-Time Rail named for November 9 — and a competition reset for Canadian finance",
+              minutes: 6,
+              synopsis: "Canada's Budget 2026, \"Masters of our destiny\", tabled November 5 by Finance Minister Francois-Philippe Champagne, puts competition at the centre of its financial-services agenda. On payments, the budget document describes the government as supporting the launch of the Real-Time Rail, Payments Canada's instant-payment system, on November 9, 2026 — though Payments Canada's own status page says only that it is launching \"in the coming weeks\" and does not repeat the date. OSFI would gain a new secondary competition objective with a maximum one-year statutory decision timeline for new entrants; the widely-held threshold for banks rises from $12 billion to $25 billion; deposit insurance rises to $250,000; AML oversight of federally regulated institutions would move from FINTRAC to OSFI; a multi-sector anti-fraud framework would cap consumer liability for unauthorized transactions absent gross negligence. On open banking, no new launch date for the consumer-driven banking framework, though data-portability rights would expand to telecom and air transport. On stablecoins, federally regulated institutions would be prohibited from issuing them directly. Everything is a proposal, not law.",
+              why: "Monday is the date to watch for real-time payments landing in Canada. For your team, the Real-Time Rail launch is the near-term integration question, and the open-banking date is still the open one.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "Financial Technology Frontiers · article", url: "https://fintechfrontiers.live/budget-2026-puts-competition-at-the-centre-of-canadian-financial-policy/" }
+              ]
+            },
+            {
+              headline: "BMO's AI Agent Assist: agentic AI in the contact centre, with a 20–30% call-time target",
+              minutes: 3,
+              synopsis: "BMO announced November 6 a new agentic AI capability, AI Agent Assist, for its Virtual Connect contact centre. Each year the centre receives more than 500,000 calls from Canadian clients about credit card transactions, averaging 12–14 minutes to resolve. The tool brings AI-enabled transaction matching, policy retrieval and case preparation directly to employees for review; BMO aims to cut resolution time for eligible inquiries by 20–30% and process about 40% of eligible credit refund requests automatically, so qualifying clients could receive their credit the same day. It is human-in-the-loop by design — employees remain accountable for reviewing AI-generated information and making servicing decisions. BMO is designing the capabilities for reuse across the bank, supporting its goal of more than $1 billion in AI-enabled revenue growth, productivity improvements and operating efficiencies by 2030. BMO ranked #2 among 50 banks for reported AI use-case outcomes in the 2026 Evident AI Index.",
+              why: "The pattern to copy — a high-volume, measurable workflow, an agent that prepares the case for a human who stays accountable, and a reusable capability behind it. 20–30% off a 12-minute call, across half a million calls a year, is the arithmetic that gets an AI program funded.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "BMO Financial Group · article", url: "https://www.tradingview.com/news/prnewswire:3eadd9c40912a:0-bmo-using-agentic-ai-to-help-credit-card-clients-get-faster-answers-and-resolutions/" }
+              ]
+            },
+            {
+              headline: "OpenAI's GPT-6 Cyber: 948 Linux root exploits in one run — and it writes the patch too",
+              minutes: 28,
+              synopsis: "OpenAI introduced GPT-6 Cyber on November 5, a model trained to find vulnerabilities, build working exploits and suggest patches. Its November 4 research post, \"A thousand fewer paths to root\", describes an autonomous pipeline that scanned ~7% of the Linux kernel, turned 2,308 candidate findings into 1,724 reproduced vulnerabilities, and produced 948 distinct working local privilege escalation exploits — each with a candidate patch — for $1,213,430 in API credits (~$1,279 per exploit). The model also found 81 previously unknown high-severity Firefox vulnerabilities. OpenAI sent 304 critical findings to Linux maintainers with candidate patches; 10 days after the scan, 61 flaws had been fixed upstream, 43 had staging patches, 299 were being discussed publicly. It scores 48.5% on ExploitGym vs 32.1% for GPT-5.6 Cyber, and OpenAI rates it Critical under its Preparedness Framework; access is limited to select approved Daybreak Red customers. OpenAI is candid that an early run counted 20 successes that reached root through a different zero-day than the one assigned, and tightened its checks after; all figures are OpenAI's own, with no independent audit published. OpenAI's conclusion: a low-privileged account on a system behind on patches should be treated as equal to root for a well-funded attacker.",
+              why: "The cost of finding a root exploit just fell to ~$1,200 — and the model that did it also writes the patch. Rescan code you've already audited, because a stronger model finds what the last one missed, and treat patch lag as root access.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "OpenAI · article", url: "https://openai.com/index/a-thousand-fewer-paths-to-root/" }
+              ]
+            },
+            {
+              headline: "METR: Anthropic's AI is improving about twice as fast — but the evidence is mostly redacted",
+              minutes: 9,
+              synopsis: "Independent research organization METR published an assessment November 5 estimating Anthropic is now improving its AI capabilities at roughly 1.9 times the pace seen before October 2025, with AI itself responsible for much of the acceleration — METR estimates AI assistance accounts for about 80% of it. The team examined internal development data from August 12 through October 29, finding AI tools helping Anthropic employees work faster on coding and experiment analysis. Most acceleration still came from AI assisting people rather than independently conducting research, but METR found no clear bottleneck that would necessarily prevent further acceleration over the next year. The caveat: Anthropic redacted most of the material METR considered most informative in its roughly 100-page assessment, to protect confidential information that could help competing AI developers — so the public is asked to trust conclusions it cannot fully verify.",
+              why: "If AI helps researchers build better AI, and those models then develop their successors even faster, the capability curve steepens — and the people paid to verify it are being asked to trust conclusions they cannot fully check. Treat model capability as a moving target that moves faster than your roadmap assumes.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "The Neuron · article", url: "https://www.theneuron.ai/digest/everything-that-happened-in-ai-today-friday-november-6-2026/" }
+              ]
+            },
+            {
+              headline: "Google won the model. Anthropic won the agent.",
+              minutes: 13,
+              synopsis: "Prediction markets tell a split story: on Polymarket, Google leads \"best AI model end of 2026\" at 62%, Anthropic 30%, OpenAI 4% — but on \"best AI agent\" (January 2027), Anthropic leads at 57%, Google and OpenAI ~19% and 18%. Six months ago Anthropic owned both races (94.8% for best model at its June peak); then Google shipped the Gemini 3 family — Deep Think scored 84.6% on ARC-AGI-2 vs Opus 4.6's 68.8% — and cut API prices to roughly a third of Anthropic's. The argument: the markets measure different things — benchmarks vs end-to-end task completion (tool use, multi-step planning, error recovery). The formula: Agent = Model + Harness — system prompts, tool definitions, context management, retry logic, memory, safety boundaries. Opus 4.6 scores 2.5 points higher inside Claude Code's native harness than a generic one. Enterprise receipts: Ramp's AI Index showed Anthropic overtaking OpenAI in workplace AI adoption in April 2026 (34.4% vs 32.3%), widening to 43.5% vs 39.7% by July; Claude Code run-rate revenue exceeds $2.5 billion; Utah gave Claude Code to 34 developers across 10 agencies — 80% had a working environment within 30 minutes, 71% saved 20+ hours in a four-week pilot. Bear case: Google has TPU infrastructure, 2 billion Workspace users and a $750 million partner fund, and could win both races once it bolts agent reliability onto the best model.",
+              why: "Stop asking which model is best; ask which system is most reliable for the workload. The stack for a chatbot may not be the stack for autonomous code execution — and the harness, not the model, is where the advantage compounds.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "DEV Community · article", url: "https://dev.to/max_quimby/google-won-the-model-anthropic-won-the-agent-186o" }
+              ]
+            },
+            {
+              headline: "Instructional video — \"Master Prompt Engineering in 9 Minutes\"",
+              minutes: 9,
+              synopsis: "A nine-minute tutorial from the AI Builder series on writing better prompts: a six-part framework — Role, Task, Context, References, Constraints, Output — for turning vague requests into clear, effective prompts. You don't need all six components every time; the goal is to communicate more clearly, evaluate the AI's response, and refine instructions when it falls short. It also shows how to build your own AI prompt refiner with a reusable template, and explains why AI can produce convincing answers that are still incorrect.",
+              why: "Every agent in this edition — the ones BMO runs, the ones your developers use, the ones OpenAI uses to find vulnerabilities — is only as good as the instructions it is given. Nine minutes, one framework, and a concrete exercise for Monday.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "AI Builder Series · video", url: "https://www.youtube.com/watch?v=U6nxdHQkhzI" }
+              ]
+            }
+          ]
+        },
+        {
           date: "Friday, November 6, 2026",
           iso: "2026-11-06",
           audio: [
