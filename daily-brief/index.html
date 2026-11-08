@@ -511,6 +511,125 @@
     <script>
       var EDITIONS = [
         {
+          date: "Sunday, November 8, 2026",
+          iso: "2026-11-08",
+          audio: [
+            { label: "Listen to this edition · 19:17", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-08.mp3" }
+          ],
+          stories: [
+            {
+              headline: "Cisco Secure Email Gateway flaw: one crafted attachment gives root — still exploited, federal deadline passed",
+              minutes: 8,
+              synopsis: "Cisco's Secure Email Gateway has a critical flaw, CVE-2026-76519 (CVSS 9.8), in the Advanced Malware Protection feature's handling of email attachments when the File Reputation service is enabled. A single email with a crafted attachment lets an unauthenticated remote attacker write arbitrary files and execute commands as root. Cisco became aware of active exploitation in October 2026; CISA added it to the Known Exploited Vulnerabilities catalog on October 14 with a federal fix deadline of October 17 that has already passed. A Metasploit module exists and roughly 300 gateways are exposed online. Affected only if File Reputation is enabled on a mail policy and Content Scanner Tools is below 25.3.0.5525. Fix: update Content Scanner Tools to 25.3.0.5525 or later (no reboot needed) or move to AsyncOS 15.5.5-014 or 16.5.0-780; version 16.0 has no fix on its own line. No workaround.",
+              why: "The email gateway is the box that is supposed to stop malicious attachments, and this one is compromised by the attachment itself. If your bank runs Cisco's gateway, the version check is a five-minute job — and the federal deadline passing while exploitation continues means treat it as overdue, not routine.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "ClearSecurity Vision · article", url: "https://clearsecurity.vision/en/blog/2026-11-04-patches-that-cannot-wait-november-2026/" }
+              ]
+            },
+            {
+              headline: "OCC issues supervisory framework for banks' use of 'Super Intelligence'",
+              minutes: 11,
+              synopsis: "On November 4, 2026, the U.S. Office of the Comptroller of the Currency issued a supervisory framework (OCC Bulletin 2026-54) to help examiners evaluate banks' use of generative and agentic AI, which it calls 'Super Intelligence'. It is explicitly not a new regulatory regime: it creates no new requirements, no separate risk category, and no separate risk appetite. Six pillars organize the review — Purpose, Risk, Control, Oversight, Resilience, Assurance — expanded into sixteen supervisory components. Risk is judged by autonomy and consequences, not model sophistication, and human oversight must be meaningful: a reviewer needs the expertise, information, authority and capacity to reject or halt an agent's actions, not a nominal approval click. Hallucinations about fees, interest rates and account status are flagged as a compliance risk, and vendor management must cover advance notice of model changes plus rights to monitor, test, restrict or terminate third-party AI.",
+              why: "The OCC supervises American national banks, not Canadian ones, but this is the exam playbook U.S. peers will be measured against, and OSFI tends to ask the same questions a beat later. The autonomy-and-consequences test and the no-theatre-oversight line are worth borrowing for your own agent governance before an examiner asks.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "Consumer Finance Monitor · article", url: "https://www.consumerfinancemonitor.com/2026/11/06/occ-issues-supervisory-framework-for-banks-use-of-super-intelligence-a-risk-based-approach-to-generative-and-agentic-ai/" }
+              ]
+            },
+            {
+              headline: "Capgemini: 59% of financial firms are running multi-agent AI — only 10% have orchestrated it",
+              minutes: 4,
+              synopsis: "Capgemini's World Cloud Report for Financial Services 2027, published November 5, draws on a survey of 1,100 financial services executives across 14 markets. 59% of firms are piloting or deploying multi-agent AI systems, yet only 10% have achieved enterprise-wide orchestration, and just 5% have institutionalised the capabilities to operate agentic AI at enterprise scale. 90% are using or planning intelligent model routing, and 52% of banks and insurers are turning to hyperscalers as their preferred cloud partner to govern multi-agent deployments. Eight in ten executives prioritise reducing tech debt as a prerequisite. By 2028, the number of executives prioritising outcomes as their primary AI-funding criterion is projected to increase 141%, while the number focused on efficiency drops 42% — yet roughly half of firms cannot consistently demonstrate a return on their agentic AI initiatives.",
+              why: "The industry moved from single-agent pilots to multi-agent systems in about a year, and the winners are not the ones with the most agents — they are the ones with orchestration, a trusted cloud foundation and measurable outcomes. If your roadmap still funds agents on efficiency alone, the conversation is moving to outcomes, and half the industry cannot yet prove them.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "Capgemini · article", url: "https://www.capgemini.com/gb-en/news/press-releases/financial-institutions-accelerate-transition-to-multi-agent-ai-in-drive-for-bottom-line-value/" }
+              ]
+            },
+            {
+              headline: "Anthropic launches Personal Finance in Claude: read-only bank access via Plaid",
+              minutes: 3,
+              synopsis: "Anthropic launched Personal Finance in Claude on November 5, 2026, in beta for Pro, Max and Ultra subscribers in the United States. Users connect bank and card accounts through Plaid and ask Claude plain-language questions answered from real balances and transactions. Access is read-only: Claude cannot move, manage or invest money. Up to 16 banks can be linked, with up to 24 months of transaction history. Caveats from Anthropic's own help pages: balances can lag a day or two, Claude can produce incorrect figures, and if a bank puts a full account number in an account label or transaction description, Claude can read it there. Conversations in the Personal Finance hub are excluded from model training. Anthropic invited wealth managers, banks and other financial companies to help build tools for bigger money decisions paired with regulated institutions and licensed advisers. No date for expansion outside the U.S.",
+              why: "This is the shape of access the banks have been steering toward all month — read-only, customer-chosen, through Plaid, with the password never handed to the assistant. It is the contrast to the password-sharing route the banks blocked: same assistant, same account, very different risk. Watch whether a Canadian version follows — that is the moment your customers start asking why their bank does not offer it.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "BetaNews · article", url: "https://betanews.com/article/claude-personal-finance-bank-accounts-plaid/" }
+              ]
+            },
+            {
+              headline: "AI agents meet the banks: who gets into your account — and what agents do to deposits",
+              minutes: 7,
+              synopsis: "A November 4 analysis from the FII Institute pulls together the agent-access story: by October 28, Canada's five largest banks had moved to keep personal AI agents out of customer accounts or limit them — TD blocking, RBC, BMO and CIBC in similar positions, Scotiabank limiting access. In the U.S., Morgan Stanley began blocking, while JPMorgan Chase, Bank of America and Citi are restricting, after Axios reported large U.S. banks had found unvetted AI agents operating inside customer accounts. The industry is converging on approved routes: JPMorgan points to open banking providers, Citi already allows limited read-only access through approved providers, Schwab plans MCP links for balances and research (never money movement), and Morgan Stanley will let corporate clients connect their own agents to its stock-plan platforms next year. The deposit angle: Apollo chief economist Torsten Slok asked whether agents could sweep household cash from checking accounts paying 0.1% into accounts paying 3.3–5% — on $10,000, $10 a year vs $330–$500. Jeff McMillan, who led firm-wide AI at Morgan Stanley until March, calls it 'repricing, not a run,' pointing to 2022–23, when more than $1 trillion moved from deposits into money market funds.",
+              why: "The agent-access fight is also a funding fight. If agents make it trivially easy to move money to the best rate, the cheapest deposits in the bank become the most mobile — and the repricing question lands on your partners' desks before the technology question does.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "FII Institute · article", url: "https://fii-institute.org/blog/ai-agents-meet-the-banks-who-gets-into-your-account/" }
+              ]
+            },
+            {
+              headline: "OpenAI to acquire Pierre, bringing Git code storage into Codex",
+              minutes: 14,
+              synopsis: "OpenAI announced on November 4, 2026 that it will acquire Pierre Computer Company, maker of Code Storage, a Git-based code storage service built to be driven by software rather than people. Terms were not disclosed; closing is subject to customary conditions including regulatory approvals. Two of Pierre's open-source libraries already run inside Codex: Trees (file browsing) and Diffs (rendering changes for review). Code Storage is the strategic piece: programmable Git storage with API and SDK access, advertising a 99.99% SLA, repositories up to 32 TB, and 500+ Git requests per second. The same week OpenAI published 'Scaling Git at OpenAI,' describing Pando, its in-house Git backend: nearly a petabyte of Git data a day and median push latency cut nearly five times. OpenAI has not announced a GitHub replacement, rollout date or pricing, and says Pierre's open-source projects will remain open source.",
+              why: "The coding-agent race is moving from generating code to owning the whole workflow — branches, history, review, deployment. If Codex becomes the place where agent-written code lives, your team's review and audit trail questions move with it, and the Git history becomes the record of what the agent did, not just what a developer typed.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "ROBOTICO · article", url: "https://robotico.news/article/openai-acquires-pierre-computer-codex-is-moving-beyond-ai-assisted-coding" }
+              ]
+            },
+            {
+              headline: "OpenAI raises $11B at a $1.25T valuation — short of its target — as Anthropic's IPO bids fall",
+              minutes: 9,
+              synopsis: "Bloomberg, reported by TechCrunch on November 6, 2026, says OpenAI has raised about $11 billion so far in a new funding round valuing the company at $1.25 trillion — well short of the $30 billion at a $1.4 trillion valuation it sought in September. The round has not closed and could total about $20 billion. The same day, Bloomberg reported potential buyers of Anthropic shares in its coming IPO are weighing a valuation as low as $1.1 trillion, against roughly $2 trillion expected a month earlier. Anthropic has filed to list on the Nasdaq under ticker ANT, with its roadshow starting next week, while OpenAI has delayed its own IPO to 2027. The mood shift has a trigger: the Democratic landslide in the U.S. midterms and strongly negative voter sentiment about data centres. All figures are press reports from unnamed sources, not company announcements.",
+              why: "The two most valuable private AI companies are both being repriced downward in the same week, and the reason is infrastructure politics, not model quality. For your own AI budget conversations, that is useful context: the suppliers' economics are under pressure, which is good news for buyers — and worth watching whether that pressure shows up as slower capacity growth or changed pricing before it shows up in your renewal.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "Kurums · article", url: "https://kurums.com/openai-1-25-trillion-round-what-founders-should-know/" }
+              ]
+            },
+            {
+              headline: "Ramp data: corporate AI spending flatlined — use is up, bills are not",
+              minutes: 6,
+              synopsis: "A new report from Ramp, reported by TechCrunch on November 6, 2026, shows AI token spending grew just 1.5% across August and September combined, after jumping 42% in July — even as token volumes kept rising. October re-accelerated modestly, up 8.9% from late September to late October, but Ramp's lead economist Ara Kharazian says headwinds are strong and 'the era of hypergrowth may be over.' The cause is not weaker demand: OpenAI halved API prices for two of its GPT-6 models in September, Anthropic cut prices for Fable 5.1 and Opus 5.5, and companies got better at routing work to cheaper models and setting budgets. The median company spends $12–$15 per employee per month on AI tokens; the top 10% spend $600–$1,000; the top 1% sit just below $10,000 per employee a month. Almost all AI spending comes from venture-backed, high-growth tech companies.",
+              why: "Use is up, bills are flat, and that is a buyer's market. The same price war squeezing the labs' valuations is cutting your cost per token — the moment to lock in routing discipline and budgets, because the discounts that look permanent today are how vendors lock in spend for tomorrow.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "TechCrunch · article", url: "https://techcrunch.com/2026/11/06/ramp-data-shows-ai-spending-stalling-just-as-anthropic-nears-its-ipo/" }
+              ]
+            },
+            {
+              headline: "DeepMind: AI agents found two weaknesses in legacy 1024-bit RSA in weeks",
+              minutes: 9,
+              synopsis: "On November 6, 2026, Google DeepMind announced that AI agents, guided by human cryptographers, found two weaknesses in legacy 1024-bit RSA encryption in a matter of weeks — work that in cryptanalysis usually takes years. First, signature forgery: the agents found padding stops protecting RSA signatures once an attacker controls about half of the signed block; in a sandboxed test the AI-generated method reproduced the result with 3.5x less CPU time, and for the harder 32-byte digest case DeepMind estimates its new algorithm is about 1,600x better than the previous best method — a theoretical estimate, not a measured run. Second, batch factoring: a new 'fan factory' method cuts the cost of factoring each additional 1024-bit key to about 1/58 of a full run, roughly 30x cheaper than the best previous batch method. The limits matter: neither result touches RSA at 2048 bits or above; the papers have not been peer reviewed; and no fan factory has actually been built.",
+              why: "The systems at risk are the ones that never upgraded — old hardware, embedded devices, long-lived certificates, signing services still exposing 1024-bit keys. The audit to run is an inventory of legacy keys, not a panic about modern encryption — and the deeper signal is that AI is now doing cryptanalysis fast enough to change how quickly old assumptions expire.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "Data Studios · article", url: "https://www.datastudios.org/post/google-deepmind-ai-agents-two-weaknesses-legacy-1024-bit-rsa" }
+              ]
+            },
+            {
+              headline: "Instructional video — 'How to Check AI Before You Trust It'",
+              minutes: 5,
+              synopsis: "A five-minute video from Digital Perivalon on the skill underneath everything else in this edition: a four-step check before trusting an AI answer with anything that matters. (1) Circle the checkables — the facts, figures and claims that can actually be verified. (2) Open the source and find the sentence — a real link is not proof. (3) Ask again in a fresh chat — a made-up answer often changes when the model has no memory of the first one. (4) Ask it questions, not 'are you sure?' — interrogate the reasoning instead of inviting a confident yes. It also covers when to skip the check altogether. Grounded in real research: a database of more than 2,000 court decisions involving AI hallucinations, and a finding that asking a model to be more accurate made its summaries overgeneralise more, not less.",
+              why: "Every agent in this edition — the ones BMO runs, the ones your developers use, the ones finding vulnerabilities — is only as good as the answers it gives. Five minutes, one routine, and a concrete exercise for Monday: run it on the next AI-generated summary that lands in a review.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "Digital Perivalon · video", url: "https://www.youtube.com/watch?v=FOtTLjWrR-E" }
+              ]
+            },
+            {
+              headline: "Longer watch (video) — 'ML Decides, LLMs Explain: AI Agents on Apache Doris at Raiffeisen Bank Romania'",
+              minutes: 34,
+              synopsis: "A 34-minute session from Apache Doris Summit 2026 in which Raiffeisen Bank Romania presents ARIA (Artificial Raiffeisen Intelligence Agents), its enterprise agentic AI platform. The core idea: ML decides, LLMs explain — governed models produce auditable predictions, and ARIA agents explain them, combining model outputs with SHAP-based drivers into actionable recommendations for bankers. AI agents are now real consumers of the bank's analytics platform, querying through MCP-based tools, with OpenMetadata as the semantic layer they rely on. The session goes under the hood on the reference architecture, the challenges of agents querying production data, security and controls on data MCPs, and integration with data pipelines.",
+              why: "This is the pattern from the Capgemini report and the OCC framework, running in a real bank — grounded agents, governed models, and an explanation a human can check before acting. The architecture discussion alone is worth it if your team is designing how agents touch production data.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "VeloDB via YouTube · video", url: "https://www.youtube.com/watch?v=k5KC9HhLNxI" }
+              ]
+            }
+          ]
+        },
+        {
           date: "Saturday, November 7, 2026",
           iso: "2026-11-07",
           audio: [
