@@ -511,6 +511,95 @@
     <script>
       var EDITIONS = [
         {
+          date: "Monday, November 9, 2026",
+          iso: "2026-11-09",
+          audio: [
+            { label: "Listen to this edition · 11:55", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-09.mp3" }
+          ],
+          stories: [
+            {
+              headline: "Real-Time Rail launches today — instant payments go live in Canada",
+              minutes: 11,
+              synopsis: "Payments Canada announced on November 9, 2026 that Canada's Real-Time Rail (RTR) is live: instant, data-rich payments 24/7/365 through existing banking channels, using ISO 20022 messaging. The C.D. Howe Institute projects up to $14.5 billion in cost savings plus $16 billion in economic gains, growing to $27 billion as new functions arrive. Canada is the first G7 country to launch a real-time system with mandatory centralized fraud services from day one: confirmation of payee, a fraud transaction safety score, a risk list, and a fraud reporting and intelligence platform. Initial participants are Wealthsimple, KOHO, Peoples Trust Company, Questbank, Paramount Commerce, DoBusiness.com, Digital Commerce Bank and Bank of America — no Big Six bank at launch, though Payments Canada says all major Canadian financial institutions are onboarding in the coming months, reaching more than 9 in 10 Canadians within the first year.",
+              why: "Instant settlement changes the assumptions teams work with — cash-flow visibility, fraud checks before money moves, reconciliation in seconds instead of days. The integration question lands now, and the fraud-services-first design is the model to watch as the big banks join.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "Payments Canada via GlobeNewswire · article", url: "https://www.globenewswire.com/news-release/2026/11/09/3398119/0/en/canada-launches-the-real-time-rail-bringing-24-7-payment-infrastructure-to-the-national-economy.html" }
+              ]
+            },
+            {
+              headline: "Metabase CVE-2026-72898: a CVSS 10.0 SQL injection still being exploited — patch has been out since August",
+              minutes: 4,
+              synopsis: "Singapore's Cyber Security Agency warned on November 4, 2026 that attackers are still actively exploiting CVE-2026-72898, a critical SQL injection in Metabase's POST /api/session/reset_password endpoint, rated CVSS 10.0. A single unauthenticated request can make the attacker a Metabase administrator, inheriting every stored database connection — and Metabase sits in front of production databases for reporting. The patch has been available since August; CISA added the flaw to its Known Exploited Vulnerabilities catalog on August 11. Self-hosted instances on branches 58–63 that never took the point release are still exposed, and a public proof of concept exists. Safe builds: 0.58.24, 0.59.21, 0.60.17, 0.61.11, 0.62.9, 0.63.5 (and matching 1.x Enterprise builds); versions below 58 are not affected.",
+              why: "This is the dashboard that sits on top of your data warehouse. Check the version, and for any instance that was ever reachable from the internet, treat it as possibly compromised — revoke sessions and rotate the database credentials Metabase stores.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "CyberExperts · article", url: "https://cyberexperts.com/2026-11-06-metabase-sqli-admin-patch-now/" }
+              ]
+            },
+            {
+              headline: "OpenAI–JPMorgan deal: Codex and cyber models for the biggest U.S. bank",
+              minutes: 8,
+              synopsis: "OpenAI president Greg Brockman said on stage at the Wall Street Journal's WSJ Tech conference on November 4, 2026 that OpenAI has signed a partnership with JPMorgan Chase that had not been previously announced: the bank will use Codex, OpenAI's coding agent, and OpenAI's cyber models to secure itself, plus models for knowledge work across the company. Brockman used the deal to answer a question on enterprise share: OpenAI's enterprise revenue was about 30% vs 70% consumer, and is now \"majority enterprise\" — in the same session he said Q3 annualized revenue grew 70% with the enterprise side doubling. Caveats: Brockman gave no terms, price, seat count or start date, and neither OpenAI nor JPMorgan had published an announcement when checked; the figures are his on-stage estimates, not reported numbers. JPMorgan is also a launch partner in Anthropic's Project Glasswing security initiative (April 2026), so the bank now works with both labs on security.",
+              why: "The largest American bank is deploying coding agents and cyber models across the company, not in a pilot. That is the scale your peers will be measured against — and useful context for your own vendor and governance conversations, including whether one lab or two is the right shape.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "FourWeekMBA · article", url: "https://fourweekmba.com/ai-brockman-reveals-jpmorgan-deal-puts-enterprise-above-50/" }
+              ]
+            },
+            {
+              headline: "Menlo Ventures: enterprise AI spend hit $177B — agents now drive 80% of tokens",
+              minutes: 7,
+              synopsis: "Menlo Ventures' fourth annual State of Enterprise AI report (November 3, 2026) estimates enterprise AI deployment spend reached $176.8 billion by September 2026, up 5.4x from $33 billion in 2025 — growth accelerating, not slowing. Agents are the driver: they now generate 80% of all tokens on OpenRouter, roughly 7x human-driven usage. Coding is the biggest application category at $34 billion (up 7.7x); Claude Code and Codex together account for $24 billion of it. Funding source: 55% net-new budget, 22% from software budgets, ~23% from labour and other lines. The average enterprise spent 4.7x last year's AI budget against a 1.9x plan; the median spent 2.2x. Anthropic, OpenAI and Google captured 69% of deployment dollars ($122.7B); Anthropic holds 55% of enterprise LLM API spend. Disclosure: Menlo is an investor in Anthropic, OpenRouter, Lovable and several companies it covers; figures are its own estimates built from a survey of ~400 U.S. enterprise decision-makers, not audited totals.",
+              why: "AI money is mostly new money, not cannibalized software budget — which changes how you frame the business case. And spend now tracks work done, not seats, so a team running agents overnight spends at a different scale than one opening a chatbot a few times a day. Budget and govern for consumption, not headcount.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "SaaStr · article", url: "https://www.saastr.com/ai-spend-hit-177-billion-this-year-only-22-of-it-came-out-of-software-budgets/" }
+              ]
+            },
+            {
+              headline: "GitHub Copilot leaves VS Code: native in Xcode, a swappable agent in JetBrains Air",
+              minutes: 7,
+              synopsis: "In two days last week GitHub Copilot moved beyond VS Code: on November 3 it became a selectable agent in JetBrains Air (built on the Agent Client Protocol), and on November 4 it arrived inside Xcode's built-in coding assistant in public preview with Xcode 27.3 beta. Xcode: enable in Settings > Intelligence, no extension needed, all Copilot plans supported; requires macOS Tahoe 26.6 or later; stable Xcode 27.3 expected in December. JetBrains Air: the IDE becomes an agent picker — local tasks run in the IDE, cloud tasks run in an isolated Docker container on a fresh VM via Air Teams and bill against the Copilot plan, not JetBrains AI credits. Copilot can also be selected as the provider for Next Edit Suggestions in JetBrains IDEs 2026.2.4. Caveats: Air analytics don't include Copilot usage, admins can't set Copilot spending limits inside Air, and you can't choose a personal vs organization plan per task in Air.",
+              why: "Which AI you use is becoming a setting you change per task instead of a subscription you marry. If your team standardizes on Copilot, its coverage just widened to Xcode and JetBrains — but check the cost-control and usage-visibility gaps before anyone starts running cloud tasks.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "DEV Community · article", url: "https://dev.to/paullovelace/github-copilot-just-stopped-being-a-vs-code-thing-bn2" }
+              ]
+            },
+            {
+              headline: "How 424 developers actually run coding agents: worktrees, sandboxes, fresh-context reviews",
+              minutes: 8,
+              synopsis: "An analysis of 663 Hacker News comments (thread started November 4, 2026) catalogued how 424 developers run autonomous coding agents in production. Claude Code leads with 180 users, Codex has 103, and 120 respondents pay for both ecosystems. Open-source harnesses surprise: OpenCode (69) and Pi (67) outpace GitHub Copilot (22) and Cursor (16) in this sample. DeepSeek drew 78 mentions, nearly matching Claude Opus (80); 58 developers use only open-weight or local models. The working pattern: 105 developers isolate parallel tasks in git worktrees, 156 run two or more agents at once, and advanced setups add strict isolation (microVMs, sandboxes, restricted tool lists) plus fresh-context reviews — a second agent instance inspects code without seeing the generation history. Cost tiering is deliberate: one developer pairs a $20 Claude plan for architecture with a $20 Codex plan for review and DeepSeek at $1–3/day for assembly.",
+              why: "The practitioner consensus is harness plus isolation plus verification loops, not single-pass completions. That is a usable checklist for your own team's agent setup — and the open-weight footprint means your data-governance questions extend beyond the big labs.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "TechBytes · article", url: "https://blogs.techbytes.app/posts/ai-coding-agent-setups-from-663-hacker-news-comments/" }
+              ]
+            },
+            {
+              headline: "Instructional video — \"Context Engineering for Agents\" (LangChain) · video",
+              minutes: 20,
+              synopsis: "A ~20-minute video from LangChain defining context engineering as \"the delicate art and science of filling the context window with just the right information for the next step\" of an agent's trajectory — prompt engineering is a subset. Four strategies: write context (scratchpads, memory outside the window), select context (pull in the right memories, tools and knowledge), compress context (summarize and trim), and isolate context (split work across agents, sandboxes or a state object). It also names four context failure modes: poisoning, distraction, curation and clash. The second half shows how LangGraph supports each strategy (state object for scratchpads and checkpointing, built-in long-term memory, summarization utilities, multi-agent systems and sandboxes).",
+              why: "If your team builds agents, this is twenty minutes of shared vocabulary, and the four strategies are a design checklist you can apply to the next agent you ship.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "LangChain via YouTube · video", url: "https://www.youtube.com/watch?v=4GiqzUHD5AA" }
+              ]
+            },
+            {
+              headline: "Longer watch (video) — \"Building AI Agents That Actually Work\" (Full Course) · video",
+              minutes: 58,
+              synopsis: "A 58-minute full course on building agents that work in practice: the agent loop (observe, think, act), context files such as agents.md that onboard an agent with business context, memory files that carry preferences across sessions, skills, and MCP as the translator between the agent and its tools. Its core argument is the shift from prompt engineering to context engineering — load the agent with enough context about your business that a simple prompt still produces a good result.",
+              why: "The practical companion to the theory — a course the whole team can watch together, and the agents.md pattern is something you could pilot on one repo this week.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "Remy Gaskill via YouTube · video", url: "https://www.youtube.com/watch?v=eA9Zf2-qYYM" }
+              ]
+            }
+          ]
+        },
+        {
           date: "Sunday, November 8, 2026",
           iso: "2026-11-08",
           audio: [
