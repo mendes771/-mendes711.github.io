@@ -511,6 +511,95 @@
     <script>
       var EDITIONS = [
         {
+          date: "Tuesday, November 10, 2026",
+          iso: "2026-11-10",
+          audio: [
+            { label: "Listen to this edition · 12:57", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-10.mp3" }
+          ],
+          stories: [
+            {
+              headline: "Anthropic launches Claude Fable 5.2 — and a restricted twin, Mythos 5.2",
+              minutes: 13,
+              synopsis: "Anthropic released Claude Fable 5.2 on November 9, 2026, alongside Claude Mythos 5.2 — the same underlying model with different safeguards. Fable is broadly available (paid Claude plans, Claude Code, Claude Platform, AWS, Google Cloud, Azure); Mythos goes only to vetted organizations via Anthropic's Cyber Verification and Life Sciences Verification programs. Fable 5.2 is up to 30% faster and 20% cheaper than 5.1 ($8/$40 per million input/output tokens vs $10/$50). Anthropic's benchmarks show large agentic-coding gains (FrontierCode 2.0: 32.4% to 49.1%; FrontierSWE v2: 56.3% to 69.9%; Remote Labor Index: 17.9% to 41.3%), but the top coding score needs the highest effort setting, and Gemini 4 Carbon still leads on AutomationBench (53.9% vs 51.4%). The first independent check (Vals AI) ranks it #1 of 36 models overall but mid-table on legal (20/37) and tax (27/84). Governance details for banks: Fable 5.2 requires 30-day data retention and is unavailable under zero-data-retention arrangements without express authorization. Anthropic still recommends Opus 5.5 for everyday work; Fable is for the hardest, open-ended technical jobs.",
+              why: "If your team already runs Fable 5.1, this is a straight upgrade — every published row improves and the price is lower. If Opus 5.5 works, test Fable only where Opus struggles: multi-step agents, large refactors, long research. And the Mythos twin is the shape of things to come — the same model with safety locks removed for vetted security and science work.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "DEV Community · article", url: "https://dev.to/hamzaahmadaslam/claude-fable-52-benchmarks-price-and-the-first-independent-test-results-2ln4" }
+              ]
+            },
+            {
+              headline: "Meta launches Muse Ember — its smallest model, built for agent volume",
+              minutes: 5,
+              synopsis: "Meta released Muse Ember on November 9, 2026, its smallest and most efficient model, built for the work agents repeat all day: tool calls, coding subtasks, routing, extraction and long-document parsing. It costs $0.10 per million input tokens and $0.50 per million output tokens ($0.004 cached input), and is live on the Meta Model API and in Muse Code as muse-ember-1.0. On Artificial Analysis's Intelligence Index it scores 36 — the same as Claude Haiku 5.5 at max reasoning — at about $0.14 per task vs Haiku's $0.41. Against Meta's own Muse Spark 1.3 (score 37, $2.39/task), Ember gives up one point for about a seventeenth of the cost. It takes text, images, audio and video, with a 1M-token context window and up to 512K output tokens. Meta's pitch: 'Muse Wonder plans, Muse Ember handles the volume.' Caveats: Ember trails Haiku on FrontierCode 2.0 (27.2% vs 34.9%), and knowledge is its weak spot — it declines 64% of trivia-style questions. Early partners: Box, Cline, Oracle, Cloudflare, You.com.",
+              why: "The cost model for agents is splitting in two — one strong model plans, many cheap calls do the volume. Ember is the benchmark for what the execution layer should cost, but keep the planner on a bigger model and never let Ember answer from memory.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "CellCog · article", url: "https://cellcog.ai/blog/muse-ember/" }
+              ]
+            },
+            {
+              headline: "PHP2Shell still actively exploited — 29M services still on affected versions",
+              minutes: 16,
+              synopsis: "PHP2Shell — CVE-2026-109618 and CVE-2026-109619, two critical (CVSS 9.2) flaws in PHP itself allowing unauthenticated remote code execution — remains actively exploited, with the live tracker confirming status 'active' on November 9, 2026. Fixes have been out since October 21 (PHP 8.5.12, 8.4.27, 8.3.36, 8.2.35); CISA added both flaws to its Known Exploited Vulnerabilities catalog on October 26. The long tail is enormous: a live Censys count showed 29,311,837 PHP services still reporting an affected version, and 700,000+ hosts run PHP 3.x–7.3, which will never be fixed. Attackers chained PHP2Shell with a Linux kernel flaw (CVE-2026-46300) to take over 25 servers, mostly Palo Alto firewalls with exposed management interfaces; Palo Alto has now shipped all fixed builds. Cisco has fixed Expressway and Duo; two wireless products still await a fix due in November 2026. Singapore's CSA lists Citrix NetScaler, F5 BIG-IP, Siemens RUGGEDCOM and Fortinet FortiSOAR as affected. PHP still advises setting session.upload_progress.enabled=0 even after patching, until its next regular release; PHP 8.2 reaches end of life December 31, 2026.",
+              why: "This is the language behind most of the web, and the exposure sits in appliances and firewalls as much as websites. Check every PHP version your teams run, including inside vendor products, restart every PHP process after patching, and check logs back to October 17 — the first exploit attempts predate the disclosure.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "Zero Spam · article", url: "https://www.zerospam.org/php2shell-php-vulnerability-live-updates/" }
+              ]
+            },
+            {
+              headline: "FlowX.AI & Google: mission-critical banking agents move from pilot to production",
+              minutes: 3,
+              synopsis: "FlowX.AI and Google announced on November 9, 2026 that they are taking mission-critical AI agents from pilot to production for regulated industries, building on FlowX.AI's launch on Gemini Enterprise in August. The argument: the pilot-to-production gap is not the model — it is the organization's rules, the evidence behind every output, the systems already in place, and a clear line where the agent stops and a person takes over. Two banking agents illustrate it: Loan Pack Completeness checks an entire lending file against the institution's document policy, flagging what is missing, stale, insufficient or contradictory — with critical checks running on deterministic logic, not model judgment. Document Extraction and Reconciliation for Capital Markets extracts required values from an institutional onboarding pack against a customer-defined schema, returning each value with evidence and page references and showing where documents agree, conflict or leave gaps. Neither agent makes the lending or onboarding decision — those stay with people. The agents are available on Google Cloud Marketplace as AI Agent-as-a-Service, compatible with the Agent2Agent Protocol, and were featured in the Gemini for financial services launch.",
+              why: "This is the pattern to copy — deterministic checks for decisions that must be right, model judgment only where it is safe, and evidence attached to every output. That is how an agent survives a bank's audit.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "FlowX.AI via GlobeNewswire · article", url: "https://www.globenewswire.com/news-release/2026/11/09/3398759/0/en/flowx-ai-google-take-mission-critical-ai-agents-from-pilot-to-production.html" }
+              ]
+            },
+            {
+              headline: "ChatGPT Enterprise now available on AWS Marketplace — with residency caveats",
+              minutes: 4,
+              synopsis: "OpenAI announced on November 9, 2026 that ChatGPT Enterprise is available through AWS Marketplace, letting organizations buy it through their existing AWS purchasing and billing relationship and apply eligible spending toward AWS commitments (Enterprise Discount Program / Private Pricing Addendum). The bundle combines Chat, ChatGPT Work, Codex and dots (always-on agents that keep documents and analyses current); eligible customers can also access ChatGPT for Healthcare and ChatGPT for Financial Services through the same channel. OpenAI says Marketplace buyers receive the same models, features and release timing as direct buyers, and positions the offering as complementary to its models in Amazon Bedrock — Bedrock for developers building applications, Enterprise for teams using AI in daily work. Caveats: no public price (private offers only); the listing states explicitly that buying through Marketplace does not guarantee all customer data remains on AWS infrastructure or within the customer's AWS environment; and inference residency for Marketplace workspaces is available only in the United States.",
+              why: "If your cloud spend is already consolidated on AWS, this turns an AI purchase into a commitment-credit decision instead of a new vendor negotiation — but the residency and data-handling limits need a read before procurement, not after.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "Unite.AI · article", url: "https://www.unite.ai/openai-starts-selling-chatgpt-enterprise-through-aws-marketplace/" }
+              ]
+            },
+            {
+              headline: "Snowflake Expedition 2026: Business Ontology and Cortex AI Gateway govern the agentic enterprise",
+              minutes: 6,
+              synopsis: "At Snowflake Expedition 2026 (announced November 3, 2026), Snowflake unveiled Business Ontology and expanded Cortex AI Gateway to put context, security and governance at the foundation of every AI agent. Business Ontology — the newest capability in Horizon Context — gives teams one governed place to record what business terms officially mean, so agents only ever receive approved definitions (e.g. net revenue means the same to an agent as to the CFO); it is in private preview heading to public preview. Cortex AI Gateway is the single front door for agents: one set of policies across clouds, frameworks and providers, with agent abuse detection, observability and tracing, Cortex sandboxes, AI cost governance, dynamic model routing and MCP tool governance. Snowflake CoCo (coding agent for data teams) and CoWork (personal work agent) can now run as always-on bots in the background, checking in only when a decision needs sign-off. Cortex Training entered public preview for tailoring open-weight models with proprietary data. A Snowflake-cited MIT Technology Review survey found 55% of executives name lack of business context as the top cause of low-quality agent insights. Snowflake also expanded its Oracle partnership, becoming a first-party service on Oracle Cloud Infrastructure.",
+              why: "The control layer for enterprise agents is being built in three places at once — Snowflake from the data, the model labs from the model, and the AI platforms from the workflow. If your agents touch governed data, the ontology idea is the one to steal: approve the definitions once, and every agent inherits them.",
+              topics: ["CIO / enterprise IT agenda"],
+              sources: [
+                { name: "SiliconANGLE · article", url: "https://siliconangle.com/2026/11/03/snowflake-expands-agentic-ai-platform-with-business-context-and-governance-tools/" }
+              ]
+            },
+            {
+              headline: "Google's new TPUs: 8tx brings confidential inference to regulated industries; 8i Max doubles the memory",
+              minutes: 8,
+              synopsis: "Google announced two new TPU systems on November 9, 2026 — TPU 8tx and TPU 8i Max — the third and fourth systems in its eighth generation this year, a first for the company. TPU 8tx is optimized for secure and confidential inference: built on the same silicon as TPU 8t and paired with 5th Generation AMD EPYC CPU hosts, it brings hardware-level confidential computing to cloud TPUs for the first time, keeping sensitive data and model weights protected and isolated even while in active use. It targets regulated enterprises and governments running frontier or proprietary models and autonomous agents alongside their most sensitive data, delivers up to 2x lower latency than TPU 8t with a near-zero performance penalty, and supports private fine-tuning and secure agent execution without moving data between clusters. TPU 8i Max pairs two TPU 8i chips in one package, doubling compute, SRAM and HBM bandwidth for massive context windows — dozens of agents working across a whole codebase or hours of video at once. Neither system ships yet; availability is expected in 2027. Google also open-sourced TorchTPU and a TPU agent suite, launched an Agent Compute Engine that suspends and resumes idle agent sessions, and made Cloud Pathways (the DeepMind runtime behind Gemini) generally available on GKE. Context: Google Cloud revenue more than doubled to $30.71 billion in Q3 2026, with TPU sales a material contributor.",
+              why: "Confidential inference at the hardware layer removes one of the last objections to running agents on sensitive data in the cloud — and the 8i Max is a reminder that the bottleneck for agent fleets is memory, not raw compute.",
+              topics: ["Innovation"],
+              sources: [
+                { name: "Google — The Keyword · article", url: "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/tpu-8i-max-and-8tx/?ref=explainx" }
+              ]
+            },
+            {
+              headline: "Instructional video — \"Build your own AI agent harness from scratch in Python\" (Hilay Trivedi) · video",
+              minutes: 31,
+              synopsis: "A ~31-minute video that builds an AI agent harness from scratch in plain Python, one layer at a time, using a car as the map: V1 the engine (a single LLM call), V2 the chassis (the agent loop), V3 the wheels (tools), V4 steering and GPS (system prompt and streaming), V5 brakes and saved places (permissions and memory), and V6 the fuel gauge (the context window and auto-compact). No framework, every part visible, with code for each version on GitHub. It answers the question of what a harness is and shows how tools like Claude Code work underneath.",
+              why: "If your team uses Claude Code or any coding agent, this is thirty minutes that shows what is actually happening underneath — and the permissions and memory layers are exactly the parts a bank team needs to get right before an agent touches production code.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "Hilay Trivedi via YouTube · video", url: "https://www.youtube.com/watch?v=AFkYlg4347c" }
+              ]
+            }
+          ]
+        },
+        {
           date: "Monday, November 9, 2026",
           iso: "2026-11-09",
           audio: [
