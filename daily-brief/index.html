@@ -511,6 +511,95 @@
     <script>
       var EDITIONS = [
         {
+          date: "Wednesday, November 11, 2026",
+          iso: "2026-11-11",
+          audio: [
+            { label: "Listen to this edition · 12:11", url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-11.mp3" }
+          ],
+          stories: [
+            {
+              headline: "Microsoft's November Patch Tuesday: 1,093 CVEs, one exploited Outlook zero-day",
+              minutes: 11,
+              synopsis: "Microsoft's November 2026 Patch Tuesday (November 10) patched 1,093 CVEs — 63 critical, 1,029 important, 1 moderate — across 287 products, the second four-figure month in a row after October's record 1,407. The exploited flaw is CVE-2026-124194, a moderate-rated Outlook spoofing bug (CVSS 6.5) already exploited in the wild: opening a crafted Office file can leak the victim's valid NTLMv2 hash for impersonation. The advisory credits the discovery to a researcher using Anthropic's Claude. Other priorities: Exchange Server RCE CVE-2026-118207 (CVSS 8.8, \"Exploitation More Likely\"), SharePoint Server elevation of privilege CVE-2026-120002 (CVSS 9.9 despite an \"Important\" label), Outlook preview-pane RCE CVE-2026-110043 (third month in a row), and Windows Search RCE CVE-2026-116928 (CVSS 9.8). ZDI counts 30 wormable flaws, down from 59 in October.",
+              why: "Patch Outlook first because the exploit is live, then Exchange and SharePoint — and trust the CVSS score and exploitability assessment over the severity label. The NTLMv2 hash angle means identity teams should watch for lateral movement, not just the patch.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "Tenable · article", url: "https://www.tenable.com/blog/microsoft-november-2026-patch-tuesday-addresses-1093-cves-cve-2026-124194" }
+              ]
+            },
+            {
+              headline: "Chrome zero-day CVE-2026-125350: eighth exploited Chrome flaw of 2026",
+              minutes: 2,
+              synopsis: "Google released Chrome 157 on November 9, 2026, patching nine security flaws, including CVE-2026-125350 — a high-severity (CVSS 8.8) use-after-free bug in Chrome's XML component with a confirmed exploit in the wild. It is the eighth actively exploited Chrome zero-day patched in 2026. An anonymous researcher reported it on November 6; Google shipped the fix three days later. Fixed versions: 157.0.8103.50/.51 for Windows and macOS, 157.0.8103.50 for Linux, and Extended Stable 156.0.8078.96. CISA has added the flaw to its Known Exploited Vulnerabilities catalog, requiring federal agencies to patch by November 24, 2026. Microsoft was still working on the Edge fix when reported.",
+              why: "The fix only takes effect after the browser relaunches, so check the fleet's actual versions rather than assuming the update landed — and don't assume Edge is covered yet.",
+              topics: ["Critical security vulnerabilities & emergency patches"],
+              sources: [
+                { name: "The Hacker News · article", url: "https://thehackernews.com/2026/11/google-issues-chrome-security-update.html?m=1" }
+              ]
+            },
+            {
+              headline: "Google releases Gemini 4 Carbon — its strongest model — plus Antigravity /swarm",
+              minutes: 10,
+              synopsis: "Google released Gemini 4 Carbon on November 10, 2026, its strongest model, built for long-horizon agentic workflows, complex knowledge work, software engineering, cybersecurity and scientific reasoning. Introductory pricing is $2/$10 per million input/output tokens until November 30, 2026, then doubles to $4/$20. Carbon ranks #1 on CursorBench 4.0, Perplexity's WANDR and Zapier's AutomationBench at more than 2x lower cost per task than the next best external model. Google is also previewing /swarm in Antigravity, turning one prompt into a coordinated team of agents with roles, parallel isolated workspaces and adversarial verifiers. On cybersecurity, Carbon for cyber leads on finding, exploiting and patching benchmarks; Wiz's Scan for Good program used it to uncover 0-day vulnerabilities in under two hours, and Google's Project Fortify hit 100% recall on scanning and 95% precision on triage. Safety results: Carbon blocked 99% of attack trajectories in simulated cyberattack testing and achieved a 0% prompt-injection success rate on the Gray Swan benchmark.",
+              why: "The model race now has a cyber-capable tier, and the /swarm pattern — a strong planner, isolated workspaces, verifiers that challenge every change — is the shape to copy for your own agent work. The price doubling on November 30 is a real deadline if you plan to use it.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "Google — The Keyword · article", url: "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/" }
+              ]
+            },
+            {
+              headline: "Anthropic launches its IPO roadshow: $70–$78 a share, up to ~$1.4T valuation",
+              minutes: 17,
+              synopsis: "Anthropic launched the roadshow for its IPO on November 10, 2026, filing an amended S-1 with a price range of $70.00–$78.00 a share. It plans to sell 825,000,000 Class A shares on the Nasdaq under the ticker ANT, raising $57.8–$64.4 billion — one of the largest share offerings ever — plus a $26.0 billion private placement at the IPO price from Google (~$10B), Nvidia (~$10B), AMD ($2.5B), Broadcom, Micron, Microsoft and TSMC. At the top of the range the company would be worth about $1.405 trillion fully diluted. The filing states run-rate revenue of about $81 billion as of October 31, 2026, up $10 billion in a month (the filing says this is not a forecast). Bloomberg reports Goldman Sachs analysts model roughly $685 billion in revenue by 2030 with no positive annual free cash flow until then — Goldman is also one of the banks selling the deal. The Financial Times reports bankers are preparing to raise the valuation to $1.5 trillion or more. Pricing is expected November 18, with trading starting November 19.",
+              why: "When the lab behind Claude goes public, its disclosures — run-rate, compute commitments, margins — become the benchmark your partners and vendors will be measured against. And the $26B from its own chip and cloud suppliers shows how intertwined the AI supply chain has become.",
+              topics: ["AI in general"],
+              sources: [
+                { name: "CellCog · article", url: "https://cellcog.ai/blog/anthropic-ipo-price-range-roadshow/" }
+              ]
+            },
+            {
+              headline: "IBM and Microsoft launch Imagine Enterprise — 6,000+ prebuilt agents for regulated industries",
+              minutes: 2,
+              synopsis: "IBM and Microsoft launched Imagine Enterprise on November 10, 2026, an AI agent platform combining more than 6,000 prebuilt AI agents and related assets from IBM Consulting Advantage with Microsoft's cloud stack — Foundry, Copilot Studio, GitHub Copilot, Fabric for data, Entra for identity, Purview for governance and Defender for security. The first industry frameworks cover financial services, insurance and retail, with engineers from both companies working directly with qualifying customers to move agents from testing into production. SEI, which manages, advises or administers about $2 trillion in assets, is exploring the platform. Context from PYMNTS Intelligence's November report: agentic AI is in use at 89% of large U.S. enterprises, but 78% would restrict agents to read-only access to company directories and only 2% would permit independent execution; 51% of executives say organizational barriers are a bigger obstacle than technology.",
+              why: "The pitch is governed agents for regulated industries, but the real story is the caution. Your peers are deploying agents with the brakes on, and governance, not capability, is the gating factor. That is the frame for your own rollout conversations.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "PYMNTS · article", url: "https://www.pymnts.com/news/artificial-intelligence/2026/ibm-and-microsoft-launch-ai-agent-platform/" }
+              ]
+            },
+            {
+              headline: "NAB's Ruby: one AI platform, 50 business-led squads, measured outcomes",
+              minutes: 4,
+              synopsis: "National Australia Bank is rolling out Ruby, an Anthropic-powered AI platform, to more than 40,000 employees, backed by 50 business-led AI squads aligned to growing business banking, deposits and proprietary home lending. CEO Andrew Irvine described AI as \"one of the most consequential technology revolutions that we've had in humanity\", as consequential as the steam engine, electricity and the computer — and said that as a highly regulated entity the bank has \"to get it 100 percent right with AI\", so the approach is augmentation first with humans fully accountable. Early outcomes: 20% faster business-lending credit memorandum preparation, 75% faster identification of customer insights, 50% faster customer lead preparation for personal bankers, 80% faster triage of cyber incidents and 90% faster technology cyber assessment time. The next wave in active build includes voice-enabled servicing agents, complaints case management automation, and financial crime detection agents. Foundations: ~600 apps decommissioned since FY24, ~90% of apps in the cloud, a modern data platform and a single customer master covering 96% of customers. Caveat: the announcement came alongside plans to cut 2,500 staff (6% of the workforce) by June 2027, and the Finance Sector Union raised concerns about transparency around AI's role.",
+              why: "This is the operating model to study — one platform, business-owned squads, measured outcomes — and the numbers are the kind you can take to your own leadership. But note the jobs context, because the same announcement will invite the same questions at home.",
+              topics: ["Enterprise AI in banking"],
+              sources: [
+                { name: "iStart · article", url: "https://istart.co.nz/news/nabs-ruby-powered-ai-push/" }
+              ]
+            },
+            {
+              headline: "BMO wins five OMNI Awards for AI across customer service and employee support",
+              minutes: 3,
+              synopsis: "BMO Financial Group won five recognitions at the 2026 OMNI Awards, announced November 10, 2026, for AI applications across customer service, personalized banking and employee support. Three recognize enhancements to BMO Assist, the bank's virtual assistant: large language model integration for more natural digital conversations, proactive guidance on updating contact information, and AI-enabled balance enquiries. The other two are employee tools: AI Agent Assist, which supports Virtual Connect contact-centre teams handling credit card transaction enquiries with AI-assisted transaction matching, policy retrieval and case preparation; and Lumi Assistant Client Lens, which gives employees enhanced information about individual client needs. BMO emphasizes governance, transparency and trust, and that employees remain responsible for reviewing AI-generated information and making servicing decisions. The awards do not establish quantified cost savings, revenue gains or investment returns.",
+              why: "A Canadian peer showing the same pattern as NAB — AI in front of customers, humans accountable behind it. Awards don't prove ROI, but the shape — assistant, agent assist, client lens — is a usable template for your own roadmap conversations.",
+              topics: ["Canadian banking tech"],
+              sources: [
+                { name: "SKN · article", url: "https://skncbba.com/skn-bmos-five-ai-awards-highlight-its-strategy-to-transform-banking-through-responsible-innovation/" }
+              ]
+            },
+            {
+              headline: "Instructional video — \"Evals for High-Stakes AI Agents\" (Langfuse) · video",
+              minutes: 58,
+              synopsis: "A ~58-minute hands-on workshop from Langfuse's Doneyli De Jesus and Annabell Schäfer (AI Engineer NYC) on evaluating AI applications where mistakes are expensive — using a banking assistant as the demo. It walks through the whole AI engineering loop: tracing with PII masking, building datasets, turning domain-expert comments into failure modes, choosing between LLM-as-judge and code evaluators, and running evals automatically on every prompt change, with CI that blocks the change when scores drop. It closes with dashboards for stakeholders and working with a coding agent.",
+              why: "This is the missing discipline from yesterday's harness video — how you prove an agent does the right thing, before and after release. The banking-assistant demo makes it directly portable to your world, and the CI gating idea is something your team could adopt this week.",
+              topics: ["AI-assisted application development"],
+              sources: [
+                { name: "Langfuse via YouTube · video", url: "https://www.youtube.com/watch?v=obfPzbapMIM" }
+              ]
+            }
+          ]
+        },
+        {
           date: "Tuesday, November 10, 2026",
           iso: "2026-11-10",
           audio: [
