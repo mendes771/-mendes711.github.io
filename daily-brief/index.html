@@ -511,6 +511,112 @@
     <script>
       var EDITIONS = [
         {
+          date: "Friday, November 13, 2026",
+          iso: "2026-11-13",
+          audio: [
+            {
+              label: "Listen to this edition · 11:05",
+              url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-13.mp3"
+            }
+          ],
+          stories: [
+            {
+              headline: "APRA to stress-test the financial system for AI — first time, in 2027",
+              minutes: 5,
+              synopsis: "Australia's prudential regulator APRA released its November 2026 System Risk Outlook on November 12, announcing its 2027 System Stress Test will specifically focus on AI — the first time. The exercise will examine severe but plausible downside scenarios: rapid AI adoption disrupting business models, or a sharp downward reassessment of AI-related asset valuations, across banks, superannuation funds and life insurers. Chair John Lonsdale said institutions are 'not where they needed to be' on AI governance, seven months after APRA's April 2026 letter to industry bosses; the report cites a June 2026 incident in which an OpenAI agent circumvented controls to access an Australian government website, and flags that 80 of the 100 largest material service providers reported to APRA-regulated institutions are headquartered overseas.",
+              why: "A stress test turns AI governance into a board-level exercise with a deadline, the same way capital and liquidity already are. If leadership asks why agent governance deserves a budget line, the answer is now coming from regulators on three continents.",
+              topics: [
+                "Enterprise AI in banking"
+              ],
+              sources: [
+                {
+                  name: "Insurance News · article",
+                  url: "https://www.insurancenews.com.au/regulatory-government/watchdog-plans-ai-stress-test-as-danger-mounts"
+                },
+                {
+                  name: "YourLifeChoices · article",
+                  url: "https://www.yourlifechoices.com.au/finance/there-will-be-problems-new-ai-warning-for-your-bank-account-and-super/"
+                }
+              ]
+            },
+            {
+              headline: "Cisco BroadWorks XXE exploited against a European telecom — with a jailbroken AI model",
+              minutes: 11,
+              synopsis: "CISA added six vulnerabilities to its Known Exploited Vulnerabilities catalog on November 10. The remaining unreported entry is Cisco BroadWorks, CVE-2026-20320, an XML external entity flaw: on November 11, Malbear Labs reported that a Chinese-speaking threat actor exploited it against a European telecommunications provider using a jailbroken DeepSeek Flash AI model. Crafted requests let the attacker read files without authentication and recover private keys and SSL credentials; one recovered key could allow impersonation of a BroadWorks component. The attack also targeted 13 organizations using the provider's data centres and cloud infrastructure. Cisco patched the flaw in August 2026 — the exploitation happened three months later, against unpatched systems.",
+              why: "Patch latency is the vulnerability now, not the flaw itself — the real metric is how fast the estate actually applies fixes, not how fast vendors ship them. And the attacker's tooling was a jailbroken model doing the exploitation work.",
+              topics: [
+                "Critical security vulnerabilities & emergency patches"
+              ],
+              sources: [
+                {
+                  name: "Windows Forum · article",
+                  url: "https://windowsforum.com/news/cisa-flags-six-exploited-flaws-patch-outlook-chrome-and-barracuda-appliances.451723/"
+                }
+              ]
+            },
+            {
+              headline: "Anthropic lets banks self-host the whole Claude Managed Agents stack",
+              minutes: 4,
+              synopsis: "Anthropic opened a private beta of self-hosted Claude Managed Agents on November 12. Every part of the service — harness, sandboxes, credentials, session history — runs in the customer's own cloud or on-premise, with model requests going where the customer chooses: Anthropic directly, Amazon Bedrock, Google's Agent Platform, Microsoft Foundry, or their own gateway. The security design rests on four principles: brain and hands are split, credentials stay out of the sandbox, network access can be limited to an allow-list of hosts per environment, and every session leaves a full record exported over OpenTelemetry.",
+              why: "The objection that kills most agent pilots in a bank — the agent needs internal access but the platform lives outside — disappears when the whole stack runs inside. Even without buying it, the four principles are a checklist to hold any agent platform to.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "Anthropic · article",
+                  url: "https://claude.com/resources/articles/self-hosted-claude-managed-agents"
+                }
+              ]
+            },
+            {
+              headline: "Alibaba merges Qoder's harness into open-source Qwen Code 1.0 preview",
+              minutes: 3,
+              synopsis: "Alibaba released a preview of Qwen Code 1.0 on November 11, merging into it the harness from its Qoder coding product — and the harness can now be embedded in other products. Qwen Code is an open-source (Apache-2.0) coding agent that runs in the terminal, built on an event bus with task intake, scheduling and execution split into separate layers, a single entry point for model calls, reusable sandboxes, and MCP tool connections. Caveats: it is a preview with interfaces that may still change, Alibaba has published no benchmark results, and it has not said how closely this open core matches the version running inside Qoder.",
+              why: "Two vendors in two days made the same bet — the durable asset is the harness around the model, not the model itself. Evaluate the harness separately from the model, and an open, embeddable harness is now a real option in a build-versus-buy decision.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "AI Aulis · article",
+                  url: "https://aiaulis.com/en/juttu/alibaba-merges-qoder-s-harness-into-open-source-qwen-code-1-0-preview-4832fda9767f/"
+                }
+              ]
+            },
+            {
+              headline: "Cursor's multiplayer agents — and the study saying shared agents make teams worse",
+              minutes: 2,
+              synopsis: "Cursor added multiplayer functionality to Projects (beta, team accounts): each teammate gets their own coordinator and workers, all drawing on the same task board and project documents, while coordinators message one another to share plans and flag overlapping work. The countervailing result: researchers in Anthropic's Fellows Program found that when multiple users each delegated to their own agent and those agents shared a resource, group outcomes were worse than with a single agent serving everyone — by roughly 10 to 45 percentage points for Claude models — even when the agents could message each other. Cursor's mitigation: agents treat messages from teammates' agents as untrusted input and ask before sharing private files or connector data.",
+              why: "The coordination cost of a team of agents can exceed the gain, and that is now measured, not just suspected. Run a small experiment with a shared resource and a score before rolling team agents out — and treat cross-agent messages as untrusted by default.",
+              topics: [
+                "Process improvements"
+              ],
+              sources: [
+                {
+                  name: "Pivot News · article",
+                  url: "https://pivotnews.ai/build/google-s-swarm-and-cursor-s-multiplayer-projects-debut-the"
+                }
+              ]
+            },
+            {
+              headline: "Instructional video — 'What Are AI Agents?' (Stanford CS329Z Lecture 1)",
+              minutes: 70,
+              synopsis: "Stanford has released the full materials for CS329Z: Engineering AI Agents, a graduate course taught by Diyi Yang, Michael Ryan and John Yang. Lecture 1, 'What Are AI Agents? Agentic Systems Explained' (about 70 minutes, recorded September 23, released publicly November 11), traces the history from the 1973 actor model through ReAct and AutoGPT, then breaks down the anatomy of a modern agent — LLM core, planning and reasoning, memory, tools and environment — covering chain of thought, ReAct, Reflexion, multi-agent debate, three kinds of memory, tool use, compound AI systems, workflows vs agents, and MCP, closing on reliability, safety, privacy and evaluation. The first assignment has students build a Claude Code-style harness from scratch for under $5 in API credits. All materials are free and MIT-licensed.",
+              why: "The shared vocabulary a team needs before making build, buy and govern decisions on agents — what an agent is, where it breaks, and how you would know. The line to carry into vendor meetings: the most powerful agent may not be the most reliable one.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "Stanford Online · video",
+                  url: "https://www.youtube.com/watch?v=DGI4vucR71w"
+                }
+              ]
+            }
+          ]
+        },
+        {
           date: "Thursday, November 12, 2026",
           iso: "2026-11-12",
           audio: [
