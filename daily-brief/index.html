@@ -511,6 +511,146 @@
     <script>
       var EDITIONS = [
         {
+          date: "Saturday, November 14, 2026",
+          iso: "2026-11-14",
+          audio: [
+            {
+              label: "Listen to this edition · 14:52",
+              url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-14.mp3"
+            }
+          ],
+          stories: [
+            {
+              headline: "Fed Financial Stability Report: AI is the top-cited risk — 87%, up from 50% in spring",
+              minutes: 3,
+              synopsis: "The Federal Reserve's November Financial Stability Report found AI the top-cited risk among the market contacts it surveyed — 87%, up from 50% in the spring. Debt tied to advanced computing passed $680 billion by October, about five times everything issued in all of 2023, and total exposure tops $3 trillion once guarantees and leases are counted.",
+              why: "The AI-risk conversation has moved from the tech press into the stability report boards read — and the exposure is a balance-sheet question, not just a technology one.",
+              topics: [
+                "Enterprise AI in banking"
+              ],
+              sources: [
+                {
+                  name: "Reuters · article",
+                  url: "https://q106fm.com/2026/11/13/ai-rockets-to-top-of-worries-about-financial-system-in-latest-fed-survey/"
+                }
+              ]
+            },
+            {
+              headline: "BCG: 73% of major banks allow AI agents in production — only 8% fully monitor them",
+              minutes: 3,
+              synopsis: "Boston Consulting Group's benchmark of 26 systemically important banks finds 73% permit AI agents in production for select use cases — but only 8% have a comprehensive monitoring and control framework that explicitly covers agents. Nearly half (46%) reported an AI-related issue or incident in the past 12 months.",
+              why: "Banks with more mature risk management are 2.5 times more likely to be advanced AI adopters — governance is the scaling advantage, not the brake.",
+              topics: [
+                "Enterprise AI in banking"
+              ],
+              sources: [
+                {
+                  name: "BCG via Morningstar · article",
+                  url: "https://www.morningstar.com/news/pr-newswire/20261113ne96842/operationalizing-ai-governance-gives-banks-an-advantage-in-scaling-ai"
+                }
+              ]
+            },
+            {
+              headline: "Singapore's DBS, UOB and OCBC warn customers off third-party AI agents",
+              minutes: 5,
+              synopsis: "Singapore's three big banks — DBS, UOB and OCBC — warned customers against letting third-party AI agents access their accounts, echoing RBC's October 28 block. Experts say blocking is not a durable strategy: Forrester expects AI agents in around a third of business-to-business payments in 2026 and advises moving from 'human versus bot' to 'trusted versus untrusted agent'.",
+              why: "The hard question is no longer whether the customer authenticated, but whether each action after that was specifically intended and authorised — which makes the audit trail the control, not the login.",
+              topics: [
+                "Enterprise AI in banking"
+              ],
+              sources: [
+                {
+                  name: "The Business Times · article",
+                  url: "http://www.singaporelawwatch.sg/Headlines/fight-ai-with-ai-singapore-banks-warn-against-third-party-ai-agents-as-observers-flag-liability-risk"
+                }
+              ]
+            },
+            {
+              headline: "Project Faro: 21 banks and asset managers commit $270M to a joint stablecoin venture",
+              minutes: 3,
+              synopsis: "Twenty-one banks and asset managers — including TD and Scotiabank from Canada — have committed roughly $270 million to Project Faro, the joint stablecoin venture announced in September. The money funds five years of operations for a new U.S. issuer targeting a dollar-denominated stablecoin in the first half of 2027, designed to comply with the U.S. GENIUS Act and the EU's MiCA rules.",
+              why: "A bank stablecoin moves from press release to funded company — and a stablecoin on a public chain does not have to stay inside one bank's proprietary environment.",
+              topics: [
+                "Canadian banking tech"
+              ],
+              sources: [
+                {
+                  name: "PYMNTS · article",
+                  url: "https://www.pymnts.com/cryptocurrency/2026/goldman-and-citi-help-fund-270-million-stablecoin-venture/"
+                },
+                {
+                  name: "Stablecoin Insider · article",
+                  url: "https://stablecoininsider.org/project-faro-stablecoin/"
+                }
+              ]
+            },
+            {
+              headline: "FreeSWITCH flaw CVE-2026-116779 (CVSS 9.8) actively exploited — CISA adds it to KEV",
+              minutes: 5,
+              synopsis: "A critical flaw in FreeSWITCH, the open-source software behind many business phone systems — CVE-2026-116779, rated CVSS 9.8 — is being actively exploited, and CISA added it to its Known Exploited Vulnerabilities catalog on November 9. A crafted inbound SIP message can trick the server into running its own API commands, and inbound chat is switched on by default in the standard profiles.",
+              why: "Voice infrastructure is edge infrastructure — it takes unauthenticated input from the network, and it is often nobody's patching priority. The fix is to upgrade to FreeSWITCH 1.11.3, or switch off inbound chat as a workaround.",
+              topics: [
+                "Critical security vulnerabilities & emergency patches"
+              ],
+              sources: [
+                {
+                  name: "Bitsight · article",
+                  url: "https://www.bitsight.com/blog/critical-vulnerability-alert-cve-2026-116779-signalwire-freeswitch-flaw"
+                }
+              ]
+            },
+            {
+              headline: "Cursor breach traced to Fireworks AI key — backdoored Claude Code extensions reached up to 5,000 users",
+              minutes: 3,
+              synopsis: "Cursor traced its October breach to an access key exposed by Fireworks AI, one of its inference vendors. The attacker used a stolen credential to place backdoored Claude Code extensions (versions 2.1.312 and 2.1.313) into the cache serving Cursor's extension marketplace — at most 5,000 users potentially received the malicious builds over about 11 hours on October 29.",
+              why: "Two governance failures in one incident — a vendor's leaked key, and credentials sitting in agent traces kept for training. And removing a bad extension is not enough: the SSH keys and startup scripts it left behind can survive it.",
+              topics: [
+                "Critical security vulnerabilities & emergency patches"
+              ],
+              sources: [
+                {
+                  name: "Cyber Security News · article",
+                  url: "https://cybersecuritynews.com/cursor-data-breach/"
+                }
+              ]
+            },
+            {
+              headline: "JetBrains survey of 15,000 developers: Claude Code overtakes Copilot at work",
+              minutes: 5,
+              synopsis: "JetBrains' Developer Ecosystem Survey 2026 (more than 15,000 professional developers) finds 90% now use an AI coding agent at work at least weekly, and Claude Code (39%) has overtaken GitHub Copilot (21%) as the most-used tool at work, with OpenAI's Codex up fivefold to 16%. But independent merge data adds nuance: 56% of the merged agent pull requests one study sampled had no human reviewer.",
+              why: "At 68% daily use, the coding agent is infrastructure — and the metric to watch is how many agent pull requests get a human review, not how many get merged.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "DEV Community · article",
+                  url: "https://dev.clauneck.workers.dev/jamilxt/claude-code-overtakes-github-copilot-what-jetbrains-survey-of-15000-developers-says-about-ai-3nhc"
+                },
+                {
+                  name: "The AI Rankings · article",
+                  url: "https://theairankings.com/best-ai-for-coding/"
+                }
+              ]
+            },
+            {
+              headline: "Instructional video — Stanford CS329Z Lecture 2: LLMs for Agent Builders — Context Engineering",
+              minutes: 79,
+              synopsis: "Lecture 2 of Stanford's CS329Z: Engineering AI Agents — 'LLMs for Agent Builders: Context Engineering' (~79 min, taught by Michael Ryan) — covers decoding strategies, transformer attention, the training pipeline, inference and the KV cache, structured outputs and constrained decoding, and context rot.",
+              why: "The KV cache explains the token bill, constrained decoding is how you trust an agent's output enough to wire it into a bank system, and context rot is why a long-running agent slowly gets worse.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "YouTube — Stanford Online · video",
+                  url: "https://youtu.be/Vr1NzH8bT44"
+                }
+              ]
+            }
+          ]
+        },
+        {
           date: "Friday, November 13, 2026",
           iso: "2026-11-13",
           audio: [
