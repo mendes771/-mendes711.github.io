@@ -511,6 +511,105 @@
     <script>
       var EDITIONS = [
         {
+          date: "Sunday, November 15, 2026",
+          iso: "2026-11-15",
+          audio: [
+            {
+              label: "Listen to this edition · 10:02",
+              url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-15.mp3"
+            }
+          ],
+          stories: [
+            {
+              headline: "ChatGPT Wallet launches as JPMorgan blocks agent payments and Wells Fargo shifts liability to customers",
+              minutes: 7,
+              synopsis: "OpenAI launched ChatGPT Wallet on November 13, letting its dots agents pay on a user's behalf with a biometric approval per purchase and a single-use payment token, so neither agent nor merchant ever sees the real card number. The same day the Wall Street Journal reported JPMorgan is refusing agent-initiated purchases made with a customer's card number, and Wells Fargo's updated Online Access Agreement, effective November 24, deems anything an agent does under a customer's login to be authorised by the customer — liability included.",
+              why: "Three answers to the same question side by side — a tokenised, biometric-approved design, a wall, and a waiver. The sanctioned route has to be built before customers default to the unauthorised one, and the audit trail and the mandate are the product.",
+              topics: [
+                "Canadian banking tech"
+              ],
+              sources: [
+                {
+                  name: "PYMNTS · article",
+                  url: "https://www.pymnts.com/news/artificial-intelligence/2026/openai-gives-ai-agents-a-wallet-while-blocking-them-from-seeing-the-card/"
+                },
+                {
+                  name: "The Motley Fool · article",
+                  url: "https://www.fool.com/investing/2026/11/14/jamie-dimon-just-said-5-words-blocking-outside-ai/?source=iedfolrf0000001"
+                },
+                {
+                  name: "DEV Community (American Banker) · article",
+                  url: "https://dev.clauneck.workers.dev/delimitter/wells-fargo-shifts-ai-agent-liability-onto-customers-4ln6"
+                }
+              ]
+            },
+            {
+              headline: "Gemini can now read your bank account — but it can't touch it",
+              minutes: 4,
+              synopsis: "Google rolled out a Google Wallet connection for all Gemini app users in the United States on November 13: tag @Google Wallet and ask about spending, subscriptions or a holiday budget, with optional bank and card accounts linked through Plaid. Gemini gets read-only access — it cannot move, manage or invest money — but with Keep Activity on, summaries and inferences drawn from transactions can be used to train Google's models.",
+              why: "Read-only is the right first step, and the contrast with a spend-capable wallet is instructive — but the data-governance fine print is exactly what a bank's own AI assistant must get right: what the model may see, retain, and learn from.",
+              topics: [
+                "Enterprise AI in banking"
+              ],
+              sources: [
+                {
+                  name: "Unite.AI · article",
+                  url: "https://www.unite.ai/google-adds-google-wallet-spending-insights-to-gemini-app/"
+                }
+              ]
+            },
+            {
+              headline: "Microsoft 365 outage: a day without email for 74 countries",
+              minutes: 4,
+              synopsis: "Microsoft restored Outlook, Teams and Copilot on November 14 after a global outage lasting more than 24 hours, caused by an issue introduced during an earlier network capacity upgrade — not a cyberattack and not AI. Reports came from 74 countries; in India, banks and finance firms had business-continuity arrangements tested, with customer instructions and confirmations slowed while core banking and payments kept running.",
+              why: "A day without email is a day without approvals, invoices and client queries — the test is whether plan B exists before it is needed. And Copilot went down with Exchange, so the AI assistant is only as available as the platform underneath it.",
+              topics: [
+                "CIO / enterprise IT agenda"
+              ],
+              sources: [
+                {
+                  name: "The Outpost · article",
+                  url: "https://theoutpost.ai/news-story/microsoft-s-email-blackout-is-over-and-it-was-the-second-outage-this-year-33526/"
+                }
+              ]
+            },
+            {
+              headline: "CISA adds Check Point Gaia root flaw and UnrealIRCd to the exploited list — both due Monday",
+              minutes: 9,
+              synopsis: "CISA added two flaws to its Known Exploited Vulnerabilities catalog on November 13, both due November 16. Check Point's Gaia OS flaw (CVE-2026-123039, 7.8) lets any local user run commands as root through an unauthenticated, world-writable socket — attackers use it as step two after entering through the PHP2Shell flaws against Mobile Access portals. UnrealIRCd (CVE-2026-114713, 8.6) lets any user on a network with two or more linked servers inject server-to-server commands.",
+              why: "Rank a flaw by the chain, not the vector — a local-only 7.8 becomes remote the moment another bug hands the attacker a shell. Patch the portal, apply the hotfix, and hunt in the dynamic-server log.",
+              topics: [
+                "Critical security vulnerabilities & emergency patches"
+              ],
+              sources: [
+                {
+                  name: "VulnTracker · article",
+                  url: "https://cms.vulntracker.io/cve-2026-123039-check-point-gaia-cisa-kev/"
+                },
+                {
+                  name: "CVETodo · article",
+                  url: "https://cvetodo.com/threat-report/sg"
+                }
+              ]
+            },
+            {
+              headline: "Instructional video — RAG Explained: From BM25 to Agentic RAG (Stanford CS329Z Lecture 3)",
+              minutes: 78,
+              synopsis: "Lecture 3 of Stanford's CS329Z: Engineering AI Agents, taught by Diyi Yang and released publicly this week, walks the full retrieval-augmented generation pipeline: chunking and contextual retrieval, RAPTOR and GraphRAG, vector search with HNSW, BM25 versus dense retrieval, hybrid search, rerankers and ColBERT, agentic RAG (Self-RAG, CRAG, Search-R1), and RAG failure modes.",
+              why: "RAG is how agents ground answers in a bank's own documents instead of hallucinating, and the retrieval choices — chunking, hybrid search, reranking — decide answer quality more than the model does. The failure-modes section is the evaluation checklist for the next design review.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "Stanford Online · video",
+                  url: "https://www.youtube.com/watch?v=psLc-46GqY0"
+                }
+              ]
+            }
+          ]
+        },
+        {
           date: "Saturday, November 14, 2026",
           iso: "2026-11-14",
           audio: [
