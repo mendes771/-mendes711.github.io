@@ -511,6 +511,97 @@
     <script>
       var EDITIONS = [
         {
+          date: "Monday, November 16, 2026",
+          iso: "2026-11-16",
+          audio: [
+            {
+              label: "Listen to this edition · 11:28",
+              url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-16.mp3"
+            }
+          ],
+          stories: [
+            {
+              headline: "McKinsey's agentic AI ROI numbers for banks: 10-month payback, 2.9x over three years — but all projections",
+              minutes: 3,
+              synopsis: "Coverage circulating this weekend of McKinsey's Global Banking Annual Review 2026 reports the ROI detail: across 52 agentic AI use cases in banking, the average investment payback period is approximately 10 months, with an estimated three-year return on investment of around 2.9 times. But the same report prints the contradiction: 80% of respondents in McKinsey's 2026 State of AI survey reported individual productivity gains, yet only 6% attributed a significant share of their EBIT to the technology. Customer behaviour is shifting too: 23% of the ~46,000 consumers surveyed already use generative AI for banking tasks, and 74% of those rely on ChatGPT, Claude or Gemini. Data readiness is the biggest obstacle (48% of banking executives), and the prescription is to build 'institutional intelligence' — reliable data, customer information, internal policies and senior employees' experience — with clear permissions, continuous monitoring and human oversight.",
+              why: "The 10-month payback is a planning input, not a proof — the number that should shape a business case is the 6% whose productivity gains have become earnings. And the ROI figures are projections: all 52 use cases were self-reported and estimated, not audited.",
+              topics: [
+                "Enterprise AI in banking"
+              ],
+              sources: [
+                {
+                  name: "Indian Economic Observer / ANI · article",
+                  url: "https://www.indianeconomicobserver.com/news/ai-could-reshape-banking-economics-as-early-adopters-see-nearly-3x-returns-mckinsey20261116073727//"
+                },
+                {
+                  name: "Rich Turrin · article",
+                  url: "https://richturrin.substack.com/p/mckinseys-29x-agentic-ai-roi-in-banking"
+                }
+              ]
+            },
+            {
+              headline: "Jensen Huang resigns as Nvidia CEO — and is already weighing a comeback",
+              minutes: 2,
+              synopsis: "Jensen Huang resigned as Nvidia's president, CEO and board member on Thursday, November 12, effective immediately, ending a 33-year run at the company he co-founded in 1993. CFO Colette Kress is interim CEO while keeping her finance role; Harvey C. Jones becomes the board's first-ever chair. The fall took less than a week: on November 8 the board opened an investigation into whether Huang had been targeted by a foreign intelligence operation, after reports of a relationship with Alice Huang, a former executive of Singapore-based Megaspeed whom US officials believe is a Chinese intelligence asset. Nvidia lost about US$430 billion in market value over two trading sessions. The Financial Times reported Sunday that Huang is considering a comeback, while the board has approached Arm CEO Rene Haas about the succession.",
+              why: "The company whose chips run the entire AI boom just lost its founder-CEO days before earnings — a concentration risk to name in vendor planning. And a CEO's undisclosed relationship with a customer under sanctions investigation is exactly the counterparty risk a bank's third-party process exists to catch.",
+              topics: [
+                "AI in general"
+              ],
+              sources: [
+                {
+                  name: "TechCentral / Reuters · article",
+                  url: "https://techcentral.co.za/jensen-huang-comeback-nvidia-ceo/288436/"
+                }
+              ]
+            },
+            {
+              headline: "Real-Time Rail: launch was the easy part — Scotiabank says adoption will take months or years",
+              minutes: 2,
+              synopsis: "A Scotiabank report by senior economist David Cimon, released Thursday, November 12, says Canada's Real-Time Rail launch is only a first step: widespread use could take months or years as banks join the network and businesses overhaul their processes. None of Canada's five biggest banks participated in the initial launch; RBC plans to introduce the rail in the second quarter of 2027, and Scotiabank, TD, BMO and CIBC have given no specific timelines. The biggest prize is commercial cheques — the average commercial cheque was roughly $13,600 in 2025, versus about $24 for a cash transaction — but replacing them means changing bookkeeping, invoice processing and systems built around multi-day clearing times.",
+              why: "The integration question is now a 2027 question, not a this-week one — and cheque replacement is a process project, not a switch flip. The date that matters is when the Big Six actually join.",
+              topics: [
+                "Canadian banking tech"
+              ],
+              sources: [
+                {
+                  name: "The Northern Current · article",
+                  url: "https://thenortherncurrent.com/instant-payments-will-take-time-to-become-routine-in-canada-scotiabank-says-ecbbed72"
+                }
+              ]
+            },
+            {
+              headline: "The State of Enterprise AI 2027: two-thirds of enterprises can't see their AI consumption",
+              minutes: 3,
+              synopsis: "NPI and Arcana Research released 'The State of Enterprise AI: 2027 Planning Edition' on November 12, based on IT, finance and sourcing leaders at Global 2000 enterprises. AI's estimated median share of IT spend now runs from 2.5% to 10%, reaching 14% to 20% among enterprises with $2 to $10 billion in revenue — yet the spend often still hides inside other line items. All 23 vendors evaluated score higher on execution than on value. And the two numbers to take into planning: 47% of companies bring sourcing into AI purchases only after the technical shortlist, while 66% cannot see model and API consumption at all, the largest reported blind spot.",
+              why: "McKinsey's warning that token spending could reach a fifth of labour costs now has a procurement playbook attached — and the first check is the 66% number applied at home: if you cannot see consumption, you cannot govern it, and the agent contract signed in a pilot is the one you live with in production.",
+              topics: [
+                "CIO / enterprise IT agenda"
+              ],
+              sources: [
+                {
+                  name: "Business Wire · article",
+                  url: "https://www.businesswire.com/news/home/20261112900813/en/NPI-and-Arcana-Research-Help-Enterprises-Navigate-2027-AI-Spending-and-Procurement-with-New-The-State-of-Enterprise-AI-Report"
+                }
+              ]
+            },
+            {
+              headline: "Instructional video — 'How AI Agents Use Tools: Function Calling & MCP' (Stanford CS329Z Lecture 4)",
+              minutes: 80,
+              synopsis: "Lecture 4 of Stanford's CS329Z: Engineering AI Agents, taught by Diyi Yang, recorded October 5 and released publicly this week — the follow-up to Lectures 1, 2 and 3. It covers the 'lost in the middle' problem, how LLMs learn to use tools (Toolformer, ToolkenGPT), scaling to thousands of APIs (ToolLLM, Gorilla), the interfaces — REST APIs, function calling as JSON schema, and MCP as one protocol between AI apps and data sources — plus evaluation (Berkeley Function-Calling Leaderboard, ToolBench, τ-bench) and common failure modes. All course materials are free and MIT-licensed.",
+              why: "Function calling and MCP are how agents actually touch bank systems, so the tool layer is the control surface — what the agent can call, with what arguments, and what comes back. The failure-modes section is the checklist to bring to any MCP server the team exposes.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "Stanford Online · video",
+                  url: "https://www.youtube.com/watch?v=s0S38lz6O7M"
+                }
+              ]
+            }
+          ]
+        },
+        {
           date: "Sunday, November 15, 2026",
           iso: "2026-11-15",
           audio: [
