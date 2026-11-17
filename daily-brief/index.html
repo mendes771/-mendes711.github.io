@@ -511,6 +511,116 @@
     <script>
       var EDITIONS = [
         {
+          date: "Tuesday, November 17, 2026",
+          iso: "2026-11-17",
+          audio: [
+            {
+              label: "Listen to this edition · 13:41",
+              url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-17.mp3"
+            }
+          ],
+          stories: [
+            {
+              headline: "Anthropic IPO: ~7x oversubscribed, prices tomorrow — and the lock-up calendar is the real story",
+              minutes: 11,
+              synopsis: "Anthropic prices its IPO on Wednesday, November 18, 2026, with trading expected Thursday, November 19, on Nasdaq under the ticker ANT. The offering is 825 million Class A shares at $70–$78, raising $57.75–$64.35 billion ($61.05 billion at the $74 midpoint). Bloomberg reports orders for close to seven times the shares on offer, and bankers have discussed pricing above the range. Alongside the offering, seven companies agreed to buy $26.0 billion of non-voting Class N stock at the offering price: Google and Nvidia about $10.0 billion each, AMD $2.5 billion, Broadcom, Micron and Microsoft $1.0 billion each, and TSMC $500 million. Estimated net proceeds from both sales: $84.6 billion at the midpoint. Revenue was $33.2 billion in the first nine months of 2026 (vs $2.5 billion a year earlier), $17.0 billion in Q3 alone, up 47% from Q2 — but Q3 swung to a $567 million operating loss, and contractual obligations (nearly all compute and infrastructure) total about $900.9 billion. The lock-up calendar is the watch item: the filing sets 23 release dates for about 15.5 billion restricted shares — up to 316 million shares eligible on day one (38% of the offering), up to 1.61 billion by February 2, 2027, and up to 5.68 billion after the dates tied to 2026 results. At the ceiling, the tradeable stock almost triples within eleven weeks. Valuation: $916 billion to $1.02 trillion on shares outstanding, about $1.3 trillion fully diluted at the midpoint. A share held by the founders' company carries 50.1% of the votes, and a separate trust elects a majority of the board.",
+              why: "The lab whose model many banks build on becomes a public company tomorrow, and the lock-up calendar is the supply overhang to watch after the first-day pop. The $26 billion private placement means Anthropic's biggest customers are also its owners — a concentration question worth carrying into any vendor conversation about Claude.",
+              topics: [
+                "AI in general"
+              ],
+              sources: [
+                {
+                  name: "TECHi · article",
+                  url: "https://www.techi.com/anthropic-ipo-lock-up-share-release-calendar/"
+                },
+                {
+                  name: "Memeburn · article",
+                  url: "https://memeburn.com/anthropics-ipo-is-7x-oversubscribed-but-its-record-depends-on-26-billion/"
+                }
+              ]
+            },
+            {
+              headline: "Harvard study: AI coding agents add 44% more code — but review is the bottleneck and finished work barely rises",
+              minutes: 25,
+              synopsis: "Harvard economists Fiona Chen and James Stratton published a revised version of \"Artificial Intelligence in the Firm: Bottlenecks in Software Production\" on November 14, 2026 (working paper, not yet peer reviewed). Using Jellyfish engineering-analytics data — 655 companies, 720,542 workers, ~445 million workplace events, January 2021 through August 2026 — they found that twelve months after a firm adopted AI coding agents, lines of code rose 44.0%, commits 36.0% and pull requests opened 35.7%, on top of AI assistants (assistants alone: +30.4% lines of code, +16.8% commits, +20.9% pull requests). Finished work rose far less: Jira issues resolved +13.7% and epics resolved +18.0%, neither statistically conclusive. Headcount did not detectably move (active engineers −2.6%, not significant). The bottleneck is review: time from pull-request submission to approval rose ~1.99 days (+56.1%, baseline 3.56 days); comments per pull request rose 38.6%. By July 2026, 79.1% of firms had used AI tools in their review process, yet only 23.3% of review comments were AI-generated and only 10.8% of pull requests received at least one AI-generated review comment. 82.8% of reviews were done by people who had previously contributed to the same codebase. The paper's model: agents raised coding productivity 73.7% and lowered review productivity 7.0%. Scenarios to 2031: if coding improves and review stays constrained, employment −10.3% and output +57.8%; if AI improves review as fast as coding, employment −76.2% and output +341.4% (explicitly an upper bound). A Sonar survey from November 2026 found 53% of developers now spend more time reviewing code than creating it.",
+              why: "Measure shipped work, not generated code. The review queue is where an agent investment pays or fails — staff the review side, add AI-assisted review with human sign-off, and track pull-request cycle time as the metric that decides whether agents are actually making the team faster.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "docjulien.me · article",
+                  url: "https://docjulien.me/ai-productivity-at-work-more-code-more-review-and-the-missing-output/"
+                }
+              ]
+            },
+            {
+              headline: "The context gap: banks are deploying agents faster than they can explain their decisions",
+              minutes: 5,
+              synopsis: "IDC InfoBrief \"The Context Gap: What Agentic AI Needs to Scale,\" commissioned by Quantexa, released November 17, 2026. It surveyed 366 director-level-and-above technology leaders at large banks, insurers and government agencies in North America and the UK in September 2026 (251 financial services — 201 banking, 50 insurance — and 115 government; margin of error ~5 points). Agents already run in 21.6% of the workflows organizations judge suitable for AI agents, and respondents expect that to reach 32.1% within 12 months — yet only 8.7% of organizations have context broadly available or embedded in their decision-making and AI workflows, and 39.3% still confine it to selected use cases. 73.8% rate the data feeding their AI as good or excellent, yet 86% say it needs improvement and 43.4% say it needs a lot of improvement or a complete overhaul. Barriers to trusted AI decisions: lack of data lineage (35.5%) and lack of decision lineage (35.2%) lead, ahead of model complexity (29.8%). The most-cited missing context is relationships and networks (27.0%). The building blocks exist in pockets — audit trails 56.2%, entity resolution 53.8%, knowledge graphs 51.5% implemented in at least some use cases — but only 23.6% run entity resolution broadly and 16.7% run knowledge graphs broadly. IDC forecasts enterprises will spend $1,086 billion on AI in 2026 and $2.6 trillion by 2029. Caveat: the study was commissioned by Quantexa, which sells the context layer it recommends; the numbers are IDC's survey.",
+              why: "McKinsey's finding that data readiness is banking executives' biggest obstacle now has numbers attached — and lineage, not model complexity, is the binding constraint. A decision an agent cannot explain is a liability in a regulated bank; the fix is a context layer (entity resolution, knowledge graphs, lineage) before scaling agents, not after.",
+              topics: [
+                "Enterprise AI in banking"
+              ],
+              sources: [
+                {
+                  name: "Quantexa · article",
+                  url: "https://www.quantexa.com/press/organizations-are-deploying-ai-agents-faster-than-they-can-explain-the-context-behind-their-decisions-new-study-finds/"
+                }
+              ]
+            },
+            {
+              headline: "Nvidia reports tonight: $108B guide, first call under interim CEO Kress",
+              minutes: 10,
+              synopsis: "Nvidia reports fiscal Q3 2027 results on Tuesday, November 17, after the US market closes — about 4:20 p.m. ET, with the earnings call at 5:00 p.m. ET. The company guided revenue to $108.0 billion (±2%) with a 74.0% gross margin (±0.5 points). Analyst consensus (SentiSense, 28 analysts, November 14) is $108.84 billion revenue and $2.47 adjusted EPS; Visible Alpha puts revenue consensus at $109.4 billion. Data Center revenue is the deciding line: consensus $101.8 billion, about 93% of total revenue. The number that matters most is the Q4 outlook — the first forecast written entirely under interim CEO Colette Kress; analysts expect about $125.0 billion of revenue on average (27 analysts). Management warned in August that the gross margin could fall toward 71–72% in Q4 as memory prices rise, and Vera Rubin is expected to account for about a fifth of Data Center revenue. The quarter ended October 25, before Huang resigned, so its figures belong to his tenure; the outlook belongs to the new leadership. Shares closed Monday, November 16, at $156.14, down 4.1% on the day and about 16% over five sessions, market value about $3.9 trillion — while analysts still rate the shares a buy with a mean price target of $278.31. A petition calling for Huang's reinstatement passed 158,000 signatures, and two major shareholders urged the board to keep a return on the table.",
+              why: "The quarter tests demand for AI chips; the guidance tests interim leadership. For a bank, the margin trajectory and the Vera Rubin ramp are the supply signals for next year's AI budgets — and the results land after the close, so the numbers themselves are tomorrow's story.",
+              topics: [
+                "AI in general"
+              ],
+              sources: [
+                {
+                  name: "Future AI Wire · article",
+                  url: "https://futureaiwire.com/nvidia-q3-earnings-preview/"
+                }
+              ]
+            },
+            {
+              headline: "Security watch: Arista VeloCloud SQL injection joins CISA's exploited list; SAP ships four CVSS-10 flaws",
+              minutes: 5,
+              synopsis: "CISA added CVE-2026-114625 — a critical SQL injection vulnerability in Arista VeloCloud Orchestrator — to its Known Exploited Vulnerabilities (KEV) catalog on November 16, 2026, on evidence of active exploitation (CISA advisory dated October 23). France's ANSSI, in weekly bulletin CERTFR-2026-ACT-048 published November 16, also flags SAP's November 2026 release: four flaws in NetWeaver, Gateway and Web Dispatcher, all rated CVSS 10.0, with no exploitation reported yet, none in the KEV catalog, and an EPSS score of 0%. The same ANSSI bulletin lists four flaws already being exploited — Atlassian Confluence/Jira CVE-2026-21589 (CVSS 9.3), Chrome CVE-2026-125350, Check Point CVE-2026-123039 and Outlook CVE-2026-124194 — all covered in earlier editions.",
+              why: "SQL injection in a WAN orchestrator is a network-edge foothold — check whether any branch or cloud connectivity runs VeloCloud. SAP's four CVSS-10 flaws are the patch-before-it-is-exploited kind: enterprise teams should have them scheduled this week, not next, because the gap between a CVSS-10 disclosure and active exploitation is often measured in days.",
+              topics: [
+                "Critical security vulnerabilities & emergency patches"
+              ],
+              sources: [
+                {
+                  name: "RNK Dispatch · article",
+                  url: "https://www.rnk-ent.us/articles/issue-009/05-cisa-adds-one-known-exploited-vulnerability-to-catalog"
+                },
+                {
+                  name: "ANSSI bulletin via f4n6 · article",
+                  url: "https://f4n6.co.uk/security-feed/anssi-flags-active-exploitation-of-sap-atlassian-and-chrome-flaws/"
+                }
+              ]
+            },
+            {
+              headline: "Instructional video — \"DSPy vs. LangGraph: AI Agent Frameworks Explained\" (Stanford CS329Z Lecture 5)",
+              minutes: 80,
+              synopsis: "Lecture 5 of Stanford's CS329Z: Engineering AI Agents, taught by Michael Ryan (DSPy contributor), recorded October 7 and released publicly this week — the follow-up to Lectures 1, 2, 3 and 4, covered November 13, 14, 15 and 16. The framework lecture: Ryan live-codes agents in DSPy (signatures, modules, optimizers) and LangGraph (state, nodes, edges), then compares open-source agent harnesses (mini-SWE-agent, OpenHands, Pi), shows durable orchestration with Temporal, and shares best practices for observability and evals. The mental shortcut: LangGraph orchestrates, DSPy reasons — LangGraph handles state, branching and retries; DSPy handles what the language model should say inside each node, with optimizers tuning prompts against metrics. All course materials are free and MIT-licensed.",
+              why: "The framework choice is the governance choice — it decides how agents hold state, recover from failures, and what can be observed and evaluated. The harness tour plus Temporal is the production pattern, and it pairs directly with Lecture 4's tool layer.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "YouTube — Stanford Online · video",
+                  url: "https://www.youtube.com/watch?v=q0Q-Hy8TTps"
+                }
+              ]
+            }
+          ]
+        },
+        {
           date: "Monday, November 16, 2026",
           iso: "2026-11-16",
           audio: [
