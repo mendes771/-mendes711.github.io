@@ -511,6 +511,101 @@
     <script>
       var EDITIONS = [
         {
+          date: "Wednesday, November 18, 2026",
+          iso: "2026-11-18",
+          audio: [
+            {
+              label: "Listen to this edition · 10:57",
+              url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-18.mp3"
+            }
+          ],
+          stories: [
+            {
+              headline: "Nvidia beats: $115.8B revenue, $130B guide — and the board rules out a Huang return",
+              minutes: 6,
+              synopsis: "Nvidia reported fiscal Q3 2027 results on November 17, 2026, its first report since Jensen Huang resigned as CEO. Revenue was $115.8 billion, up 103% year over year and well above the ~$109.15 billion Bloomberg consensus; adjusted EPS $2.68 (vs $2.47 expected), net income $65.3 billion (+105%), gross margin 74.8%. Data Center revenue was $107.6 billion, up 110% year over year; Vera Rubin NVL72 systems have begun shipping — the fastest product ramp in company history. Q4 revenue is guided to $130.0 billion (±3%) vs ~$125 billion expected, but the quarter has 14 weeks instead of 13, so on a 13-week basis it is closer to ~$121 billion; gross margin is guided to 71–72% as memory costs rise. Interim CEO Colette Kress raised the fiscal 2028 revenue growth forecast to ~75% (from ~70%). The outlook assumes zero Data Center compute revenue from China; licensed Hopper data-center shipments to China have ended. On the earnings call, board chair Harvey Jones said the board \"does not intend to reinstate Jensen as CEO,\" hours after Huang said he would be \"honored\" to return. Shares closed the regular session down 0.44% at $155.46, then rose 4.82% in after-hours trading to $162.95.",
+              why: "Demand is still accelerating, and the margin trajectory plus the Vera Rubin ramp are the supply signals for next year's AI budgets. The governance question is now closed — interim leadership delivered the number — so the watch item shifts to the permanent CEO search and what the SEC finds.",
+              topics: [
+                "AI in general"
+              ],
+              sources: [
+                {
+                  name: "Smart AI Intel · article",
+                  url: "https://smartaiintel.com/articles/nvidia-q3-earnings-beat-115-8-billion-revenue-130-billion-guidance-kress-2026/"
+                }
+              ]
+            },
+            {
+              headline: "Anthropic prices tonight: Amazon 14.7% and Google 13.7% stakes revealed in amended filing",
+              minutes: 3,
+              synopsis: "Anthropic is expected to price its IPO on Wednesday, November 18, 2026, with trading starting Thursday, November 19, on Nasdaq under the ticker ANT. The amended S-1 filed Tuesday (Amendment No. 3) shows Amazon will hold 14.7% of Anthropic's total capital stock after the offering and Google 13.7% — about 28.4% combined, all in non-voting Class N shares. Amazon's stake comes from its 2023 and 2024 investments, in promissory notes convertible at about $2.09 or $5.05 per share; it could reach about 23.8% if it converted all of them, but it has not waived the ownership cap that applies to it. The seven suppliers are buying $26 billion of non-voting stock at the offering price (Google and Nvidia about $10 billion each). The offering is 825 million Class A shares at $70–$78. The Wall Street Journal reports Anthropic could price above $80, and pre-IPO perpetual contracts have traded around $101 on Hyperliquid.",
+              why: "The first frontier AI lab goes public tomorrow, and its owners are its suppliers and biggest customers — a concentration question worth carrying into any vendor conversation about Claude. Tonight's price sets the number; tomorrow's first trade is the story.",
+              topics: [
+                "AI in general"
+              ],
+              sources: [
+                {
+                  name: "ITInsider · article",
+                  url: "https://itinsider.pk/anthropic-ipo-amazon-google-stake/"
+                }
+              ]
+            },
+            {
+              headline: "OpenAI launches GPT-6.2 Astra and Sol — plus Workspace Agents, ChatGPT as an autonomous worker",
+              minutes: 3,
+              synopsis: "OpenAI launched GPT-6.2 Astra and GPT-6.2 Sol on November 17, 2026, in ChatGPT Work, Codex and the API. Astra is the flagship for demanding reasoning and coding work, 20% cheaper than the previous flagship; Sol is the everyday model. Published API rates: Astra $8 per million input tokens / $40 output; Sol $2 / $10. Ultrafast mode extends to Pro $200 subscribers for Sol and Pro $500 for both models. Separately, Astra for Law was updated: its legal search index grew 34% since September to over 310 million URLs, covering more than 99.9% of published US precedential case law; Vals AI's November 16 evaluation gave it full credit on 53.8% of legal research questions (up from ~46% in September). OpenAI also launched Workspace Agents in research preview: ChatGPT becomes an autonomous digital worker, powered by Codex, running in the cloud and continuing background tasks while the user is offline. It integrates with third-party tools like Slack, is set up in plain language in the new Agents section of the sidebar (no coding), and offers templates for finance, sales and marketing, with permission controls and monitoring in the admin console. Initially available to Enterprise, Edu, Team and educator accounts.",
+              why: "The model refresh changes the cost and performance of the coding assistants the team already uses — worth re-running internal benchmarks against Astra. Workspace Agents are the managed version of the agent pattern the team is building, with the same governance question from the context-gap story: permissions, monitoring, and what the agent may touch unsupervised.",
+              topics: [
+                "AI in general"
+              ],
+              sources: [
+                {
+                  name: "Okay News · article",
+                  url: "https://www.okaynews.com/openai-launches-gpt-6-2-astra-and-sol-for-work-and-coding/"
+                },
+                {
+                  name: "xix.ai · article",
+                  url: "https://xix.ai/ainews/openai-unveils-preview-of-chatgpt-autonomous-workspace-agent.html"
+                }
+              ]
+            },
+            {
+              headline: "Security watch: Java4Shell — critical OpenJDK RCE found with AI help in about an hour; Puppet flaw joins CISA's exploited list",
+              minutes: 12,
+              synopsis: "Java4Shell (CVE-2026-114938) is a memory-corruption vulnerability in OpenJDK's Base64 decoder, in handwritten assembly that speeds up decoding with AVX-512 instructions — a short malformed input writes 62 bytes past the end of a buffer. Calif (the discovering firm) rates it 9.2 under CVSS 4.0; Oracle rates it 8.1 under CVSS 3.1. It affects unpatched OpenJDK builds from 17.0.6 onward (versions 17, 21, 25 and 27) on x86-64 processors with AVX-512 VBMI (recent Intel Xeon and AMD EPYC/Ryzen). Researchers demonstrated pre-authentication remote code execution on default installations of Keycloak, Atlassian Jira, Atlassian Confluence, JFrog Artifactory, Jenkins and PingFederate, plus sample apps on Apache Struts and Spring Boot. The flaw was found by Calif researcher Quang Luong with AI coding-tool assistance in about an hour, with a first working exploit two hours later, for under $200 in AI token costs. Oracle released fixed builds on November 17, 2026 (17.0.21.1, 21.0.13.1, 25.0.5.1, 27.0.1.1); CISA issued an alert the same day, co-authored with Canada's Cyber Centre, urging immediate patching. Workaround flag: -XX:-UseBASE64Intrinsics. No exploitation in the wild has been confirmed yet and it is not in the KEV catalog. Also: CISA added CVE-2026-115731 to its KEV catalog on November 17 — a deserialization flaw in Perforce Puppet Enterprise (CVSS 9.4) that lets a client with a CA-signed agent certificate execute arbitrary code on the Puppet Server; a successful attack could expose the server's certificate-signing key, issue trusted certificates, and push changes to managed systems. Patched November 3 (2023.8.13, 2025.12.1, 2026.0.1); federal remediation deadline December 1, 2026. Unauthenticated attackers can obtain a certificate if the CA auto-signs requests — turn auto-signing off.",
+              why: "Java is in everything — patch internet-facing identity providers and build servers first, and check runtimes bundled inside containers and appliances, which OS updates never touch. Puppet is the control plane: compromise it and you own the fleet. And the AI angle cuts both ways — the same tools developers use are now finding critical flaws in about an hour, so expect the disclosure pace to keep rising.",
+              topics: [
+                "Critical security vulnerabilities and emergency patches"
+              ],
+              sources: [
+                {
+                  name: "Qualys · article",
+                  url: "https://blog.qualys.com/vulnerabilities-threat-research/2026/11/17/how-to-find-mitigate-and-patch-the-critical-java4shell-flaw-cve-2026-114938-now"
+                },
+                {
+                  name: "SecurityWeek · article",
+                  url: "https://www.securityweek.com/critical-perforce-puppet-rce-exploited-in-attacks/"
+                }
+              ]
+            },
+            {
+              headline: "Instructional video — \"AI Agent Design Patterns: ReAct, CodeAct & More\" (Stanford CS329Z Lecture 6)",
+              minutes: 80,
+              synopsis: "Lecture 6 of Stanford's CS329Z: Engineering AI Agents, taught by Michael Ryan, recorded October 12 and released publicly this week — the follow-up to Lectures 1–5, covered November 13–17. It answers when to build a workflow and when to build an agent: Anthropic's five workflow patterns, then the reasoning-and-acting patterns ReAct, Reflexion, CodeAct and ReWOO, then context-management techniques that keep long-running agents from falling apart — event logs, compaction, observation masking, subagents and skills — ending with a case study of Pi, the minimal harness. All course materials are free and MIT-licensed.",
+              why: "The workflow-versus-agent choice is a design decision with governance consequences — a workflow is predictable and auditable, an agent is flexible and harder to bound — and context management is the same problem as the context gap covered yesterday. It pairs directly with Lecture 5's framework choice.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "YouTube — Stanford Online · video",
+                  url: "https://www.youtube.com/watch?v=JC_pLC5EX_w"
+                }
+              ]
+            }
+          ]
+        },
+        {
           date: "Tuesday, November 17, 2026",
           iso: "2026-11-17",
           audio: [
