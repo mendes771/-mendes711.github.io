@@ -511,6 +511,101 @@
     <script>
       var EDITIONS = [
         {
+          date: "Thursday, November 19, 2026",
+          iso: "2026-11-19",
+          audio: [
+            {
+              label: "Listen to this edition · 9:41",
+              url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-19.mp3"
+            }
+          ],
+          stories: [
+            {
+              headline: "Anthropic starts trading today: priced at $83, offering enlarged to ~980M shares",
+              minutes: 8,
+              synopsis: "Anthropic priced its IPO at $83 per share on November 18, 2026, above the $70–$78 range in its S-1/A, and enlarged the offering from 825 million to about 980 million Class A shares (~$81 billion before the underwriters' option). The first trade is expected Thursday, November 19, on the Nasdaq Global Select Market under the ticker ANT. Retail access: the filing says shares will be offered at the IPO price through Charles Schwab, Fidelity, Robinhood, SoFi, E*TRADE and Trade-PMR, with retail allocations expected to reach up to 20% of the offering. Ownership: Amazon is expected to hold 14.7% of Anthropic's outstanding stock and Google 13.7%; seven suppliers (Google and Nvidia ~$10 billion each) are buying $26 billion of non-voting stock at the IPO price. The business: revenue of $33.2 billion in the first nine months of 2026 (vs $2.5 billion a year earlier), and a run-rate of about $81 billion as of October 31. Net loss for the nine months was $104.0 billion, but $94.3 billion of that is an accounting charge for remeasuring convertible notes; the operating loss was $1.3 billion. Lock-up: up to 315 million shares can be sold from the first trading day and up to 3.4 billion more may be released before the main date (after Q1 2027 results or 180 days — mid-May 2027).",
+              why: "The lab behind Claude is now a public company, and its owners are its suppliers and biggest customers — a concentration question to carry into any vendor conversation about Claude. Watch the first close and the insider filings, and the lock-up calendar is the supply overhang after the first-day pop.",
+              topics: [
+                "AI in general"
+              ],
+              sources: [
+                {
+                  name: "Moneyta · article",
+                  url: "https://moneyta.co/blog/anthropic-ipo-day-what-ant-would-do-to-your-portfolio"
+                }
+              ]
+            },
+            {
+              headline: "TD reports record Q3 and launches its first agentic AI model for mortgages",
+              minutes: 4,
+              synopsis: "Toronto-Dominion Bank reported record third-quarter 2026 earnings of $4.7 billion with EPS of $2.77 and a 16% return on equity, announced a higher quarterly dividend, and unveiled its first agentic AI model designed for mortgage and home equity lending applications. Unlike a virtual assistant that answers questions, the agentic model completes connected tasks with minimal manual intervention: document collection, eligibility reviews, workflow coordination and application progression. TD says it expects about $200 million in value from AI in fiscal 2026, and reports major reductions in mortgage processing times plus expanding use of AI-assisted software development tools.",
+              why: "A Big Six peer is now running an agent on a document-heavy, regulated lending workflow — the pattern to compare your own lending processes against. And it raises the same governance question as this week's context-gap story: what the agent is allowed to decide unsupervised, and where a human still signs off.",
+              topics: [
+                "Enterprise AI in banking"
+              ],
+              sources: [
+                {
+                  name: "Kalkine Media · article",
+                  url: "https://kalkinemedia.com/ca/stocks/financial/toronto-dominion-bank-tsxtd-expands-ai-strategy-with-dividend-boost"
+                },
+                {
+                  name: "Webull / Benzinga · article",
+                  url: "https://www.webull.com/news/15621703661208576"
+                }
+              ]
+            },
+            {
+              headline: "Security watch: CISA adds four actively exploited flaws to KEV — including a LiteLLM sandbox escape in the AI gateway",
+              minutes: 6,
+              synopsis: "CISA added four vulnerabilities to its Known Exploited Vulnerabilities (KEV) catalog on November 18, 2026, all with evidence of active exploitation. CVE-2024-10441 (CVSS 9.8) is an unauthenticated remote code execution flaw in the system plugin daemon of Synology DiskStation Manager (DSM) and BeeStation OS — patch by November 21, 2026. CVE-2026-40217 (CVSS 8.8) is a code injection flaw in BerriAI LiteLLM: a logged-in user can send crafted Python to the /guardrails/test_custom_code endpoint and, using bytecode rewriting, bypass the AST sandbox and run code on the AI proxy server; it is the fifth LiteLLM flaw added to KEV in 2026, and the fix is due December 2. CVE-2026-90436 (CVSS 9.8) is an unsafe reflection flaw in end-of-life Apache Axis 1.x — there is no new release, so teams must migrate to Axis2/Java or apply a specific code commit; due November 21. CVE-2026-90817 (CVSS 9.8) is a code injection flaw in Vanderbilt REDCap, reachable through survey routing logic; due November 21. Also under active exploitation: Apache Roller CVE-2026-129448 (CVSS 9.8), an unauthenticated RCE via XML-RPC deserialization — patch to 6.1.6+ or disable XML-RPC.",
+              why: "The LiteLLM flaw is the AI-infrastructure lesson — the proxy between your applications and your models is itself an attack surface, and it has now been exploited five times this year. Check whether any LLM gateway in the estate runs LiteLLM, check Synology boxes in offices and branches, and treat the end-of-life Axis flaw as a migration decision, not a patch ticket.",
+              topics: [
+                "Critical security vulnerabilities and emergency patches"
+              ],
+              sources: [
+                {
+                  name: "SecurityOnline · article",
+                  url: "https://securityonline.info/cisa-adds-4-exploited-flaws-kev-synology-litellm/"
+                },
+                {
+                  name: "SitRep · article",
+                  url: "https://www.sitrepit.com/latest"
+                }
+              ]
+            },
+            {
+              headline: "Google Cloud's agentic data layer: borderless Lakehouse, Knowledge Catalog as the 'context engine'",
+              minutes: 12,
+              synopsis: "Google Cloud announced updates across its Agentic Data Cloud on November 18, 2026. BigQuery queries are claimed to be more than 40% faster and query-processing costs more than 50% lower over the past year — with no independent benchmark or cost methodology supplied. The borderless Lakehouse, built on the Apache Iceberg format, can now work directly with Gemini, letting agents and employees query records across cloud environments in natural language; cross-cloud interconnect and caching for AWS and Azure are generally available. Delivery Hero's talabat unit is the only quantified customer deployment in the announcement, reporting approximately 40% lower data-movement costs. Knowledge Catalog — which Google calls 'the context engine for its AI agents' — indexes distributed and unstructured data so agents draw on a wider pool of business information; its new self-learning enrichment (in preview) mines Google Workspace, GitHub, Jira, Confluence and SharePoint to identify and fill context gaps, and Knowledge Catalog is now on by default in Gemini (in preview). Data Agent Kit is now generally available, integrating Google Data Cloud tools into VS Code, Claude Code and Antigravity. BigQuery Graph and Spanner Omni are generally available; AlloyDB Express and PostgreSQL for agents remain in preview.",
+              why: "This is the vendor answer to the context gap covered Tuesday — the same lineage and explainability problem, now with a product attached. But self-learning enrichment that rewrites what an agent knows, with no documented audit trail or rollback handling, is exactly the lineage risk the IDC study flagged. Treat the previews as tests, and ask the same question of any context layer: can you show your work?",
+              topics: [
+                "CIO / enterprise IT agenda"
+              ],
+              sources: [
+                {
+                  name: "AI in Context · article",
+                  url: "https://aiincontext.com/articles/google-cloud-expands-agentic-data-tools-for-enterprises"
+                }
+              ]
+            },
+            {
+              headline: "Instructional video — 'How AI Agent Memory Works: MemGPT & Memory Types' (Stanford CS329Z Lecture 7)",
+              minutes: 80,
+              synopsis: "Lecture 7 of Stanford's CS329Z: Engineering AI Agents, taught by Michael Ryan, recorded October 14 and released publicly this week — the follow-up to Lectures 1–6. It answers why agents forget and how to give them memory: the four types of agent memory (working, episodic, semantic, procedural); how to store memories in files, databases or knowledge graphs; and the main architecture patterns — skill libraries like Voyager, tiered memory like MemGPT, reflective consolidation, and memory maintenance with A-MEM and Mem0. It closes with memory benchmarks and the open problems: forgetting, privacy and over-personalization. All course materials are free and MIT-licensed.",
+              why: "Memory is what turns a one-shot agent into a useful colleague — and in a bank, memory is also a record: what an agent remembers about a customer is data to govern, with the same retention and privacy questions as any other customer data. It pairs directly with Lecture 6's context management and with the context gap.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "YouTube — Stanford Online · video",
+                  url: "https://www.youtube.com/watch?v=qh5tP6PBZ6U"
+                }
+              ]
+            }
+          ]
+        },
+        {
           date: "Wednesday, November 18, 2026",
           iso: "2026-11-18",
           audio: [
