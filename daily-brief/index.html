@@ -511,6 +511,86 @@
     <script>
       var EDITIONS = [
         {
+          date: "Saturday, November 21, 2026",
+          iso: "2026-11-21",
+          audio: [
+            {
+              label: "Listen to this edition · 12:59",
+              url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-21.mp3"
+            }
+          ],
+          stories: [
+            {
+              headline: "The AI sell-off: Anthropic nearly erases its IPO pop; Nvidia loses ~$500B in a day as the SEC probes its accounting",
+              minutes: 5,
+              synopsis: "Anthropic closed Friday at $88.30, down 9.13% on its second day of trading, after touching an intraday low of $83.05 — five cents above the $83 IPO price. The IPO is now closed: underwriters bought 147 million additional shares, taking gross proceeds to $93.5 billion, and Anthropic sold about $26 billion of shares in a concurrent private placement to AMD, Broadcom, Google, Micron, Microsoft, Nvidia and TSMC Partners. Last quarter Anthropic's revenue rose 47% sequentially, but compute spending grew about 1.7x as fast and the company swung from its first operating profit to an operating loss; even after Friday's fall it is valued at about $1.2 trillion, ~18x annualized revenue. Nvidia fell 14% Friday to under $126 after Reuters reported SEC enforcement staff are examining potential accounting issues; the drop erased roughly $491 billion of market value in one session ($3.52T to $3.03T). Nvidia is down ~48% from its record $239.24 close on October 6 — about $2.7 trillion of value gone in six weeks. The WSJ first reported the SEC probe on Tuesday; Reuters says the focus is accounting, possibly geographic revenue reporting (headquarters vs billing; Singapore line item dropped) and $118 billion in customer guarantees, including $105 billion of credit support tied to a single data center campus. The pile keeps growing: Jensen Huang resigned November 11, the DOJ is reviewing the planned $12.9 billion Hugging Face purchase, and California's attorney general served an investigative subpoena on November 19. None of it has shown up in the numbers yet — revenue jumped 103% last quarter to $115.8 billion, with about $130 billion expected this quarter. The Nasdaq fell again Friday and gave up its gains for the year.",
+              why: "The AI trade stopped being a one-way bet this week, and the questions are now about the economics underneath — Anthropic's compute bill growing faster than revenue, and Nvidia's guarantees funding the demand it reports. The read-across for a bank app-dev leader: keep the agent strategy portable across models rather than betting on one vendor's economics.",
+              topics: [
+                "AI in general"
+              ],
+              sources: [
+                {
+                  name: "The Motley Fool · article",
+                  url: "https://www.fool.com/investing/2026/11/20/nvidia-stock-plunge-wipes-out-nearly-usd500-billion-in-one-day-as-sec-reportedly-probes-its-accounting/"
+                },
+                {
+                  name: "The Motley Fool · article",
+                  url: "http://www.fool.com/investing/2026/11/20/why-anthropic-stock-is-falling-today/"
+                }
+              ]
+            },
+            {
+              headline: "Security watch: Apache Axis RCE actively exploited against Confluence Data Center and N-able N-central; Apache mod_http2 exploitation confirmed",
+              minutes: 6,
+              synopsis: "Apache disclosed CVE-2026-90436 on November 6, 2026 — an unsafe reflection flaw in Apache Axis 1.x allowing unauthenticated remote code execution, CVSS 9.8. Axis 1.x is end of life and Apache will not publish a fixed release. Some versions of Atlassian Confluence Data Center and N-able N-central bundle the affected library, and both are now being actively exploited: Rapid7 MDR detected exploitation against a Confluence Data Center customer on November 13, and N-able reported exploitation against N-central the same day. A proof of concept was published November 12, a Metasploit module landed November 17, and CISA added the flaw to its Known Exploited Vulnerabilities catalog on November 18. The observed Confluence intrusion shows modern exploitation: unauthenticated POSTs to the SOAP endpoint, Bash and curl launched from the Confluence Java process within seconds, hundreds of hex-encoded shell commands fetched from temporary Pinggy and Cloudflare Tunnel domains — a structure Rapid7 says suggests AI-assisted automated tooling. Just over three minutes after the first exploit request, attackers were authenticating to MySQL with Confluence's own database credentials and querying page bodies, links and attachments for credentials, tokens, VPN configurations and private keys; they parsed Office documents and hunted payment card numbers using Luhn checks. Roughly four hours in they had a service account credential and were querying a production cloud data warehouse; about twelve hours in they signed in to Microsoft 365 as an integration service account using legacy authentication from 192.238.253.176. Fixes: Confluence 1.x–9.x affected when \"Remote API (XML-RPC & SOAP)\" is enabled — upgrade to 9.2.28 or disable the setting (takes effect without a restart); version 10.x removed the feature and Atlassian Cloud is unaffected. For N-central, disable \"Legacy API\" or upgrade to 2026.4 HF3 (November 16), which disables it and addresses seventeen new CVEs. Second beat: Apache HTTP Server's mod_http2 flaw CVE-2026-119618, fixed in 2.4.71 on November 11, is now being actively exploited, according to Singapore's Cyber Security Agency on November 17; exploit code has been public since November 12.",
+              why: "Patch the Confluence and N-central exposure on an emergency basis outside the normal cycle — this is a live intrusion path into the wiki where teams store credentials, runbooks and architecture diagrams. The pattern for the third week running: old, end-of-life libraries inside products already in use, found and weaponized fast, with AI-assisted tooling on the attacker's side too.",
+              topics: [
+                "Critical security vulnerabilities and emergency patches"
+              ],
+              sources: [
+                {
+                  name: "Rapid7 · article",
+                  url: "https://www.rapid7.com/blog/post/etr-rapid7-detected-exploitation-of-cve-2026-90436-against-atlassian-confluence-data-center-n-able-n-central-also-exploited/"
+                },
+                {
+                  name: "Reef Sentinel · article",
+                  url: "https://www.reef-sentinel.net/i/201"
+                }
+              ]
+            },
+            {
+              headline: "GPT-6.2: benchmarks say best ever, power users say \"essentially unusable\"",
+              minutes: 10,
+              synopsis: "OpenAI shipped GPT-6.2 Astra and Sol on November 17, 2026. Astra is the flagship for the hardest professional work, Sol the everyday workhorse; both carry a 1.05 million-token context window, and Astra is 20% cheaper per token than its predecessor. The benchmark story is strong: Astra ranks second on Artificial Analysis's Intelligence Index behind Claude Fable 5.2; on Agents' Last Exam it scores 5.2 points higher than GPT-6 Astra at less than a third of the cost, and 5.5 points ahead of Fable 5.2 at about 5% of the cost; Sol ties September's Astra at roughly 15% of the cost per task. Within hours, named early testers were publicly trashing the same build: Matt Shumer called the models \"essentially unusable\" and skipped his usual review; Theo Browne called 6.2 Astra the worst OpenAI release he had tested — seven days without improving a TypeScript-to-Rust port, then a build 56% slower; Dan Shipper reported early stops on end-to-end coding runs, terse output and a house style that resisted brand-specific tone; Ethan Mollick called Astra \"very uneven & weird\" and said it was the first frontier OpenAI release since GPT-4.5 that did not feel like a clear step forward. Third-party numbers partly agree: Artificial Analysis's Coding Agent Index was flat for Astra and down for Sol, with Sol omitting key facts when answering codebase questions — confident partial answers rather than total refusal. There is praise too, for 3D, VFX and agentic video, and Browne credited a code-review catch and a reverse-proxy idea he expects to save $25,000/month. The failure modes are about stamina and disclosure, not raw intelligence — agents that stop early, loop, or omit blockers from their summaries. And the retry tax: if an agent stops early or loops, the effective cost per merged pull request rises even as the per-token quote falls.",
+              why: "Don't migrate harness defaults on a benchmark table. A/B the new models on three real tickets the agent already completes — one short, one multi-file, one customer-facing document — with identical tools, and log finishes, not starts. Split the decision: Sol may stay the cheap workhorse while Astra is task-specific. The bigger lesson is an evaluation one: benchmarks measure what is easy to grade, and the gap between a leaderboard score and a week of real work is now the thing to test for.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "explainx.ai · article",
+                  url: "https://explainx.ai/blog/openai-gpt-6-2-astra-sol-power-user-reviews-vs-benchmarks-november-2026"
+                }
+              ]
+            },
+            {
+              headline: "Instructional video — \"Optimizing AI Agents: Prompts vs. Weights (GEPA, GRPO)\" (Stanford CS329Z Lecture 9)",
+              minutes: 80,
+              synopsis: "Lecture 9 of Stanford's CS329Z: Engineering AI Agents, taught by Michael Ryan and recorded October 21, 2026 — the follow-up to Lectures 1–8, covered November 13–20. It asks the question every team hits once agents are in production: should you optimize the prompts, or fine-tune the weights? It covers context optimization — bootstrapped few-shot examples, OPRO, MiPROv2, TextGrad, and GEPA, the genetic prompt evolution method Ryan authored — and weight optimization: supervised fine-tuning on agent rollouts, PPO vs GRPO, and on-policy distillation, which trains a smaller model from a teacher's rollouts. The headline finding is that prompt optimization is more sample-efficient and faster to iterate, especially with API-only models, and it is the right tool for last-mile adaptation — the small, nuanced behaviours where explicit instructions in a prompt are not quite enough. It closes with agents as optimizers themselves, systems that rewrite their own code and improve from their own history, and a practical guide to choosing between prompts, weights and inference-time compute. All course materials are free and MIT-licensed.",
+              why: "The disciplined way to make the agents you already have measurably better, with the evaluation framework as the scoreboard. It pairs directly with the GPT-6.2 lesson: when a new model disappoints, the fix is often in the harness and the prompts, not in waiting for the next release.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "YouTube — Stanford Online · video",
+                  url: "https://www.youtube.com/watch?v=e_m99aR7_3Q"
+                }
+              ]
+            }
+          ]
+        },
+        {
           date: "Friday, November 20, 2026",
           iso: "2026-11-20",
           audio: [
