@@ -511,6 +511,93 @@
     <script>
       var EDITIONS = [
         {
+          date: "Sunday, November 22, 2026",
+          iso: "2026-11-22",
+          audio: [
+            {
+              label: "Listen to this edition · 12:48",
+              url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-22.mp3"
+            }
+          ],
+          stories: [
+            {
+              headline: "Security watch: CISA adds four exploited flaws to KEV — VMware vCenter zero-day exploited by a China-linked group for two months",
+              minutes: 10,
+              synopsis: "CISA added four actively exploited flaws to its Known Exploited Vulnerabilities catalog on November 20, 2026, all due by November 23. The headline entry is CVE-2026-123890, a critical (CVSS 9.8) authentication bypass in VMware vCenter's Directory Service that needs no authentication and no user interaction. Google's Mandiant says a China-linked espionage group exploited it as an unpatched zero-day since roughly early September 2026 — more than ten weeks before a fix existed — using a custom tool called BONESAW to create a rogue SSO administrator account and exfiltrate vCenter's directory database. Broadcom patched it November 19 via VMSA-2026-0009 (fixed builds 9.1.1.0200, 9.0.2.0200, 8.0 U3m); there is no workaround. The other three: CVE-2026-76466, hard-coded credentials in clustered Cisco Expressway (CVSS 9.8, unauthenticated root RCE; fix X15.5.20, X14 systems have no patch and need migration); CVE-2025-42884, a JNDI injection flaw in SAP NetWeaver Enterprise Portal, patched in November 2025 and still being exploited; and CVE-2026-129448, an unauthenticated deserialization flaw in Apache Roller (CVSS 9.8; fix 6.1.6 — disabling XML-RPC in the admin console does not help, because the vulnerable code runs before that setting is checked).",
+              why: "If the estate runs vCenter, check the build number against Broadcom's advisory and review Directory Service logs for administrator accounts nobody created — a patch closes the hole but does not undo ten weeks of quiet access. The pattern holds for the fourth week running: the flaws that matter are the ones attackers are already using, not the ones with the scariest scores.",
+              topics: [
+                "Critical security vulnerabilities and emergency patches"
+              ],
+              sources: [
+                {
+                  name: "Pandromeda",
+                  url: "https://pandromeda.com/security/vmware-vcenter-vulnerability-was-a-chinese-spy-tool-for-months"
+                }
+              ]
+            },
+            {
+              headline: "Anthropic after the bell: $244.6B cash vs a $451.6B compute bill to 2030",
+              minutes: 13,
+              synopsis: "A Greythorn Research note published November 22, built on Anthropic's final prospectus (424B4, November 18), puts pro forma cash and short-term investments at $244.6B after the full greenshoe — against $451.6B of compute commitments expected before end-2030, out of $900.9B in total signed spend. That is about $106B a year of compute. Cash covers 3.5x the $70.7B due in the 12 months after September 30, but only 54% of the bill through 2030. To keep compute at Q3's 58% of revenue, Anthropic would need about $183B of average annual revenue for 2027–2030 — 2.3x today's ~$81B run-rate. One broker, Citizens JMP, forecasts $137.0B in 2027 and $417.8B in 2029, which clears the bar, but that is one forecast, not a consensus. Supply is the near-term overhang: 3.7B shares can be released early from lock-up, 3.3x the 1.127B-share IPO float, with the next contractual step on December 15. At the November 20 close of $88.91, Anthropic is worth about $1.63T fully diluted — 39x trailing revenue, 17x the run-rate, roughly 30% above OpenAI's reported $1.25T private mark.",
+              why: "The team builds on Claude Code, and the vendor behind it is now a public company whose economics hinge on revenue growing more than twice as fast as it has — a concentration risk worth watching, and one more reason the agent strategy stays portable across models rather than locked to one supplier's balance sheet.",
+              topics: [
+                "AI in general"
+              ],
+              sources: [
+                {
+                  name: "Greythorn Research via Medium",
+                  url: "https://medium.com/@jayden_53468/anthropic-after-the-bell-244-6b-3438655660f6"
+                }
+              ]
+            },
+            {
+              headline: "Microsoft Ignite: MAI Code 2, the 'good enough' coding model — at half price until May",
+              minutes: 5,
+              synopsis: "At Ignite 2026, Microsoft AI introduced MAI Code 2 and MAI Code 2 Flash, its second generation of in-house coding models, live now in GitHub Copilot. Averaged across four benchmarks, Microsoft says Code 2 delivers about 98% of OpenAI GPT-6.1 Sol's performance at roughly 40% of the price, and about 96% of Anthropic Claude Opus 5.5's performance at roughly 5% of the price. Flash targets high-volume work — code explanations, targeted edits, routine fixes — at $0.05/$0.25 per million tokens. The caveats: the cost comparison rests on a 50% promotional price that doubles on May 17, 2027; three of the four benchmarks ran on Microsoft's internal test platform and none had been independently reproduced at launch; and on SWE-Atlas, Code 2 scored 43.1% against Opus 5.5's 57.5% — a 14.4-point cliff the average hides. The bigger shift: model choice is becoming an infrastructure decision. Microsoft-Decision-1.1, a router that sends requests to larger models only when a task needs them, is now generally available; Agent 365 offers spend visibility and cost policies for agents in preview. On guardrails: an Agent Sandbox extension for Azure Kubernetes Service runs agent-written code in VM-isolated sandboxes, Defender runtime protection for local coding agents is generally available, and Agent Grid (preview) sets central policy for how agents, models, tools and Azure services interact.",
+              why: "The budget question is changing from which model is best to which work justifies a frontier model. Run your own evaluations on your own repositories before changing Copilot defaults — and treat the router and spend policies as the governance layer, because a model at 5% of flagship cost that runs on every commit is still a line item that compounds.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "DevOps.com",
+                  url: "https://devops.com/at-ignite-microsoft-makes-the-case-for-good-enough-coding-models"
+                }
+              ]
+            },
+            {
+              headline: "BellSoft survey: 98% of Java developers use AI to write code — almost nobody lets it review",
+              minutes: 3,
+              synopsis: "A BellSoft survey of 360 Java developers at Devoxx Belgium 2026 finds 98% now use AI tools to write code and 93% use it to debug — but only 54% use AI for code review and testing, only 25% let AI review most pull requests before a human, and fewer than 1% of teams let AI approve most pull requests. Only 24% give AI tools access to real debugging tools, yet developers who do are nearly twice as likely to save half their coding time (40% vs 23%). Overall, 61% say AI saves them more than a quarter of their coding time. Top concerns are incorrect code and hallucinations (36%), followed by security (27%) — and the developers most worried about AI security are the least likely to use AI in code review (32% vs 20%) and more likely to have no regular code review process at all (18% vs 7%). The most widely used tools are Claude / Claude Code (39%), GitHub Copilot (35%) and ChatGPT / Codex (11%).",
+              why: "This is the same bottleneck the Harvard study flagged last week — generation is nearly universal, review is where the work piles up. The fix is not to slow generation down; it is to embed AI-assisted review, testing and debugging into the pipeline with guardrails, so code generated at this volume actually gets looked at before production. For a bank, that is a control question as much as a speed question: who reviews what the agent wrote, and where is that recorded.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "DevOps.com",
+                  url: "http://devops.com/survey-code-now-generated-faster-than-reviews-and-tests-can-keep-pace"
+                }
+              ]
+            },
+            {
+              headline: "Instructional video — 'Terminal-Bench: Evaluating AI Agents' (Stanford CS329Z guest lecture)",
+              minutes: 80,
+              synopsis: "A guest lecture in Stanford's CS329Z: Engineering AI Agents, given by Alex Shaw and Ryan Marten of the Laude Institute — co-creators of Terminal-Bench — recorded October 26, 2026 and published November 18. It explains why evaluations have become the source of truth for agent software: software used to be legible, but with agents, behaviour comes from learned systems, so the honest way to understand them is to measure what they do. Terminal-Bench turns that into a benchmark of hard, realistic command-line tasks — each task is an instruction, an environment and a verifier — and it has now been run more than 7 million times and appears on frontier model cards. The lecture covers how to write tasks, design verifiers, prevent reward hacking, and maintain a benchmark with their open-source framework, Harbor. The hardest part is the verifier: it must match the instructions one to one, or an agent can satisfy the task and still miss the reward, or get the reward for the wrong thing. It closes with 'show traces, not scores' — a single number hides reward hacks and odd behaviour, while full trial traces show exactly what the agent did, step by step. The follow-up to Lectures 1–9, covered November 13–21.",
+              why: "This is the evaluation lecture that sits behind the whole Stanford course — Lectures 1–9 taught how to build agents; this one teaches how to prove they work. For Ryan's team, it is the practical guide to writing their own evals before trusting an agent with production code — and it pairs directly with the GPT-6.2 lesson from yesterday: benchmarks measure what is easy to grade, so build the checks that measure what the team actually needs.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "YouTube — Stanford Online · video",
+                  url: "https://www.youtube.com/watch?v=7GW-9ug2nvw"
+                }
+              ]
+            }
+          ]
+        },
+        {
           date: "Saturday, November 21, 2026",
           iso: "2026-11-21",
           audio: [
