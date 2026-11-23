@@ -511,6 +511,112 @@
     <script>
       var EDITIONS = [
         {
+          date: "Monday, November 23, 2026",
+          iso: "2026-11-23",
+          audio: [
+            {
+              label: "Listen to this edition · 15:16",
+              url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-23.mp3"
+            }
+          ],
+          stories: [
+            {
+              headline: "Scotiabank puts AI agents inside commercial lending — financial-statement review from an hour to under a minute",
+              minutes: 7,
+              synopsis: "On November 17, 2026, Scotiabank launched Commercial Navigator across its entire Canadian Commercial Banking team, with two AI agents handling parts of the credit process. The Financial Statement Analysis Agent cuts the first review of a borrower's financial statements from about one hour to less than one minute — calculating ratios, spotting trends and flagging questions for bankers to raise with clients. The Credit Administration Agent digitizes credit document review, completing work up to 30% faster and replacing manual data entry. Both run on Scotia Intelligence, the bank's internal data and AI platform (used by 71,000+ employees), inside the systems bankers already use. The bank's goal: by end-2027, every Canadian Commercial Banking employee recovers the equivalent of one month of admin/processing work per year. Peers are moving the same way: TD Bank in the U.S. launched Credit Assist on October 22 — a multi-agent system preparing first-draft commercial credit memos, cutting work that took up to three working days to under 30 minutes; RBC reported 45% of small business credit auto-adjudicated in 2025 with a 90% target for 2027, and is applying AI to wholesale credit underwriting.",
+              why: "If every major bank can automate financial spreading, document review and credit memo preparation, those tasks stop being a competitive edge — the advantage moves to better credit calls, faster borrower understanding and smarter risk pricing. The control question is the audit trail: records of what information an agent used, what it calculated, and when an employee changed or rejected its work, which matter once AI output feeds directly into credit files.",
+              topics: [
+                "Enterprise AI in banking"
+              ],
+              sources: [
+                {
+                  name: "NCFA Canada",
+                  url: "https://ncfacanada.org/scotiabank-ai-agents-commercial-lending/"
+                }
+              ]
+            },
+            {
+              headline: "Claude-assisted proof of the Riemann Hypothesis certified by the Lean and Mathlib communities — a proof nobody has read",
+              minutes: 6,
+              synopsis: "On November 20, 2026, Levent Alpöge, a mathematician at Anthropic, posted a four-page note on his personal website: \"I believe I have, working with Claude, discovered a proof of the Riemann Hypothesis.\" He released the argument only as Lean code — about 17 million lines, 14 packages, 175,187 modules; a written-out version would run past 250,000 pages. On November 21, the Lean and Mathlib communities certified it in a joint statement endorsed by the Lean FRO and the Mathlib Initiative: \"We hereby certify that both the statement and the proof of the Riemann Hypothesis are correct.\" Four checks all passed: the theorem is Mathlib's vetted RiemannHypothesis definition; dozens of people compiled the library independently and reproduced the same proof export with no errors; two tools confirmed the proved theorem matches Mathlib's statement exactly; and the exported proof passed Lean's official kernel plus independently written checkers (con-leche, con-ron, nanoda), run on an inert copy isolated from the source. MIT's Andrew Sutherland independently compiled all 175,187 modules with zero errors, using only Lean's three standard axioms. Caveats: no human-readable proof exists yet; a PhilArchive critique questions whether a trivial geometry predicate on the path to the theorem undermines the classical argument; the Clay Mathematics Institute still lists the problem unsolved, with publication and a waiting period required for the $1M prize.",
+              why: "The first Millennium Prize problem apparently settled with an AI as co-worker — and the verification model is the real story: a machine-checked proof nobody has read, certified by independent checkers rather than peer review. For a bank app-dev leader, it is the same evaluation lesson as the Stanford lectures: when an artifact exceeds human review capacity, you need independent checkers, not trust.",
+              topics: [
+                "AI in general"
+              ],
+              sources: [
+                {
+                  name: "technology.org",
+                  url: "https://www.technology.org/2026/11/23/riemann-hypothesis-proof-lean-certified-alpoge-claude/"
+                }
+              ]
+            },
+            {
+              headline: "Google releases Gemini 4 Neon — near-frontier performance at $3/$15 per million tokens",
+              minutes: 4,
+              synopsis: "Google DeepMind released Gemini 4 Neon (announced November 18, reported November 22), the third tier in its Gemini 4 lineup alongside Carbon (hardest, long-horizon work) and Hydrogen (fast, everyday execution). Neon targets complex coding, analytical reasoning and production-grade enterprise workflows: $3/$15 per million tokens, a 1M-token context window, 64K default output and four thinking levels up to \"xhigh\". At xhigh it scores 61 on the Artificial Analysis Intelligence Index — third overall behind Anthropic and OpenAI — and first on Zapier's AutomationBench. Available now via the Gemini API, Gemini for business, Google Antigravity and the Gemini app (Pro/Ultra). It is Google's fourth model in seven weeks. Perplexity CEO Aravind Srinivas has moved teammates onto it, and early testers rank it above GPT-6.2 Astra and Claude Opus 5.5. Caveat: Google's claimed leads over Opus 5.5 and GPT-6.2 Sol are unverified by independent testing.",
+              why: "The mid-tier is where the money is — near-frontier performance at a fraction of the price changes the cost math for agent fleets, the same theme as Microsoft's MAI Code 2 last week. The question keeps moving from which model is best to which tier for which job, with the router and spend policies as the governance layer. For Ryan's team, Neon is another candidate for the A/B test on their own repositories before any defaults change.",
+              topics: [
+                "AI in general"
+              ],
+              sources: [
+                {
+                  name: "Shorty News",
+                  url: "https://shorty-news.com/tech/google-launches-gemini-4-neon-taking-on-claude/"
+                }
+              ]
+            },
+            {
+              headline: "OpenAI's Saturday outage: 211 minutes, 75% of requests failing — routine maintenance took down authentication",
+              minutes: 3,
+              synopsis: "On Saturday, November 21, 2026, between 1:48 and 5:21 p.m. PT, requests to ChatGPT and OpenAI's API failed at rates peaking at 75%, on paid and free tiers alike — a 211-minute incident hitting nearly every endpoint (Chat Completions, Fine-tuning, Embeddings, Images, Batch, Audio, Moderations, Realtime, Files; and in ChatGPT: login, conversations, search, file uploads, voice mode). The cause, per OpenAI's post-incident write-up, was routine scheduled maintenance on a Postgres database service used by its Primary API service — the system that handles authentication across the entire OpenAI stack. Both of the database's read replicas failed at the same time; the primary was unaffected, but the replicas were load-bearing, so every auth-dependent request path failed with them. All systems were back by Saturday evening; OpenAI has put a moratorium on similar database maintenance until stronger safeguards are in place.",
+              why: "The failure was not exotic — ordinary maintenance on a shared authentication dependency. If an agent stack calls one provider, that provider's auth layer is the single point of failure, and a fallback model does not help when the thing that is down is the login. The fix is failover that actually works when authentication is down, plus a degraded mode for agents caught mid-task — worth a line in the team's runbook for in-flight agent work during a provider outage.",
+              topics: [
+                "Process improvements"
+              ],
+              sources: [
+                {
+                  name: "OpenAI Status",
+                  url: "https://status.openai.com/incidents/01JMYB602A6H2E04Y1497J434X/write-up"
+                }
+              ]
+            },
+            {
+              headline: "Security watch: patch deadline day — vCenter and Cisco Expressway due today; patching alone does not evict an intruder",
+              minutes: 4,
+              synopsis: "Today, Monday, November 23, is CISA's patch deadline for the four actively exploited flaws added November 20. Cisco Expressway CVE-2026-76466 (hard-coded credentials, CVSS 9.8, unauthenticated root RCE on clustered devices): Moscow-based firm F6 investigated the first observed exploitation — attackers compromised two internet-facing Expressway devices, pivoted to two internal cluster nodes, then used custom Python scripts to scan the network and hunt SMB resources, SQL Server, WinRM and GitLab repositories to exfiltrate credentials. Fix is Expressway X15.5.20; X14 systems have no patch and need migration; if patching is impossible, restrict TCP/4371–4372 at the firewall to trusted cluster nodes only. For the vCenter flaw CVE-2026-123890, Rapid7's emergent threat response adds a point beyond yesterday's coverage: patching closes the hole but does not evict an attacker already inside — the exploitation tool steals vCenter's SAML signing key and creates rogue administrator accounts, so exposed instances need forensic triage, not just a patch. vCenter 7.0 has no public patch; extended-support customers must contact Broadcom. Smaller governance note: Anthropic shortened its vulnerability disclosure window — high/critical flaws from 90 to 30 days, others to 45 — effective for reports made on or after January 1, 2027.",
+              why: "The deadline is today — if the estate runs vCenter or Expressway, the patch is due now, and for vCenter the patch is only half the job: check for administrator accounts nobody created and rotate the SAML signing key if the instance was ever exposed.",
+              topics: [
+                "Critical security vulnerabilities and emergency patches"
+              ],
+              sources: [
+                {
+                  name: "Infosecurity Magazine",
+                  url: "https://www.infosecurity-magazine.com/news/critical-cisco-expressway-flaw/"
+                },
+                {
+                  name: "Rapid7",
+                  url: "https://www.rapid7.com/blog/post/etr-cve-2026-123890-critical-authentication-bypass-vmware-vcenter/"
+                }
+              ]
+            },
+            {
+              headline: "Instructional video — \"LLM Evaluation\" (Stanford CME295 Lecture 7): evaluate LLMs by the work you need them to do",
+              minutes: 105,
+              synopsis: "Lecture 7 of Stanford's CME295: Transformers & Large Language Models, taught by Afshine and Shervine Amidi (Adjunct Professors at Stanford), published November 21, 2026 — about 105 minutes. A systematic guide to measuring a model: human ratings and inter-rater agreement (Cohen's kappa); rule-based metrics including Pass@k for code and math, with the unbiased estimator derived; BLEU, METEOR and ROUGE and their limits; LLM-as-a-judge, with prompt engineering tips for reliability and a tour of its biases (position, verbosity, self-enhancement); prompt hillclimbing and structured outputs; agent evaluation; benchmarks with Artificial Analysis; \"benchmaxxing\" (optimizing for the benchmark instead of the work); and the Pareto frontier for picking a model by cost and quality together.",
+              why: "The measurement companion to the last two weeks of Stanford lectures — Lectures 9 and 10 taught how to build and optimize agents; this one teaches how to measure whether the model underneath is doing the work you need. The benchmaxxing section is the direct antidote to the GPT-6.2 lesson: benchmarks measure what is easy to grade, so build the checks that measure what the team actually needs. The Pass@k and LLM-as-a-judge sections are directly usable in Ryan's team's own eval harness, and the Pareto frontier framing is how to pick a model tier per job — tying back to today's Gemini Neon story.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "YouTube — Stanford Online · video",
+                  url: "https://www.youtube.com/watch?v=uoSynlTDyMs"
+                }
+              ]
+            }
+          ]
+        },
+        {
           date: "Sunday, November 22, 2026",
           iso: "2026-11-22",
           audio: [
