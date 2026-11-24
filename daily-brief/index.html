@@ -511,6 +511,108 @@
     <script>
       var EDITIONS = [
         {
+          date: "Tuesday, November 24, 2026",
+          iso: "2026-11-24",
+          audio: [
+            {
+              label: "Listen to this edition · 13:50",
+              url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-24.mp3"
+            }
+          ],
+          stories: [
+            {
+              headline: "Claude Ship: Anthropic's agents now review, fix and approve pull requests — the policy file decides what merges",
+              minutes: 3,
+              synopsis: "On Monday, November 23, 2026, Anthropic launched Claude Ship in beta — a suite of agents that takes a GitHub pull request through review, fixes and an approval decision. Three parts: Code Review (already generally available) reviews a PR against the codebase; PR Steward (beta) fixes failing CI checks, merge conflicts and review feedback, but cannot approve or merge — after every push it comments on what it changed and how to roll it back; Claude Approvals (beta) applies an approval policy the team writes as a file in the repository, in plain language — Anthropic calls it a smarter CODEOWNERS file — and can approve routine changes on its own, escalating anything riskier to a human. A new /ship command in Claude Code starts the whole loop from one command. Anthropic's own data point: on the Claude Code team, merged PRs more than doubled from June to September while the share later reverted fell by more than 40%. Anthropic advises starting with one repository, running approvals in observe-only mode first, and setting monthly spend limits (usage is billed on tokens). Rolling out to Claude Team and Enterprise plans, GitHub repositories only.",
+              why: "The bottleneck in AI-assisted development has moved — writing code got fast first; reviewing it is where teams now stall, and this is the first serious attempt to automate that part too. The design is the lesson: PR Steward fixes but cannot decide, and the approval policy lives in version control, reviewed like code. That separation — fix versus decide, policy as code — is how Ryan's team would want to trial it on one repository before letting it near anything touching customer money.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "TechCrunch",
+                  url: "https://techcrunch.com/2026/11/23/anthropic-launches-claude-ship-letting-ai-agents-review-fix-and-approve-code-changes/"
+                }
+              ]
+            },
+            {
+              headline: "Anthropic's \"Working with AI\": 58 enterprise customers — hiring less, not firing; the value is in reorganizing, not automating one workflow",
+              minutes: 30,
+              synopsis: "Published November 23, 2026 by Anthropic's economics team (Nathan Wilmers, Maxim Massenkoff, Peter McCrory), \"Working with AI\" draws on 66 interviews at 58 U.S. enterprise customers — AI-native startups to 100-year-old businesses, manufacturers, law firms, hedge funds, dentists, a trucking company. Headline: people at two-thirds of the companies said AI had reduced their hiring (mostly unmade hires, about a third unreplaced departures); only two companies said AI had fully eliminated a position; ten said they were hiring more because of AI, mainly for implementation and IT support. Cuts that did land fell on contractors: nine firms cut contracted workers, many offshore — flagged as a possible early warning for the international business services industry. One company cut planned document-reviewer hiring by more than 90% after deploying a review agent. On value: most uses added value by increasing output rather than cutting costs (roughly half by speeding up existing work, half by improving products or creating new ones), and the highest-value uses involved real reorganization — e.g. one law firm redesigned roles so junior lawyers work through AI-written first drafts with a senior attorney, instead of displacing staff. Interviewees described 100 pieces of software built with AI: 80% automated previously manual work (spreadsheet updates, meeting notes), 20% replaced software previously bought from outside vendors. Bottleneck warning: as coding speeds up, code review, sales and strategic decisions increasingly have to keep pace. Caveats: Anthropic studying its own customers; sample not random or representative; interviews anonymous; value self-reported, not measured.",
+              why: "The workforce question is now about the next hire that never gets posted — a planning conversation, not a redundancy one. And the firms getting the most value redesign roles around the model rather than automating a single workflow and stopping there. The quote that sums it up: \"We may not be firing, but we're not hiring.\"",
+              topics: [
+                "Process improvements"
+              ],
+              sources: [
+                {
+                  name: "Anthropic",
+                  url: "https://www.anthropic.com/research/working-with-ai"
+                }
+              ]
+            },
+            {
+              headline: "Jensen Huang is back at Nvidia — reinstated 11 days after resigning, after the board said it would not bring him back",
+              minutes: 4,
+              synopsis: "On Monday, November 23, 2026, Nvidia's board unanimously reinstated Jensen Huang as president, CEO and board director, effective immediately — 11 days after he resigned on November 12. Five days earlier, on the Q3 earnings call (November 18), chairman Harvey Jones said the board had unanimously accepted Huang's resignation and did not intend to reinstate him, and was starting an executive search. The board's statement says it received input from senior levels of the U.S. government and is confident the reinstatement poses no national security risk; President Trump had publicly pressed for Huang's return. The reinstatement does not close the matter: the board's independent-director committee is still investigating reports that Huang was targeted by a foreign intelligence effort, and the board has formed a National Security and Export Control Committee of independent directors. Interim CEO Colette Kress returns to CFO. Shares rose about 30% on Monday — roughly $1 trillion of market value back — after Friday's ~14% fall on the SEC accounting probe. Arm CEO Rene Haas, reported as the leading outside candidate for the Nvidia job, extended his contract as Arm CEO to 2033 the same morning.",
+              why: "Nvidia makes almost all the hardware AI runs on, so 11 days of uncertainty at the top directly affected compute prices and every vendor roadmap downstream, including the model providers Ryan's team buys from. The governance lesson: a board that ruled out a return five days earlier reversed itself unanimously, while the investigation that prompted the departure is still running — and the SEC probe and Hugging Face review from yesterday are still open.",
+              topics: [
+                "AI in general"
+              ],
+              sources: [
+                {
+                  name: "The Next Platform",
+                  url: "https://www.nextplatform.com/ai/2026/11/23/jensen-huang-back-in-charge-of-nvidia/5311691"
+                }
+              ]
+            },
+            {
+              headline: "Security watch: the other two flaws from Friday's patch deadline — Apache Roller actively exploited; SAP NetWeaver's 6.5 can mean RCE",
+              minutes: 4,
+              synopsis: "Yesterday, Monday, November 23, was CISA's patch deadline for the four actively exploited flaws added Friday, November 20. The two not covered in yesterday's edition: Apache Roller CVE-2026-129448 (CVSS 9.8) — a deserialization flaw in the XML-RPC endpoint letting an unauthenticated attacker execute arbitrary code; the maintainers confirm it is being actively exploited; fixed in November 2026. SAP NetWeaver Enterprise Portal CVE-2025-42884 (CVSS 6.5) — a JNDI injection flaw; Onapsis, which discovered and reported it, says it has now observed the flaw being exploited in the wild in more targeted activity. Onapsis's CTO notes there is no publicly available exploit, so whoever is behind it built the exploit themselves — and although rated 6.5, it has the potential to perform remote code execution through deserialization, making it far more critical than the score suggests. Fix: SAP Security Note 3660969. Attribution update on the vCenter flaw: exploitation has been linked to a suspected China-nexus espionage group tracked as Armory Castle (formerly UNC5221), which chained it with a now-patched BeyondTrust Remote Support flaw (CVE-2026-102764, CVSS 9.3) to deploy custom backdoors for persistent access and data theft.",
+              why: "The deadline was yesterday, so the check this morning is whether patching actually landed. Roller shows a Java platform most teams forgot they run can be an unauthenticated RCE path into the network. The SAP case is the teaching point: a 6.5 that can become RCE means the CVSS score is a starting point, not a verdict — and the vCenter attribution means any exposed instance needs forensic triage, not just the patch.",
+              topics: [
+                "Critical security vulnerabilities and emergency patches"
+              ],
+              sources: [
+                {
+                  name: "The Hacker News",
+                  url: "https://thehackernews.com/2026/11/hackers-exploit-critical-vmware-cisco.html"
+                }
+              ]
+            },
+            {
+              headline: "GPT-6.2 Sol reaches ChatGPT's Chat tab — image understanding 71.7% (from 47.4%); GPT-5.6 Sol and Terra retire December 23",
+              minutes: 4,
+              synopsis: "OpenAI rolled out a chat-tuned version of GPT-6.2 Sol in ChatGPT's Chat tab on November 23, 2026, for Plus, Pro, Business and Enterprise users. Sol is the everyday model; Astra is the frontier model for the hardest work. In OpenAI's own Chat-tab tests, image understanding rose from 47.4% to 71.7%, complex instruction following from 62.5% to 78.1%, and web search (BrowseComp) from 54.4% to 64.5%. Free and Go users stay on GPT-6 Luna; the models powering ChatGPT Work and Codex are unchanged (they received GPT-6.2 on November 17). GPT-5.6 Sol and Terra leave ChatGPT on December 23, 2026.",
+              why: "The figures are OpenAI's own, so treat them as direction until independent testing shows up — but the pattern is the one to watch: the mid-tier model keeps absorbing frontier capabilities at a fifth of the price, the same story as Gemini Neon yesterday. The practical bit: anyone still defaulting to GPT-5.6 Sol in Chat has until December 23 to move.",
+              topics: [
+                "AI in general"
+              ],
+              sources: [
+                {
+                  name: "Digital Trends",
+                  url: "https://www.digitaltrends.com/computing/chatgpt-is-getting-a-chat-tuned-gpt-6-2-sol-and-it-can-offer-to-watch-for-a-price-drop/"
+                }
+              ]
+            },
+            {
+              headline: "Instructional video — \"AI Agents\" (Stanford CME295 Lecture 6): what an AI harness actually is",
+              minutes: 101,
+              synopsis: "Lecture 6 of Stanford's CME295: Transformers & Large Language Models, taught by Afshine and Shervine Amidi, published November 6, 2026 — about 101 minutes (1:40:44). It starts from the limits of a bare language model: it cannot see past its training cutoff and cannot act in the real world. The fixes are the harness — the whole system around the model: retrieval-augmented generation (RAG) grounds it in your own documents; tool calling lets it act; harness engineering is the discipline of putting it together — memory, tool selection, and reasoning protocols like ReAct (observe → plan → act → observe). Also covered: MCP, context compaction for long-running agents, coding agents, and skills and plugins.",
+              why: "This is the explainer for the concept behind today's first two stories. Claude Ship is a harness around the model — review levels, a policy file, rollback notes — and Anthropic's study shows the firms getting value are the ones building the harness and reorganizing around it, not buying a model and stopping there. For Ryan's team, the lecture gives the vocabulary to talk about their own agent work as a system — the model is the engine, the harness is the product — and the ReAct and context-compaction sections are directly relevant to the long-running agents they are building.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "YouTube — Stanford Online · video",
+                  url: "https://www.youtube.com/watch?v=nU2a2lm6vDE"
+                }
+              ]
+            }
+          ]
+        },
+        {
           date: "Monday, November 23, 2026",
           iso: "2026-11-23",
           audio: [
