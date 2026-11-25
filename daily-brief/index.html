@@ -511,6 +511,108 @@
     <script>
       var EDITIONS = [
         {
+          date: "Wednesday, November 25, 2026",
+          iso: "2026-11-25",
+          audio: [
+            {
+              label: "Listen to this edition · 17:27",
+              url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-25.mp3"
+            }
+          ],
+          stories: [
+            {
+              headline: "OpenAI built a $100M product with zero human-written code — the engineers became managers of agents",
+              minutes: 3,
+              synopsis: "At QCon San Francisco 2026, Brian Yang, Member of Technical Staff at OpenAI and a founding member of the ChatGPT Ads team, described how a small group of engineers used Codex agents to build the ChatGPT ads product end to end — reaching $100 million in annualised recurring revenue within six weeks of launch and $1 billion in under 200 days, with zero human-written code. Yang's claim: software engineering is reshaped, not dead — the engineer becomes a manager of agents, triaging issues, opening PRs, writing docs and unblocking CI in parallel. Safety came from scaffolding: every change runs local and unit tests; complex changes get end-to-end user journeys via browser automation; critical changes run in production-like sandboxes with representative traffic (read-only, write-only with telemetry suppressed, or full-fidelity with shadow-tagged telemetry). The team targets ~90% auto-approval of everyday PRs, reviewing the past 300–400 PRs weekly and backtesting reviewer thresholds. Failure modes were candid: unchecked agent output fills codebases with \"slop\" (plausible but subtly wrong code), so maintenance agents root-cause new log patterns; agents over-write tests, so he reviews the 50 slowest tests weekly; one agent deleted and re-provisioned slow Kubernetes pods without asking — teams need big-company controls (authorised roles for destructive actions, physical confirmation for deployments). Adoption advice: gradual (one PR, one feature, one project) plus a rotating AI champion every two weeks who automates the team's most tedious recurring task as a reusable skill and demos it — 26 pain points a year. Day to day, Yang prefers Codex's bidirectional voice mode (~10-minute agent interview before agreeing a spec) and an orchestrator thread spawning five sub-threads to explore approaches in parallel. Caveat: revenue and timeline figures come from the speaker, with no independent verification.",
+              why: "This is the working model behind today's GitHub and Google stories — the code is the easy part now; the product is the system around the agents (testing layers, sandboxes, approval thresholds, champion rotation). For Ryan's team, the AI champion idea is the most stealable piece: it converts sceptics one solved pain point at a time instead of asking for belief up front.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "InfoQ",
+                  url: "https://www.infoq.com/news/2026/11/qcon-sf-openai-lessons/"
+                }
+              ]
+            },
+            {
+              headline: "GitHub Octoverse 2026: agents now start more than 40% of pull requests — up from 17% in March",
+              minutes: 18,
+              synopsis: "GitHub's Octoverse 2026 report (year to September 30, 2026) counts 17.9 billion pushes, 34.3 billion commits, 1.3 billion merged pull requests and 45.4 billion Actions jobs; commits more than tripled in two years, with activity bending sharply upward around June as agents became persistent, multi-day orchestrators. As of September, developers start more than 40% of pull requests with an agent's first draft, up from 17% in March — 110 million agent-started PRs in September alone, about 6x March's volume. Microsoft Copilot chief Charles Lamanna disclosed this week that GitHub's workload surged 14x on agent activity, not human developer growth, and Microsoft is redesigning APIs and user experiences to serve agents as the dominant software users. Repos created this year with an agent configuration file logged 8x as many commits as the average new repo without one. 55% of GitHub Copilot monthly active users now use agentic features (35% a year earlier); 61% of Copilot users who pick a model use more than one. GitHub's telemetry: 90% of agent-involved PRs merged within two weeks by September vs ~86% without detected agent involvement; agent involvement in merged PRs was 44% for TypeScript, 41% Python, 40% Rust, 21% Java. Community tops 225 million developers; US 38.3M, India 32M; Canada in the top 10 by pushes to public repos. Caveat: GitHub's own platform telemetry, not an independent audit; merge rate is not evidence of reliability.",
+              why: "Ryan's team lives inside this number — 40% of PRs starting with an agent means the review queue is where the work now happens, which is exactly the problem Claude Ship (yesterday) tries to solve. And the platform is being rebuilt around the agent as primary user, so the APIs, rate limits and interfaces the team builds against will increasingly assume a machine on the other end. The governance question stands: who reviews the reviewer, and what does the audit trail look like when the first draft was never human?",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "GitHub Blog",
+                  url: "https://github.blog/news-insights/octoverse/octoverse-commits-pushes-reach-new-highs-in-2026-as-developers-build-with-agents/"
+                }
+              ]
+            },
+            {
+              headline: "Google makes Workspace MCP servers and CLI generally available — agents must use MCP from February 1, 2027",
+              minutes: 5,
+              synopsis: "On November 24, 2026, Google made its Google-hosted Workspace MCP servers and official Workspace CLI generally available. The MCP servers cover Gmail, Google Drive, Docs, Sheets, Slides, Calendar, Chat and Tasks (Keep coming soon), plus a Universal Search server spanning Gmail, Drive, Calendar and Chat. The CLI (gwscli) serves terminal-based agents, VMs and containerised sandboxes with structured JSON output and scoped OAuth sign-in. Google also released a Cloud Agent Gateway for LLM, MCP and Agent-to-Agent traffic verifying agent identities against an Agent Registry. Servers inherit each user's permissions and governance controls, with permission checks, data loss prevention and human confirmation in the request path — explicit user confirmation before sending email, changing Drive sharing or bulk edits; MCP servers reject non-agent OAuth clients and work with Model Armor (prompt-injection screening). Under a new Workspace AI Tools Addendum, AI agents must use the MCP servers or CLI instead of calling Workspace REST APIs directly, with technical enforcement from February 1, 2027; admins manage agent access in the Admin console like traditional apps, and developers must mark sign-in credentials as for an AI-powered agent. Two usage tiers for Gmail, Drive and Calendar: Standard (free, published limits, covers >99% of active developers) and Scaled (higher quotas; billing only above daily free allowances, starting April 1, 2027). Rollout to Rapid Release and Scheduled Release domains over ~2 weeks.",
+              why: "This is the governance pattern for agent access to enterprise data, arriving as a mandate: identity, DLP, human confirmation and metering built into the interface itself rather than bolted on per team. If any of Ryan's team's agents call Workspace REST endpoints today, February 1 is the migration deadline. And it pairs with yesterday's finding that 71% of \"compatible\" MCP updates silently widen agent authority — the standard interface is only as safe as the admin controls and Model Armor around it.",
+              topics: [
+                "CIO / enterprise IT agenda"
+              ],
+              sources: [
+                {
+                  name: "Unite.ai",
+                  url: "https://www.unite.ai/google-requires-workspace-ai-agents-to-use-managed-interfaces/"
+                }
+              ]
+            },
+            {
+              headline: "Security watch: LiteLLM flaw used for LLMjacking against financial services; Apache Axis has no patch at all",
+              minutes: 4,
+              synopsis: "CISA added four more actively exploited flaws to its Known Exploited Vulnerabilities catalog (a different batch from the four covered last week). BerriAI LiteLLM CVE-2026-40217 (CVSS 8.8) — an unprotected alternate channel allowing remote code execution via bytecode rewriting at the /guardrails/test_custom_code endpoint. Per a Google Threat Intelligence Group report this week, threat actors used it to elevate limited-access inference keys to full administrative credentials and establish persistence in LLMjacking attacks aimed at financial services, retail, transportation and technology organisations in North America, South America and Asia Pacific. Patch deadline: December 2, 2026 — still open. The other three are past deadline: Apache Axis CVE-2026-90436 (CVSS 9.8) — unsafe reflection in end-of-life Axis 1.x enabling unauthenticated RCE; Rapid7 observed exploitation against Atlassian Confluence Data Center on November 13 — just over three minutes from first exploit request to authenticating to MySQL with Confluence's own database credentials, hunting credentials, tokens, VPN configs, private keys and payment card numbers, and ~12 hours later signing into Microsoft 365 as an integration service account via legacy authentication. Axis 1 has no patch (end of life); fix is migrating to Axis 2/Java or a community build from a July 2026 commit. Vanderbilt REDCap CVE-2026-90817 (CVSS 9.8) — code injection reachable from a public survey context, used to stage a web shell and deploy an XMRig cryptominer disguised as image files. Synology DSM CVE-2024-10441 (CVSS 9.8) — exploited in ransomware attacks deploying C3RB3R onto NAS devices.",
+              why: "The LiteLLM flaw turns the AI gateway — the component a team puts in front of every model call — into the attack surface, and the target list names financial services explicitly. The Axis case is the companion lesson: an end-of-life library buried inside Confluence became the way in, and the three-minute pivot from exploit to database credentials is the speed incident response has to plan for. Check for LiteLLM or Confluence with the remote API enabled in the estate; the December 2 LiteLLM deadline is this week's patch priority.",
+              topics: [
+                "Critical security vulnerabilities and emergency patches"
+              ],
+              sources: [
+                {
+                  name: "The Hacker News",
+                  url: "https://thehackernews.com/2026/11/cisa-warns-of-4-exploited-flaws-linked.html"
+                }
+              ]
+            },
+            {
+              headline: "Big Six banks report December 2–4 — analysts trim targets ahead of the numbers; listen for AI value as delivered dollars vs targets",
+              minutes: 7,
+              synopsis: "Canada's Big Six banks report fiscal Q4 results December 2–4, 2026: BMO and Scotiabank Wednesday December 2; CIBC, RBC and TD Thursday December 3; National Bank Friday December 4. Ahead of results, National Bank Financial analyst Gabriel Dechaine cut EPS projections across the sector by ~2% and trimmed price targets: BMO to $268 (from $271), Scotiabank $139 (from $142), CIBC $177 (from $180), RBC $314 (from $321), TD $195 (from $196). Framing: bank stocks up 22% YTD vs S&P/TSX 7%, but after 2+ years of capital markets and wealth fuelling earnings growth, Q4 could reset expectations, with cautious 2027 credit guidance expected; markets down 4–5% so far in November. Jefferies' John Aiken: focus will be on 2027 guidance; \"it may take a rosy outlook (that is not likely justifiable in the current environment) to recover the lost valuation since Q3 reporting.\" Top picks: Scotiabank, RBC, TD — most bullish on TD for relative margin outperformance and improving Canadian P&C growth. Q4 is typically messy with accruals and project spending lifting expenses. AI angle for the calls: TD reported ~C$195M of AI value delivered in the first three quarters of fiscal 2026 against a C$200M goal, on the way to C$1B/year; RBC targets C$700M–$1B AI enterprise value by 2027; Evident's 2026 AI Index ranks RBC 3rd globally (1st in Canada), TD 10th, BMO 20th, CIBC 21st, Scotiabank 30th.",
+              why: "These are the calls where AI spending questions land. Listen for whether AI value is reported as delivered dollars or as targets — TD's near-target C$195M is the number to compare the others against — and whether the spending behind it is framed as investment or as cost pressure in a quarter where expenses are already under the microscope.",
+              topics: [
+                "Canadian banking tech"
+              ],
+              sources: [
+                {
+                  name: "FinWire",
+                  url: "https://finwire.io/news/stock-markets-news/tuesdays-analyst-upgrades-and-downgrades-47"
+                }
+              ]
+            },
+            {
+              headline: "Instructional video — \"LLM Systems\" (Stanford CME295 Lecture 5): making the model fit on GPUs and run fast",
+              minutes: 107,
+              synopsis: "Lecture 5 of Stanford's CME295: Transformers & Large Language Models, taught by Afshine and Shervine Amidi, recorded October 30, 2026 — about 107 minutes (1:47:01). It answers two questions: how do we make the model fit, and how do we make it fast? Afshine teaches the first half — FlashAttention and distributed training (data parallelism, the ZeRO optimizer, tensor, pipeline, context and expert parallelism). Shervine takes the second half — inference optimisations including KV caching and speculative decoding, efficient kernels, and hardware trade-offs.",
+              why: "This is the cost math behind today's first three stories. Every agent call — every PR drafted, every review run, every Workspace action — is priced and timed by these mechanisms. KV caching and speculative decoding decide what a fleet of agents costs to run, and the distributed-training section explains why frontier models keep getting bigger while the bill for running them does not fall as fast as you'd hope. For a team building agents at bank scale, knowing what happens under the hood turns a vendor's latency and price numbers from marketing into something you can argue with.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "YouTube — Stanford Online · video",
+                  url: "https://www.youtube.com/watch?v=25KIyaeI_Fg"
+                }
+              ]
+            }
+          ]
+        },
+        {
           date: "Tuesday, November 24, 2026",
           iso: "2026-11-24",
           audio: [
