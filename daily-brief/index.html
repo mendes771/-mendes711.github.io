@@ -511,6 +511,108 @@
     <script>
       var EDITIONS = [
         {
+          date: "Thursday, November 26, 2026",
+          iso: "2026-11-26",
+          audio: [
+            {
+              label: "Listen to this edition · 18:03",
+              url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-26.mp3"
+            }
+          ],
+          stories: [
+            {
+              headline: "SAS warns AI agents could spark a 'synthetic run' on banks — and predicts a catastrophic AI event in financial services in 2027",
+              minutes: 4,
+              synopsis: "In its outlook for banking in 2027, SAS warns that autonomous software acting on behalf of customers could move money into higher-yielding accounts at rival lenders at scale, creating stress in payment systems if large numbers of agents make similar decisions at the same time. The report predicts a catastrophic AI event in financial services in 2027 causing significant consumer harm — a \"synthetic run\" from thousands of autonomous agents interacting at speed, making rational decisions, with no fraud or malicious intent required. Even short of a crisis, SAS describes a \"silent run\" on banks' most profitable relationships: customers keep their main bank while agents sweep idle cash into higher-yield accounts and steer card spending toward better offers. The prescribed response is not blocking — \"banks can't block their way out\" — but APIs and protocols for authorised agents: Model Context Protocol connectivity, Know Your Agent safeguards, and real-time fraud defences with visibility into cashflows and risk. The outlook also flags AI-credit risk: specialist cloud and hosting companies are borrowing heavily to expand, and SAS's AI Credit Pulse Index has risen from an average of 25 basis points last year to 75 at the end of October. Governance warning from SAS's AI risk study with FT Longitude: 63% of surveyed banking leaders would consider a black-box AI model for better performance or returns, while 42% lack defined kill switches to halt models that cross preset boundaries.",
+              why: "Deposits are the funding base everything else stands on, and agents change the loyalty equation — a customer who never switches banks can still quietly move the money. Know Your Agent is the next identity problem after Know Your Customer, and the credit-pulse number is the other side of the same coin: the bank is both exposed to the agents and lending to the companies building the infrastructure they run on.",
+              topics: [
+                "Enterprise AI in banking"
+              ],
+              sources: [
+                {
+                  name: "CFO Tech",
+                  url: "https://cfotech.com.au/story/sas-warns-ai-agents-could-spark-synthetic-bank-run"
+                }
+              ]
+            },
+            {
+              headline: "Wells Fargo's Section 15: AI agents allowed, but 'at your own risk' — JPMorgan, BofA, Citi and Schwab chose to block instead",
+              minutes: 18,
+              synopsis: "Effective November 24, 2026, a new Section 15 of Wells Fargo's Online Access Agreement (\"Third-Party Artificial Intelligence Agents or Agentic AI\") leaves the door open for AI agents, provided the customer signs an extraordinary legal bargain. The section declares agent use is \"AT YOUR OWN RISK\", covering software bugs and manipulated inputs such as third-party prompt injections, and states \"We do not monitor, screen, or review AI Agent activities\". Every instruction an authorised agent transmits counts as the customer's personal act — including \"those you did not want or intend\". Revocation is entirely the customer's burden: revoke access \"properly and timely\", rotate compromised credentials, notify the bank via the specified channel, and retain documentary proof (screenshots, vendor termination receipts, call logs) to produce on demand. JPMorgan Chase, Bank of America, Citigroup and Charles Schwab took the opposite path: perimeter prohibition, blocking credential-sharing agents like Meta's Muse outright and funnelling third-party apps toward read-only open-banking pipes. The economics: retail banking profits rest on inertia — cash in checking accounts yielding ~0.1% gets lent or parked at 4–5%, and the bank keeps the spread; an agent that optimises household yield sweeps idle cash into higher-yielding T-bills or money-market funds while its owner sleeps. Apollo chief economist Torsten Slok warned in September 2026 that synchronised balance-sweeping could trigger an \"agentic bank run\" at machine speed, with industry estimates putting annual US deposit-margin erosion near $47 billion; McKinsey estimated AI-driven switching threatens £700 billion in low-yielding British retail deposits, where moving just 5–10% of balances would slash UK bank deposit profits by a fifth or more. Counterweight: Abu Dhabi Commercial Court Case No. 762 of 2026 (June 11, 2026) — the Middle East's first AI liability ruling — held a bank liable for structural deficiencies in its AI systems after unauthorised card transactions, treating them as a fundamental breach of the banker's duty of care, not a risk transferable by standard account terms. London, Hong Kong and Singapore regulators are pushing the same direction: block unverified credential-sharing today, channel agents onto regulated, auditable API rails tomorrow.",
+              why: "This is the fork the bank has to choose, and both branches are already live in the market. Wells Fargo bets it can capture transaction volume and disclaim the risk; regulators in the other hubs say that disclaimer will not survive contact with a court. For Ryan's team, the design question is the same as in yesterday's Google MCP story: agent identity, attribution and audit trails — who authorised this agent, for this transaction, and can it be proved after the fact?",
+              topics: [
+                "Enterprise AI in banking"
+              ],
+              sources: [
+                {
+                  name: "Wasel & Wasel",
+                  url: "https://waselandwasel.com/articles/when-the-bot-signs-the-wire-why-us-own-risk-waivers-for-ai-banking-shatter-against-emerging-rules-in-abu-dhabi-london-hong-kong-and-singapore/?print=pdf&uniq=1795515165"
+                }
+              ]
+            },
+            {
+              headline: "Security watch: CISA adds 10 actively exploited flaws the afternoon before Thanksgiving — Juniper root, Mitel's patch trap, an empty JSON cookie, and supermarket refrigeration",
+              minutes: 15,
+              synopsis: "On November 25, 2026, CISA added 10 actively exploited flaws to its Known Exploited Vulnerabilities catalog, spanning four product families — all of them the connective tissue of the network: edge routers, conferencing portals, hypervisor consoles and building-management controllers. HPE Juniper Session Smart Conductor CVE-2026-103406 (CVSS 9.8): OS command injection letting an unauthenticated remote attacker supply a crafted Salt minion ID and execute commands as root on the SD-WAN control plane. Juniper patched it in October (JSA112183), then confirmed on November 24 that malicious exploitation had been reported; CISA set a three-day federal remediation deadline of November 28, 2026 with mandatory forensic triage. No workaround; upgrade to 7.0.5, 7.1.7 or 7.2.3. Mitel MiCollab: five flaws in the Audio, Web and Video Conferencing (AWV) component — blind OS command injection CVE-2026-133323 and XML injection CVE-2026-133303 (both critical), plus unauthenticated file upload CVE-2026-133275, weak authentication CVE-2026-133311 and authentication bypass CVE-2026-133324, which chain together. Trap: version 10.3.0.18 looks patched but is inside the vulnerable range — the fix requires upgrading to 10.3 and then applying the separate security patch KB000129195. Vates Xen Orchestra CVE-2026-133469 (CVSS 9.8): an empty JSON cookie ({}) bypasses REST token authentication and OTP, handing an unauthenticated caller the keys to the virtualisation management plane; fixed in 6.9.2 and 6.10.1. Danfoss AK-SM 800A refrigeration controllers: three flaws including a 9.8 RCE (CVE-2023-25915) — attackers have targeted internet-exposed controllers in Europe, forcing supermarket refrigeration into defrost cycles and spoiling millions of euros of food, drawing a joint CISA/FBI/HHS/USDA/DOT warning on November 5, 2026. The framework behind the batch: under CISA's new Binding Operational Directive 26-04, flaws that are publicly exposed, in the KEV catalog, automatable and granting total control now carry a three-calendar-day remediation clock plus pre-patch forensic triage; December 7, 2026 is the milestone when federal agencies must operate under the new timelines in full.",
+              why: "The pattern across all ten is unauthenticated requests hitting management interfaces that were never safe to leave on the public internet. Check the estate for MiCollab with the conferencing component exposed, Session Smart Conductor, Xen Orchestra, and any industrial controllers reachable from outside — and remember the Mitel version trap before anyone reports the patching as done.",
+              topics: [
+                "Critical security vulnerabilities and emergency patches"
+              ],
+              sources: [
+                {
+                  name: "Windows Forum",
+                  url: "https://windowsforum.com/news/cisa-flags-10-exploited-flaws-in-juniper-mitel-danfoss-and-xen-orchestra-patching-and-triage.454118/"
+                }
+              ]
+            },
+            {
+              headline: "Nvidia gives back 40% of its record rally — the worry is now how its customers pay for AI",
+              minutes: 6,
+              synopsis: "On Wednesday, November 25, 2026, Nvidia fell $6.08 (3.91%) to $149.30 — its second straight loss, giving back $15.75, about 40% of the record $39.52 gain from Monday after the board reinstated Jensen Huang as CEO. It traded as low as $141.17 before buyers stepped in. The driver is credit: credit default swap spreads hit record highs over the past two sessions for Alphabet, Oracle, SpaceX and CoreWeave; CoreWeave's spread reached 1,314 basis points, meaning protecting $1 million of its debt now costs about $131,400 a year. Those names matter because they are building the data centres that run on Nvidia's chips. October PCE inflation rose 3.8% year over year — nearly twice the Fed's 2% target — and traders priced a 97% chance of a December rate hike, which would raise borrowing costs again for the same companies whose debt is already under pressure. Demand is intact: Dell reported a record AI backlog of $132.3 billion and raised its AI server revenue outlook to $78 billion, yet Nvidia still fell nearly 4% while the Nasdaq lost only 0.62% — investors are focused on how the demand gets funded, not whether it exists. Nvidia's own numbers are unchanged: Q3 revenue rose 103% to a record $115.8 billion, data centre revenue $107.6 billion, Q4 guidance $130 billion. Bernstein upgraded to Outperform with a $200 target; Morgan Stanley rates it Overweight with a $260 target. Next event: Huang's public testimony before the Senate Banking Committee on Wednesday, December 3, after private committee meetings on December 1. US markets are closed today for Thanksgiving.",
+              why: "The AI buildout's funding question is now the swing factor for the whole AI stack, including the model providers Ryan's team buys from. If lenders charge the big buyers more, or lend them less, the pace of chip orders slows — and the credit stress SAS flagged in today's first story is the same stress showing up in Nvidia's share price.",
+              topics: [
+                "AI in general"
+              ],
+              sources: [
+                {
+                  name: "TradingKey",
+                  url: "https://www.tradingkey.com/analysis/stocks/us-stocks/262323489-nvidia-gives-back-40-percent-record-rally-credit-fears-159-17-falling-channel-november-26-2026-tradingkey"
+                }
+              ]
+            },
+            {
+              headline: "Sony Bank and Fujitsu put GenAI on a live core banking system: 30% faster development, 40% fewer man-hours",
+              minutes: 7,
+              synopsis: "Sony Bank and Fujitsu applied generative AI across the development of a live core banking system, from basic design through integration testing, and reported a 30% reduction in development time and a 40% reduction in man-hours — a measured productivity result on the system of record, not a customer-facing chatbot. The same weekly roundup: FIS won core banking mandates spanning a newly formed US bank with more than $100 billion in assets (created through a merger) plus five newly chartered institutions, including Mercury, which has conditional approval for a national bank charter. JPMorgan introduced a $2,000 monthly Claude spending limit for selected engineers and is rolling out Devspace, an AWS-hosted containerised environment that restricts Claude's access to employee credentials and internal systems; around 8,000 of JPMorgan's 65,000 technology employees hold Claude licences. Partior and LSEG's Digital Settlement House are developing a multi-settlement-bank solution for 24/7 settlement liquidity across cross-border payments, with J.P. Morgan's Kinexys, Deutsche Bank and Standard Chartered participating and production go-live targeted from Q1 2027. YES BANK and Open launched i-Mandate, an agentic payments platform that predicts and addresses recurring payment failures before transactions are attempted.",
+              why: "Sony Bank's 30% is the kind of measured, core-systems number Ryan's business partners will ask for when they question AI productivity claims — a production result, not a demo. And JPMorgan's spending limit is the governance mirror image: token economics are now measured against outcomes, not treated as an unrestricted utility. Together they describe the two halves of scaling AI in a bank: prove the productivity on the core, and meter the cost while you do it.",
+              topics: [
+                "Enterprise AI in banking"
+              ],
+              sources: [
+                {
+                  name: "The Asian Banker",
+                  url: "https://www.theasianbanker.com/updates-and-articles/banks-move-ai-into-core-systems-as-payments-infrastructure-turns-real-time-and-cloud-native"
+                }
+              ]
+            },
+            {
+              headline: "Instructional video — 'LLM Evaluation' (Stanford CME295 Lecture 7): how do you know whether a model is any good?",
+              minutes: 105,
+              synopsis: "Lecture 7 of Stanford's CME295: Transformers & Large Language Models, taught by Afshine and Shervine Amidi, published November 21, 2026 — about 105 minutes (1:45:00). It starts from a practical problem: with many models available, how do you figure out which one fits your use case and whether it is performing well? Human ratings are the obvious answer but do not scale, and raters disagree — the lecture works through Cohen's kappa (inter-rater agreement, 0.8+ considered good). For verifiable tasks like coding and maths, rule-based metrics like Pass@k estimate the probability that at least one of k generated solutions is correct. Traditional metrics like BLEU and ROUGE fail because they compare word overlap, not meaning — which drives adoption of LLM-as-a-judge, where one model evaluates another, with prompt hill-climbing, structured outputs via constrained decoding, and biases to calibrate out (position, verbosity, self-enhancement). The second half covers agent evaluation — debugging the ReAct loop, where failures hide in tool prediction, tool execution or response generation (hallucinated tools, context rot) — and the benchmark landscape, including the Artificial Analysis Intelligence Index v5 and Terminal-Bench. Closing warning: \"benchmaxxing\" — Goodhart's Law: when a measure becomes a target, it stops being a good measure.",
+              why: "Ryan's team ships agents, and evaluation is how you know whether an agent got better or just got better at the test. After this week's stories about agent-written code and agent-reviewed pull requests, this lecture gives the vocabulary — Pass@k, calibrated LLM-as-a-judge, trajectory evaluation — and the discipline: eval-driven development with deterministic verifiers, so the review queue runs on evidence instead of vibes.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "YouTube — Stanford Online · video",
+                  url: "https://www.youtube.com/watch?v=uoSynlTDyMs"
+                }
+              ]
+            }
+          ]
+        },
+        {
           date: "Wednesday, November 25, 2026",
           iso: "2026-11-25",
           audio: [
