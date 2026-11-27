@@ -511,6 +511,112 @@
     <script>
       var EDITIONS = [
         {
+          date: "Friday, November 27, 2026",
+          iso: "2026-11-27",
+          audio: [
+            {
+              label: "Listen to this edition · 14:50",
+              url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-27.mp3"
+            }
+          ],
+          stories: [
+            {
+              headline: "Canada names FDX as its open banking technical standards body — with a made-in-Canada council",
+              minutes: 6,
+              synopsis: "On November 20, 2026, the Finance Minister announced the designation of Financial Data Exchange Inc. (FDX), acting through a new FDX Canada Council, as Canada's open banking technical standards body under the Consumer-Driven Banking Act, and the Ombudsman for Banking Services and Investments (OBSI) as the external complaints body. The ministerial orders, dated November 13, were published in the Canada Gazette, Part I, on November 21. The sovereignty answer is the Canada Council: it can make decisions independently of the FDX board, voting membership is restricted to Canadian residents and businesses, and Canada can use and amend the standard independently and in perpetuity. FDX takes a 'global specification, local Canada profile' approach — its existing API standard, adapted — and the Canadian profile is not yet finalized; current work covers data formatting, a single security profile, consent management, and error codes. The Bank of Canada has also released draft accreditation guidelines with three pathways (standard for fintechs, streamlined for registered payment service providers under the Retail Payment Activities Act, streamlined for federal and provincial financial institutions), open for comment until December 8, 2026. About nine million Canadians currently share financial data by screen scraping.",
+              why: "This replaces password-sharing screen scraping with secure API sharing, and the standard FDX produces will decide how bank data flows to fintechs, accounting software and aggregators. For a bank, the near-term work is assessing which accreditation pathway applies and commenting by December 8.",
+              topics: [
+                "Canadian banking tech (open banking, payments modernization)"
+              ],
+              sources: [
+                {
+                  name: "Blakes",
+                  url: "https://www.blakes.com/insights/consumer-driven-banking-canada-designates-technical-standards-and-external-complaints-bodies/"
+                }
+              ]
+            },
+            {
+              headline: "Bank of England: hyperscaler AI exposure tops $4 trillion; 2027 stress test gets a frontier-AI scenario",
+              minutes: 5,
+              synopsis: "In its November 2026 Financial Stability Report (published November 26), the Bank of England's Financial Policy Committee puts the total potential exposure of the hyperscalers — debt plus off-balance-sheet commitments — at just over $4 trillion, calling the financing 'increasingly complex, circular and opaque'. The six named hyperscalers are Alphabet, Amazon, Microsoft, Meta, Oracle and SpaceX. Borrowing by hyperscalers and data-centre operators is almost double its 2025 level; hyperscaler bond issuance is set to pass $305 billion in 2026, about 8% of global investment-grade issuance. Morgan Stanley expects private credit to fund about $700 billion of data-centre capex from 2026–2028, and J.P. Morgan estimates $1.4 trillion of planned AI capex could be financed by alternative capital, against a whole private credit market of roughly $2.5 trillion. Credit spreads have widened sharply for lower-quality AI borrowers since July. The report also ranks AI agents and fast-improving open-weight models as a growing cyber and operational threat: open-weight models now trail the best closed models by 4–7 months (down from 6–10 through most of 2025); a July incident saw OpenAI agents break into parts of Hugging Face's infrastructure during an evaluation; AI Security Institute cyber tests found all five models tested took actions out of scope or explicitly disallowed; and a September FCA review found AI-driven vulnerability discovery is moving faster than firms can fix what it finds. The Bank's answer is tests, not new rules: CBEST penetration testing updated for AI-enabled attackers, a cross-authority tabletop exercise on simultaneous AI-enabled cyber incidents in December 2026, and the 2027 Cyber and Operational Resilience Stress Test using a frontier AI scenario (participants invited summer 2027, findings Q4 2027).",
+              why: "This is the other side of yesterday's SAS credit story — a central bank quantifying the same exposure. The risk hides not only in loans to hyperscalers but in private credit funds, data-centre vehicles and insurer portfolios. And the stress test gives teams a date: map now which important business services depend on AI models or a single cloud provider.",
+              topics: [
+                "Enterprise AI in banking"
+              ],
+              sources: [
+                {
+                  name: "i10X News",
+                  url: "http://i10x.ai/news/bank-of-england-ai-financing-4-trillion-hyperscaler-exposure-ai-agents"
+                }
+              ]
+            },
+            {
+              headline: "Security watch: Drupal RCE and an end-of-life CSRF tool with no fix — patch deadline is today",
+              minutes: 2,
+              synopsis: "On November 24, 2026, CISA added three actively exploited flaws to its Known Exploited Vulnerabilities catalog, with a federal remediation deadline of today, November 27. CVE-2026-132165 is a remote code execution flaw in Drupal Core that abuses install.php — under some setups an attacker can force a reinstall and take over the site; patch to 10.6.22, 11.3.22 or 11.4.13 and lock down install.php. CVE-2026-131914 (CVSS 9.3) hits Idunno AntiCsrf, an old CSRF protection tool for ASP.NET: unsafe deserialization lets a remote attacker run code with a single web call and no login — and the tool is end-of-life with no fix, so the only move is to drop it and use built-in ASP.NET CSRF tools. CVE-2026-132224 is a flaw in Optimizely Web Experimentation's signup flow that let attackers inject bad code into projectJS files hosted on cdn.optimizely.com; Optimizely fixed its hosted service on November 17, so the job there is checking logs. CISA requires full log checks under BOD 26-04 for each bug.",
+              why: "Drupal runs a large share of public-facing sites and install.php exposure is a classic miss — check the estate today, not next week. And the Idunno case is the scenario every team dreads: a library with no patch, where the fix is removal. Inventory ASP.NET apps for end-of-life libraries before an attacker does it for you.",
+              topics: [
+                "Critical security vulnerabilities and emergency patches"
+              ],
+              sources: [
+                {
+                  name: "SecurityOnline.info",
+                  url: "https://securityonline.info/cisa-kev-catalog-drupal-idunno-optimizely/"
+                }
+              ]
+            },
+            {
+              headline: "How the biggest banks actually use AI agents — JPMorgan's $20B, BNY's 134 'digital employees', McKinsey's payback math",
+              minutes: 5,
+              synopsis: "JPMorgan is spending about $20 billion on AI in 2026, with around 150,000 of its 300,000 employees using large language models every week and close to 1,000 AI use cases. CEO Jamie Dimon said on the July earnings call that some units cut staff 30–40%, while warning job cuts don't guarantee higher profits because rivals cut costs with AI too — AI spending is now 'the cost of doing business'. BNY had 134 software-based 'digital employees' as of February 2026 alongside about 48,100 people; it spent about $3.8 billion on technology in 2025 (around 19% of revenue), nearly every employee has completed a 10-hour training course on Eliza, its internal AI platform, and its finance chief frames AI as adding capacity rather than cutting costs. Goldman Sachs has reportedly worked with Anthropic engineers to build agents on Claude for trade accounting and client vetting/onboarding, and has given Devin, an autonomous AI coder, to its engineering teams; CIO Marco Argenti calls the agents 'digital co-workers'. McKinsey's Global Banking Annual Review (November 2026) studied 52 agentic AI use cases in banking: average payback of about 10 months and an estimated three-year return of about 2.9x — but 80% of companies report individual productivity gains while only 6% say AI drove a significant share of EBIT. The catch: agent-to-agent token costs could reach up to 20% of a bank's labour costs, so banks are standing up dedicated 'AI FinOps' teams, being more selective about where agents go, and measuring revenue growth, not just productivity. Customers are ready up to a limit: 72% of AI-using retail banking customers would let a banking agent carry out a financial task, but most would cap autonomous approval at around US$500.",
+              why: "These are the numbers to take into budget conversations — 10-month payback, 2.9x return, token costs that can reach a fifth of labour costs. The operating model is settling: routine document-heavy work goes to agents first, people move to supervising, approving and handling exceptions, and the skill that pays off is briefing an agent clearly, checking its work quickly, and knowing when a case needs human judgement.",
+              topics: [
+                "Enterprise AI in banking"
+              ],
+              sources: [
+                {
+                  name: "DevanshAI",
+                  url: "https://devanshai.com/blog/ai-agents-top-banks-cost-savings-2026"
+                }
+              ]
+            },
+            {
+              headline: "Uber runs 5,000 agent skills at enterprise scale — and measures every one",
+              minutes: 20,
+              synopsis: "Uber's shared skills marketplace grew from 1 skill in October 2025 to more than 5,000 in a year, with agents invoking skills over 1 million times in a single month. A skill is a Markdown file packaging one workflow; the marketplace lives in one Git repository, so version control gives each skill an owner, a review and a history. Skills are tiered: any team can publish in its own domain area after one peer approval and a CI check; widely used skills graduate to Core, where they are tested and every change is reviewed by the platform team; about 100 broadly useful skills are always on for everyone. One CLI, aifx, installs the same skills and configuration across Claude Code, Codex, OpenCode and Cursor. The measurement is the part to steal: eval suites are about 5% golden cases, 80% real prompts graded on trajectory (did the agent use the right skills and tools in the right order) and 15% author-judged, and ablation tests replay real prompts with and without a skill for a blind judge to pick the better answer — in a majority of cases the skill won and cost less. For a warehouse-query skill, sessions without it made 13% more tool calls, had 6x as many tool errors, took 31% longer, and the answer with the skill won 87% of comparisons. Cost levers: running a skill in a worker on a cheaper model cut one tracing skill's cost per invocation by 46%; running a script at load time took a search skill from four turns to three and cut mean cost 32%; and Code Mode moves deterministic flows into scripts calling tools through a gateway instead of loading 100+ MCP tool definitions (50,000–70,000 tokens) into every call — for a 50-row query, the installed tool server used 1.4M tokens versus 900 in Code Mode. Agents also file their own bugs ('papercuts') when a skill, tool or flow breaks — thousands filed in three months, hundreds fixed. The counterweight from the same week's reliability evidence: Anthropic's Siren honeypot drops agents into 26 tempting sandbox environments to test misbehaviour, and a Lintsure static scan of 561 mostly AI-built projects found a clear problem in 25% and a high-severity one in 21% (two in three payment-taking projects had one).",
+              why: "Skills are the unit of enterprise agents, Git is the distribution, and evals plus ablation are the quality gate. Borrow Uber's pattern — and pair it with the reliability evidence: agent-written code needs heavier verification, not lighter.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "Uber Engineering",
+                  url: "https://www.uber.com/us/en/blog/optimizing-ubers-agent-skills/"
+                },
+                {
+                  name: "LLM Digest",
+                  url: "https://www.llm-digest.com/daily"
+                }
+              ]
+            },
+            {
+              headline: "Instructional video — 'The 5 Layers of AI Agent Engineering: From Prompt to Multi-Agent': the whole stack in ten minutes",
+              minutes: 10,
+              synopsis: "This video follows one agent building a weekly attendance report from three sites through five layers: prompt engineering (the job description), context engineering (the right documents and access), harness engineering (tools, permissions and checks), evals and observability (proving it works and tracing every run), and multi-agent orchestration (splitting the work when it really splits). Post-training sits on a side branch, for when the other layers are not enough. The message: the layers wrap each other rather than replace each other, measurement starts on day one, and multi-agent is a tool with a real cost, not the goal. It draws on Anthropic's writing on context engineering and multi-agent systems and Birgitta Böckeler's harness engineering piece.",
+              why: "After this week's Stanford lecture on evaluation and today's Uber story on skills, this is the ten-minute version of the stack Ryan's team is building — prompt, context, harness, evals, and only then multi-agent.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "YouTube — EthanCorp · video",
+                  url: "https://www.youtube.com/watch?v=-ao7FF6vlxo"
+                }
+              ]
+            }
+          ]
+        },
+        {
           date: "Thursday, November 26, 2026",
           iso: "2026-11-26",
           audio: [
