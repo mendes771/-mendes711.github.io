@@ -511,6 +511,131 @@
     <script>
       var EDITIONS = [
         {
+          date: "Saturday, November 28, 2026",
+          iso: "2026-11-28",
+          audio: [
+            {
+              label: "Listen to this edition · 17:21",
+              url: "https://mendes771.github.io/-mendes711.github.io/daily-brief/audio/brief-2026-11-28.mp3"
+            }
+          ],
+          stories: [
+            {
+              headline: "FCA sets out its agentic AI expectations — no new rulebook, but senior managers own the risk",
+              minutes: 4,
+              synopsis: "On November 24, 2026, the UK Financial Conduct Authority published \"Our approach to Agentic AI\", applying its existing principles-based framework to AI agents rather than creating a separate AI rulebook. Responsibility stays with the firm and its senior managers whether an agent is built in-house or bought from a third party, and firms must demonstrate they understand the systems they use, how much autonomy they have, the risks they create, and the controls that manage those risks in real time and under stress. For a customer's own agent, firms must work out how they establish they are dealing with an agent, what consents are in place, what the agent may do, and whether it is appropriate to accept a payment it instructs — with the Consumer Duty applying throughout.",
+              why: "The third leg of the week's story — after Wells Fargo's at-your-own-risk waiver and the Canadian banks blocking credential-sharing agents, a major regulator says the firm owns the agent's actions and a named senior manager owns the risk. For a bank app-dev leader, the FCA's four questions (is it an agent, what consent, what is it allowed to do, how do we prove it afterwards) are the design checklist for any agent that touches money.",
+              topics: [
+                "Enterprise AI in banking"
+              ],
+              sources: [
+                {
+                  name: "Financial Conduct Authority",
+                  url: "https://www.fca.org.uk/firms/innovation/ai-approach/agentic-ai"
+                },
+                {
+                  name: "Infosecurity Magazine",
+                  url: "https://www.infosecurity-magazine.com/news/ai-agent-risks-face-action-fca/"
+                }
+              ]
+            },
+            {
+              headline: "Security watch: CISA adds a second Drupal installer flaw and two GeoServer flaws — all due Monday; Palo Alto closes the PHP2Shell chain",
+              minutes: 4,
+              synopsis: "On November 27, 2026, CISA added three actively exploited flaws to its Known Exploited Vulnerabilities catalog, all due November 30 under its new three-day rule: a second Drupal Core installer flaw (CVE-2026-136716, CVSS 9.8) that lets an unauthenticated attacker take over a site in an unusual or incomplete installation state, and two GeoServer flaws — an unauthenticated XML injection (CVE-2026-120705) and an authorisation bypass via a prefixed service name (CVE-2026-129243) that the project says chains to unauthenticated remote code execution, fixed in GeoServer 2.27.7, 2.28.6 and 3.0.2. Separately, Palo Alto Networks' November 25 advisory ships fixes for Fragnesia (CVE-2026-46300), the Linux kernel flaw chained with PHP2Shell to root PAN-OS firewalls, after exploitation was observed against internet-exposed management interfaces.",
+              why: "Three different products, one lesson — management interfaces and installers left reachable from the internet keep getting owned. Check the estate for internet-facing GeoServer, Drupal installer state, and any PAN-OS management interface not locked to trusted addresses — and rate the GeoServer chain as a combination, not a single CVE.",
+              topics: [
+                "Critical security vulnerabilities and emergency patches"
+              ],
+              sources: [
+                {
+                  name: "BleepingComputer",
+                  url: "https://www.bleepingcomputer.com/news/security/palo-alto-networks-warns-of-fragnesia-flaw-exploited-in-pan-os-attacks/"
+                },
+                {
+                  name: "Abijita",
+                  url: "https://www.abijita.com/cisa-adds-geoserver-flaws-kev-catalog/"
+                }
+              ]
+            },
+            {
+              headline: "Hyundai Card and JPMorgan Kinexys: two AI agents from different companies complete a simulated FX transaction under a signed mandate",
+              minutes: 3,
+              synopsis: "Hyundai Card and Kinexys by J.P. Morgan completed phase one of a proof of concept (announced November 18, 2026) showing AI agents can safely participate in financial transactions when identity, delegated authority, controls, governance and auditability are embedded into payment flows. A Hyundai Card AI agent autonomously managed euro liquidity in its Kinexys Blockchain Deposit Account in Frankfurt, spotted a shortfall, requested FX quotes, and instructed the Kinexys AI agent to execute a sterling-to-euro conversion — which verified the agent's identity and authority, checked the mandate and controls, and auto-executed, with the full reasoning captured in an immutable audit trail. No live money moved; the next phase, multi-agent negotiation, is targeted for the first half of 2027.",
+              why: "This is the controlled version of the agentic payments future the FCA is writing rules for — the mandate, identity and audit-trail pattern is exactly what a bank needs before it can accept an instruction from a customer's agent.",
+              topics: [
+                "Enterprise AI in banking"
+              ],
+              sources: [
+                {
+                  name: "J.P. Morgan",
+                  url: "https://www.jpmorgan.com/payments/newsroom/hyundai-card-kinexys-agentic-payments"
+                }
+              ]
+            },
+            {
+              headline: "ANZ moves 1.7 petabytes to AWS in six months with AI-assisted engineering — 35% less effort, half the defects",
+              minutes: 2,
+              synopsis: "ANZ migrated its Enterprise Big Data platform — 1.7 petabytes, 300 million files, 142,000 tables, 4,500 automated workflows — from on-premises Cloudera to Amazon EMR in six months instead of the anticipated 18, using coding agents and a troubleshooting assistant built on Amazon Bedrock. ANZ says agentic AI cut migration effort by an estimated 35% and defects and rework by about 50%, while operating costs fell from more than A$10,000 per day to under A$3,000 per month.",
+              why: "35% less effort and half the defects is the kind of measured, production number business partners ask for when they question AI productivity claims — on a system that moves real customer money. The pattern to steal is the framework-led approach: treat thousands of pipelines as one coordinated migration, with agents doing the repetitive conversion and testing and people holding the governance.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "Computer Weekly",
+                  url: "https://www.computerweekly.com/news/366654784/ANZ-migrates-17-petabytes-of-data-to-Amazon-Web-Services"
+                }
+              ]
+            },
+            {
+              headline: "The patching dilemma: AI finds flaws faster than ever — and the rushed fixes are breaking things",
+              minutes: 2,
+              synopsis: "AI tools are uncovering software flaws far faster than people can, and banks are racing to patch them — but rushed fixes are breaking the systems they are meant to protect, Bloomberg reported on November 25, 2026. More than 100,000 vulnerabilities have been recorded in 2026, including more than 17,000 in October alone, roughly four times a year earlier. JPMorgan gave the preview on November 16, when a flawed IBM mainframe software update disrupted payments and transfers for hours and spilled over to other banks and Zelle — not a cyberattack, but a bad patch.",
+              why: "Every CISA deadline is a change to a production system, and in a mainframe-connected estate a bad patch is an outage that ripples across banks. Patch velocity needs the same discipline as a release — staged rollouts, rollback plans, and a test that catches a bad mainframe update before customers do.",
+              topics: [
+                "Process improvements"
+              ],
+              sources: [
+                {
+                  name: "MarketCatalyst",
+                  url: "https://marketcatalyst.ai/posts/banks-brace-for-more-outages-as-ai-found-bugs-force-a-rush-of-risky-software"
+                }
+              ]
+            },
+            {
+              headline: "Anthropic's Skills over MCP: servers now ship the workflow with the tools — plus background Tasks and Elicitation",
+              minutes: 6,
+              synopsis: "Announced November 24, 2026, Anthropic's MCP update lets a server ship skills — step-by-step workflows and guidance — alongside its tools and resources, so Claude loads the relevant skill when needed and skills update with the server; early partners are Shopify, HubSpot, Atlassian and Carta. Tasks are now generally available (long server jobs run in the background) and Elicitation is generally available (a server can pause and ask for confirmation), with File Uploads coming soon. MCP SDKs now pass 700 million monthly downloads with more than 10,000 Claude connectors.",
+              why: "This is the Uber skills pattern made distributable — the server ships the workflow, not a separate install. But a skill is executable instruction from a third party, and the MCP specification says to treat skill content as untrusted input — Snyk found critical issues in 13.4% of nearly 4,000 public agent skills scanned. Who reviews a skill before it runs, and who owns it when it changes?",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "TechRepublic",
+                  url: "https://www.techrepublic.com/article/news-anthropic-claude-mcp-skills-background-tasks/"
+                }
+              ]
+            },
+            {
+              headline: "Instructional video — 'How Google engineers build AI agents in production (complete roadmap)': four layers, five engineers, 28 minutes",
+              minutes: 28,
+              synopsis: "From Google Cloud Tech, published November 23, 2026 — five Google engineers break down production AI agent engineering in four layers. Layer 1, Learn: concise repo maps, persistent markdown memory, and modular Agent Skills with three-stage progressive disclosure instead of stuffing manuals into the system prompt. Layer 2, Guard: fast, deterministic guardrails — git hooks, secret scanners, strict retry limits — because \"a prompt is just advice\" and agents will cheat their way to green tests. Layer 3, Review: reviewing massive AI-generated pull requests with interactive summaries, Repo Walkthrough visualizers, multimodal UI video QA and audio reviews. Layer 4, Score: four evaluation patterns grading actions, not just text.",
+              why: "After this week's Stanford lecture on evaluation, Uber's skills marketplace, and today's Skills over MCP news, this is the 28-minute version of the stack Ryan's team is actually building — and the guard layer is the honest answer to how you trust agent-written code.",
+              topics: [
+                "AI-assisted application development"
+              ],
+              sources: [
+                {
+                  name: "YouTube — Google Cloud Tech · video",
+                  url: "https://www.youtube.com/watch?v=BKVDdL1InsA"
+                }
+              ]
+            }
+          ]
+        },
+        {
           date: "Friday, November 27, 2026",
           iso: "2026-11-27",
           audio: [
